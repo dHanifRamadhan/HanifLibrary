@@ -64,9 +64,18 @@ class regisController extends Controller
     }
 
     public function acceptAccount($id) {
-        $users = DB::table('users')->where('id', $id)->first();
-        $users->update([
-            'email_verifed_at' => now(),
+        DB::table('users')->where('id', $id)->update([
+            'email_verified_at' => now(),
         ]);
+        return 'Akun anda berhasil terverifikasi';
+    }
+
+    public function mail() {
+        $data = [
+            'id' => 1,
+            'name' => 'Isal Keren'
+        ];
+        Mail::to('isalkeren09@gmail.com')->send(new acceptAccountMail($data));
+        dd('berhasil');
     }
 }

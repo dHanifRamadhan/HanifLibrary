@@ -166,8 +166,8 @@
                             <input type="file" id="picture" name="picture" oninput="previewImage()"
                                 class="bg-transparent outline-none border-b-2 border-slate-500 py-2 w-36">
                             <div class="w-full items-center justify-center flex">
-                                <img src="" alt="" class="mt-2 rounded-full border-2 hidden"
-                                    id="preview" width="120">
+                                <img src="" alt="" class="mt-2 rounded-full border-2 hidden w-32 h-32"
+                                    id="preview">
                             </div>
                         </div>
                     </div>
