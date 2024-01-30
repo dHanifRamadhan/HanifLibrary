@@ -16,14 +16,15 @@
                 <h1 class="text-2xl underline font-semibold">Login</h1>
             </div>
             <div class="h-full w-full">
-                <form action="" method="POST" class="flex flex-col justify-center w-full h-full gap-5">
+                <form action="{{route('login')}}" method="POST" class="flex flex-col justify-center w-full h-full gap-5">
                     @csrf
                     <div class="flex flex-col relative">
-                        <select name="choose" id="choose" class="text-sm font-mono bg-transparent outline-none w-24">
+                        <select name="choose" id="choose" class="text-sm font-mono bg-transparent outline-none w-24"
+                            onclick="Choose()">
                             <option value="username" class="font-mono">Username</option>
                             <option value="email" class="font-mono">email</option>
                         </select>
-                        <input type="text" id="inputAccount" name="inputAccount" oninput="Choose()"
+                        <input type="text" id="inputAccount" name="inputAccount" oninput="Account()"
                             class="bg-transparent border-b-2 border-slate-500 outline-none py-1 px-2 text-sm">
                         <svg xmlns="http://www.w3.org/2000/svg" id="check"
                             class="hidden absolute bottom-0 right-0 text-green-500" width="24" height="24"
@@ -65,14 +66,14 @@
                     <div class="flex flex-col">
                         <span class="text-xs">
                             Belum memiliki akun
-                            <a href="" class="hover:text-blue-400">
+                            <a href="{{route('auth.regis')}}" class="hover:text-blue-400">
                                 perpustakaan
                             </a>
                             ?
                         </span>
                         <span class="text-xs">
                             Ingin kembali ke
-                            <a href="" class="hover:text-sky-400">
+                            <a href="{{route('main')}}" class="hover:text-sky-400">
                                 buku
                             </a>
                             ?
@@ -86,26 +87,40 @@
         function Choose() {
             var choose = document.getElementById('choose')
             var input = document.getElementById('inputAccount')
-            var check = document.getElementById('check')
-            if (choose.value == 'username') {
-                input.value = input.value.replace(/\s/g, '')
-                if (input.value.length >= 4) {
-                    check.classList.remove('hidden')
-                    input.classList.add('border-green-500')
-                } else {
-                    check.classList.add('hidden')
-                    input.classList.remove('border-green-500')
-                }
+
+            if (choose.value != 'username') {
+                input.type = 'email'
             } else {
-                input.value.toLoweCase()
-                var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (emailRegex.test(input.value)) {
-                    check.classList.remove('hidden')
-                    input.classList.add('border-green-500')
-                } else {
-                    check.classList.add('hidden')
-                    input.classList.remove('border-green-500')
-                }
+                input.type = 'text'
+            }
+        }
+
+        function Account() {
+            var input = document.getElementById('inputAccount')
+            var check = document.getElementById('check')
+
+            switch (input.type) {
+                case 'text':
+                    input.value = input.value.replace(/\s/g, '')
+                    if (input.value.length >= 4) {
+                        check.classList.remove('hidden')
+                        input.classList.add('border-green-500')
+                    } else {
+                        check.classList.add('hidden')
+                        input.classList.remove('border-green-500')
+                    }
+                    break;
+                case 'email':
+                    input.value = input.value.toLowerCase()
+                    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (emailRegex.test(input.value)) {
+                        check.classList.remove('hidden')
+                        input.classList.add('border-green-500')
+                    } else {
+                        check.classList.add('hidden')
+                        input.classList.remove('border-green-500')
+                    }
+                    break;
             }
         }
 

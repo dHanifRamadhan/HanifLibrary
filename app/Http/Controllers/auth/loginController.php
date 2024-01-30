@@ -61,8 +61,7 @@ class loginController extends Controller
                     ]);
                 }
 
-                
-                if (Auth::attempt(['username' => $request->inputAccount, 'password' => $request->password])) {
+                if (Auth::attempt(['email' => $request->inputAccount, 'password' => $request->password])) {
                     $request->session()->regenerate();
                     return redirect()->intended('/');
                 }
@@ -79,7 +78,8 @@ class loginController extends Controller
         return view('auth.login');
     }
 
-    public function logout(Request $request) {
+    public function logout(Request $request)
+    {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerate();

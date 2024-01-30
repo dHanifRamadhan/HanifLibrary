@@ -61,7 +61,7 @@
         </div>
         <div class="flex flex-col items-center gap-5">
             <h1 class="font-mono underline text-2xl font-semibold">Register</h1>
-            <form action="" method="POST" enctype="multipart/form-data" class="w-full h-full p-2">
+            <form action="{{route('regis')}}" method="POST" enctype="multipart/form-data" class="w-full h-full p-2">
                 @csrf
                 <div class="w-full h-96 overflow-y-scroll flex flex-col gap-2">
                     <div class="flex flex-col px-2 relative">
