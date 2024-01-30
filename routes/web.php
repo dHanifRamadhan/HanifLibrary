@@ -19,6 +19,7 @@ Route::get('/', function () {
     // return view('Mails.accept-account');
     return view('layout.app');
 })->name('main');
+
 Route::get('home', function(){
     return redirect()->route('main');
 });

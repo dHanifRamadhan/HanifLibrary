@@ -22,7 +22,7 @@
         @yield('main')
     @else
         @auth
-            @if (Auth::user()->role == 'admin')
+            @if (Auth::user()->role == 'admin' || Auth::user()->role == 'officer')
                 @include('layout.sidebars.admin')
             @endif
         @endauth
