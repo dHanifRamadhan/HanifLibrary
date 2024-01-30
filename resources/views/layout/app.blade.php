@@ -17,11 +17,15 @@
 </head>
 
 <body
-    class="@if (Route::has('auth.login') || Route::has('auth.regis')) flex items-center justify-center @endif w-screen h-screen bg-slate-100 relative">
-    @if (Route::has('login') || Route::has('register'))
+    class="@if (request()->routeIs('auth.login') || request()->routeIs('auth.regis')) flex items-center justify-center @endif w-screen h-screen bg-slate-100 relative">
+    @if (request()->routeIs('auth.login') || request()->routeIs('auth.regis'))
         @yield('main')
     @else
-        sidebar
+        @auth
+            @if (Auth::user()->role == 'admin')
+                @include('layout.sidebars.admin')
+            @endif
+        @endauth
         {{-- navbar --}}
         {{-- main --}}
     @endif
