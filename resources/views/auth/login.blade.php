@@ -16,7 +16,7 @@
                 <h1 class="text-2xl underline font-semibold">Login</h1>
             </div>
             <div class="h-full w-full">
-                <form action="{{route('login')}}" method="POST" class="flex flex-col justify-center w-full h-full gap-5">
+                <form action="{{ route('login') }}" method="POST" class="flex flex-col justify-center w-full h-full gap-5">
                     @csrf
                     <div class="flex flex-col relative">
                         <select name="choose" id="choose" class="text-sm font-mono bg-transparent outline-none w-24"
@@ -25,7 +25,7 @@
                             <option value="email" class="font-mono">email</option>
                         </select>
                         <input type="text" id="inputAccount" name="inputAccount" oninput="Account()"
-                            class="bg-transparent border-b-2 border-slate-500 outline-none py-1 px-2 text-sm">
+                            class="bg-transparent border-b-2 border-slate-500 outline-none py-1 px-2 text-sm" required>
                         <svg xmlns="http://www.w3.org/2000/svg" id="check"
                             class="hidden absolute bottom-0 right-0 text-green-500" width="24" height="24"
                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
@@ -33,11 +33,16 @@
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <path d="M5 12l5 5l10 -10" />
                         </svg>
+                        @if (session('message'))
+                            <span class="font-mono text-xs text-red-600">
+                                {{session('message')}}
+                            </span>
+                        @endif
                     </div>
                     <div class="flex flex-col relative">
                         <label for="" class="text-xs underline font-mono">Password</label>
                         <input type="password" id="password" name="password"
-                            class="bg-transparent border-b-2 border-slate-500 outline-none py-1 px-2 text-sm">
+                            class="bg-transparent border-b-2 border-slate-500 outline-none py-1 px-2 text-sm" required>
                         <svg xmlns="http://www.w3.org/2000/svg" id="hide" onclick="Hide()"
                             class="absolute bottom-1 right-0 text-red-600 cursor-pointer hidden" width="21"
                             height="21" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -66,14 +71,14 @@
                     <div class="flex flex-col">
                         <span class="text-xs">
                             Belum memiliki akun
-                            <a href="{{route('auth.regis')}}" class="hover:text-blue-400">
+                            <a href="{{ route('auth.regis') }}" class="hover:text-blue-400">
                                 perpustakaan
                             </a>
                             ?
                         </span>
                         <span class="text-xs">
                             Ingin kembali ke
-                            <a href="{{route('main')}}" class="hover:text-sky-400">
+                            <a href="{{ route('main') }}" class="hover:text-sky-400">
                                 buku
                             </a>
                             ?

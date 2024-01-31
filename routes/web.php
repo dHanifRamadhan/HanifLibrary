@@ -17,7 +17,7 @@ use App\Http\Controllers\auth\regisController;
 
 Route::get('/', function () {
     // return view('Mails.accept-account');
-    return view('layout.app');
+    return view('dashboard');
 })->name('main');
 
 Route::get('home', function(){

@@ -1,4 +1,4 @@
-<div class="absolute top-0 left-0 bottom-0 bg-slate-200 w-60">
+<aside class="absolute top-0 left-0 bottom-0 bg-slate-200 w-60">
     <div class="h-full flex flex-col items-center justify-center">
         <div class="border-b-2 border-slate-600 w-52 h-16 flex items-center gap-3">
             <svg version="1.1" viewBox="0 0 1600 1600" width="50" height="50" xmlns="http://www.w3.org/2000/svg"
@@ -12,9 +12,10 @@
         </div>
         <div class="h-5/6 w-52 p-2">
             <div class="h-full">
-                <ul class="h-full py-8 flex flex-col gap-6">
+                <ul class="h-full py-8 flex flex-col gap-6 relative">
                     <li class="border-2 border-slate-600">
-                        <a href="" class="font-mono h-full flex items-center py-3 px-6 gap-6">
+                        <a href=""
+                            class="font-mono h-full flex items-center py-3 px-6 gap-6 @if (request()->routeIs('main')) bg-slate-400 text-slate-100 @endif">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chart-treemap"
                                 width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
                                 fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -72,8 +73,24 @@
                             </span>
                         </a>
                     </li>
+                    <li class="border-2 border-slate-600 absolute bottom-0 left-0 right-0">
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="font-mono h-full flex items-center py-3 px-6 gap-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-back"
+                                    width="20" height="20" viewBox="0 0 24 24" stroke-width="2"
+                                    stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M9 11l-4 4l4 4m-4 -4h11a4 4 0 0 0 0 -8h-1" />
+                                </svg>
+                                <span class="font-semibold">
+                                    Logout
+                                </span>
+                            </button>
+                        </form>
+                    </li>
                 </ul>
             </div>
         </div>
     </div>
-</div>
+</aside>

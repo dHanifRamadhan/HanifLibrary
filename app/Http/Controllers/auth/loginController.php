@@ -69,7 +69,7 @@ class loginController extends Controller
         }
 
         return back()->with([
-            'message' => 'Account tidak ada'
+            'message' => 'Password atau email salah!'
         ]);
     }
 
