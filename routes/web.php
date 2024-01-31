@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\auth\loginController;
 use App\Http\Controllers\auth\regisController;
+use App\Http\Controllers\bookController;
+use App\Http\Controllers\categoryController;
+use App\Http\Controllers\favoriteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +19,6 @@ use App\Http\Controllers\auth\regisController;
 */
 
 Route::get('/', function () {
-    // return view('Mails.accept-account');
     return view('dashboard');
 })->name('main');
 
@@ -35,3 +37,19 @@ Route::group(['middleware' => 'guest'], function() {
 Route::group(['middleware' => 'auth'], function() {
     Route::post('auth/logout', [loginController::class, 'logout'])->name('logout');
 });
+
+Route::get('category', [categoryController::class, 'index']);
+Route::get('category/{id}', [categoryController::class, 'show']);
+Route::post('category', [categoryController::class, 'store']);
+Route::put('category/{id}', [categoryController::class, 'update']);
+Route::delete('category/{id}', [categoryController::class, 'delete']);
+
+Route::get('book', [bookController::class, 'index']);
+Route::get('book/{id}', [bookController::class, 'show']);
+Route::post('book', [bookController::class, 'store']);
+Route::put('book/{id}', [bookController::class, 'update']);
+Route::delete('book/{id}', [bookController::class, 'delete']);
+
+Route::get('favorite', [favoriteController::class, 'index']);
+Route::post('favorite', [favoriteController::class, 'store']);
+Route::delete('favorite/{id}', [favoriteController::class, 'delete']);

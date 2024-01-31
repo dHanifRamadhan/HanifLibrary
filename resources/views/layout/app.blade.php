@@ -46,13 +46,13 @@
             @if (Auth::user()->role == 'admin' || Auth::user()->role == 'officer')
                 @include('layout.sidebars.admin')
                 @include('layout.navbars.admin')
+                <div class="h-screen ml-60 pt-[4rem]">
+                    <main class="border-black border-2 h-full">
+                        @yield('main')
+                    </main>
+                </div>
             @endif
         @endauth
-        <div class="h-screen ml-60 pt-[4rem]">
-            <main class="border-black border-2 h-full">
-                @yield('main')
-            </main>
-        </div>
     @endif
 </body>
 
