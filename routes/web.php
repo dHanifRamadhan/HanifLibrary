@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\auth\loginController;
 use App\Http\Controllers\auth\regisController;
+use App\Http\Controllers\officerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +18,7 @@ use App\Http\Controllers\auth\regisController;
 
 Route::get('/', function () {
     // return view('Mails.accept-account');
-    return view('dashboard');
+    return view('form.dashboard');
 })->name('main');
 
 Route::get('home', function(){
@@ -34,4 +35,11 @@ Route::group(['middleware' => 'guest'], function() {
 
 Route::group(['middleware' => 'auth'], function() {
     Route::post('auth/logout', [loginController::class, 'logout'])->name('logout');
+});
+
+Route::group(['middleware' => 'role:admin'], function() {
+    Route::get('officer', [officerController::class, 'index'])->name('officer');
+    Route::get('officer/create', function() {
+        return view('form.officer.create');
+    })->name('officer.create');
 });

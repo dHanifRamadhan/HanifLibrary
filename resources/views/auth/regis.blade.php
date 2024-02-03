@@ -2,38 +2,6 @@
 @section('title')
     Register
 @endsection
-@section('preload')
-    <style>
-        .overflow-y-scroll::-webkit-scrollbar {
-            width: 0px;
-            /* Safari dan Chrome */
-        }
-
-        .overflow-y-scroll::-webkit-scrollbar-thumb {
-            background-color: #aaa;
-            /* Warna thumb scrollbar */
-        }
-
-        .overflow-y-scroll::-webkit-scrollbar-track {
-            background-color: #eee;
-            /* Warna track scrollbar */
-        }
-
-        @keyframes fadeInDown {
-            from {
-                transform: translateY(-40px);
-            }
-
-            to {
-                transform: translateY(0);
-            }
-        }
-
-        .fadeInDown {
-            animation: fadeInDown 0.5s ease-out;
-        }
-    </style>
-@endsection
 @section('main')
     @if (session('message') && session('warning'))
         <div class="absolute top-12 right-0 left-0 flex justify-center fadeInDown" id="session">

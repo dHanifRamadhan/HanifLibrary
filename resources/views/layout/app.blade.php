@@ -20,10 +20,12 @@
                 transform: translateX(0) scale(1);
                 opacity: 1;
             }
+
             50% {
                 transform: translateX(75%) scale(0.8);
                 opacity: 0.8;
             }
+
             100% {
                 transform: translateX(100%) scale(0);
                 opacity: 0;
@@ -33,6 +35,35 @@
         .animate-slideAndDisappear {
             animation: slideAndDisappear 2s ease-in-out;
             /* Durasi animasi 2 detik */
+        }
+
+        .overflow-y-scroll::-webkit-scrollbar {
+            width: 0px;
+            /* Safari dan Chrome */
+        }
+
+        .overflow-y-scroll::-webkit-scrollbar-thumb {
+            background-color: #aaa;
+            /* Warna thumb scrollbar */
+        }
+
+        .overflow-y-scroll::-webkit-scrollbar-track {
+            background-color: #eee;
+            /* Warna track scrollbar */
+        }
+
+        @keyframes fadeInDown {
+            from {
+                transform: translateY(-40px);
+            }
+
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .fadeInDown {
+            animation: fadeInDown 0.5s ease-out;
         }
     </style>
 </head>
@@ -46,13 +77,16 @@
             @if (Auth::user()->role == 'admin' || Auth::user()->role == 'officer')
                 @include('layout.sidebars.admin')
                 @include('layout.navbars.admin')
+                <div class="h-screen ml-60 pt-[4rem]">
+                    <main class="border-black border-t-2 border-l-2 h-full overflow-y-scroll py-10">
+                        @yield('main')
+                    </main>
+                </div>
             @endif
         @endauth
-        <div class="h-screen ml-60 pt-[4rem]">
-            <main class="border-black border-2 h-full">
+            {{-- <div class="h-screen ml-60 pt-[4rem]">
                 @yield('main')
-            </main>
-        </div>
+            </div> --}}
     @endif
 </body>
 

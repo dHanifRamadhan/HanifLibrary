@@ -2,7 +2,7 @@
 <div class="relative w-40 h-56 flex">
     <div class="w-1/6 h-5/6 rounded-tl-3xl" id="cover-side"></div>
     <div class="w-5/6 h-5/6 rounded-tr-lg flex items-center justify-center" id="cover">
-        {{-- <img src="https://placehold.co/133x170" alt="" class="rounded-tr-lg"> --}}
+        <img src="https://placehold.co/133x170" alt="" class="rounded-tr-lg">
     </div>
     <div class="absolute bottom-4 right-0 left-0 h-1/6 rounded-l-2xl" id="cover-bottom">
         <div class="w-full relative h-full">

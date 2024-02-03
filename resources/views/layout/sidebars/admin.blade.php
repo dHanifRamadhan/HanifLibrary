@@ -14,8 +14,8 @@
             <div class="h-full">
                 <ul class="h-full py-8 flex flex-col gap-6 relative">
                     <li class="border-2 border-slate-600">
-                        <a href=""
-                            class="font-mono h-full flex items-center py-3 px-6 gap-6 @if (request()->routeIs('main')) bg-slate-400 text-slate-100 @endif">
+                        <a href="{{route('main')}}"
+                            class="font-mono h-full flex items-center py-3 px-6 gap-6  @if (request()->routeIs('main')) bg-slate-400 text-slate-100 @else hover:bg-slate-400 hover:text-white @endif">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chart-treemap"
                                 width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
                                 fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -34,7 +34,7 @@
                         </a>
                     </li>
                     <li class="border-2 border-slate-600">
-                        <a href="" class="font-mono h-full flex items-center py-3 px-6 gap-6">
+                        <a href="{{route('officer')}}" class="font-mono h-full flex items-center py-3 px-6 gap-6  @if (request()->routeIs('officer') || request()->routeIs('officer.*')) bg-slate-400 text-slate-100 @else hover:bg-slate-400 hover:text-white @endif">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-coffee"
                                 width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
                                 fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -52,7 +52,7 @@
                         </a>
                     </li>
                     <li class="border-2 border-slate-600">
-                        <a href="" class="font-mono h-full flex items-center py-3 px-6 gap-6">
+                        <a href="" class="font-mono h-full flex items-center py-3 px-6 gap-6  @if (request()->routeIs('books')) bg-slate-400 text-slate-100 @else hover:bg-slate-400 hover:text-white @endif">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-books"
                                 width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
                                 fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -73,7 +73,27 @@
                             </span>
                         </a>
                     </li>
-                    <li class="border-2 border-slate-600 absolute bottom-0 left-0 right-0">
+                    <li class="border-2 border-slate-600">
+                        <a href="" class="font-mono h-full flex items-center py-3 px-6 gap-6  @if (request()->routeIs('report')) bg-slate-400 text-slate-100 @else hover:bg-slate-400 hover:text-white @endif">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-report"
+                                width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M8 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h5.697" />
+                                <path d="M18 14v4h4" />
+                                <path d="M18 11v-4a2 2 0 0 0 -2 -2h-2" />
+                                <path
+                                    d="M8 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
+                                <path d="M18 18m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+                                <path d="M8 11h4" />
+                                <path d="M8 15h3" />
+                            </svg>
+                            <span class="font-semibold">
+                                Report
+                            </span>
+                        </a>
+                    </li>
+                    <li class="border-2 border-slate-600 absolute -bottom-2 left-0 right-0 hover:bg-slate-400 hover:text-white">
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
                             <button type="submit" class="font-mono h-full flex items-center py-3 px-6 gap-6">
