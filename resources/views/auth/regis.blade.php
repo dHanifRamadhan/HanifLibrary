@@ -231,13 +231,8 @@
             var input = event.target;
             var inputValue = input.value;
 
-            // Hapus karakter selain digit
             var cleaned = inputValue.replace(/\D/g, '');
-
-            // Format nomor handphone dengan menambahkan tanda hubung
             var formatted = cleaned.slice(0, 3) + '-' + cleaned.slice(3, 7) + '-' + cleaned.slice(7, maxLength);
-
-            // Terapkan format ke dalam input
             input.value = formatted;
         });
 

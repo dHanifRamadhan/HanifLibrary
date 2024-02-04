@@ -157,7 +157,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function() {
             function DivRefresh() {
                 var div = document.getElementById('refresh');
                 div.innerHTML = div.innerHTML;
@@ -196,6 +196,6 @@
             };
 
             new Chart(usersLine, config);
-        // });
+        });
     </script>
 @endsection
