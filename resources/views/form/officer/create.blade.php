@@ -26,7 +26,7 @@
         </h1>
         <img src="{{ asset('images/icon-books-regis.png') }}" alt="" class="w-12">
     </div>
-    <div class="px-16 border-2 border-black py-3">
+    <div class="px-16 py-3">
         <form action="" method="POST" enctype="multipart/form-data" class="grid grid-cols-2 gap-5">
             @csrf
             <div class="flex flex-col gap-1 relative">
@@ -108,8 +108,38 @@
                     <path d="M5 12l5 5l10 -10" />
                 </svg>
             </div>
-            <div class="flex col-span-2 relative">
-                
+            <div class="flex col-span-2 relative gap-6">
+                <input type="file" name="image" id="image"
+                    class="w-full px-5 py-2 rounded-md outline-none border-y-2 border-2 border-black bg-transparent text-sm pr-9">
+                <div class="items-center justify-center hidden" id="divP">
+                    <img src="" alt="" class="rounded-full w-20 h-20 border-2 border-black hidden"
+                        id="preview">
+                </div>
+            </div>
+            <div class="flex col-span-2 relative gap-10">
+                <a href=""
+                    class="bg-slate-200 flex items-center justify-center border-2 border-black w-full gap-4 font-semibold rounded-md py-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-back"
+                        width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                        fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M9 11l-4 4l4 4m-4 -4h11a4 4 0 0 0 0 -8h-1" />
+                    </svg>
+                    <span>
+                        Back
+                    </span>
+                </a>
+                <button type="submit" class="bg-slate-400 w-full py-2 border-2 border-black rounded-md flex items-center justify-center gap-4 font-semibold">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-forward"
+                        width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                        fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M15 11l4 4l-4 4m4 -4h-11a4 4 0 0 1 0 -8h1" />
+                    </svg>
+                    <span>
+                        Save
+                    </span>
+                </button>
             </div>
         </form>
     </div>
@@ -228,6 +258,31 @@
                 check.classList.add('hidden')
                 input.classList.remove('border-green-500')
                 label.classList.remove('text-green-500')
+            }
+        })
+
+        document.getElementById('image').addEventListener('input', function() {
+            var preview = document.getElementById('preview');
+            var fileInput = document.getElementById('image');
+            var divP = document.getElementById('divP')
+            var file = fileInput.files[0];
+
+            if (file) {
+                var reader = new FileReader();
+                reader.onloadend = function() {
+                    preview.src = reader.result;
+                    preview.classList.add('flex'); // Set display to 'block' when file is selected
+                    preview.classList.remove('hidden');
+                    divP.classList.remove('hidden');
+                    divP.classList.add('flex')
+                }
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = '';
+                preview.classList.add('hidden') // Hide the image when no file is selected
+                preview.classList.remove('flex');
+                divP.classList.remove('flex');
+                divP.classList.add('hidden')
             }
         })
     </script>
