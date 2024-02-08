@@ -128,12 +128,15 @@
                                 <div class="h-full w-full flex items-center justify-center py-3">
                                     <div class="relative w-20 h-28 flex">
                                         <div class="w-1/6 h-5/6 rounded-tl-3xl" style="background-color: #475569"></div>
-                                        <div class="w-5/6 h-5/6 rounded-tr-lg flex items-start justify-center" style="background-color: #64748B">
+                                        <div class="w-5/6 h-5/6 rounded-tr-lg flex items-start justify-center"
+                                            style="background-color: #64748B">
                                             <img src="https://placehold.co/133x168" alt="" class="rounded-tr-lg">
                                         </div>
-                                        <div class="absolute bottom-2 right-0 left-0 h-1/6 rounded-l-2xl" style="background-color: #1E293B">
+                                        <div class="absolute bottom-2 right-0 left-0 h-1/6 rounded-l-2xl"
+                                            style="background-color: #1E293B">
                                             <div class="w-full relative h-full">
-                                                <div class="bg-slate-300 rounded-l-2xl h-3 w-[4.2rem] absolute right-0 bottom-1">
+                                                <div
+                                                    class="bg-slate-300 rounded-l-2xl h-3 w-[4.2rem] absolute right-0 bottom-1">
                                                     <div class="w-full h-full relative">
                                                         <div class="w-3 h-4 bg-yellow-300 absolute right-3 -bottom-2">
                                                         </div>
@@ -157,45 +160,36 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            function DivRefresh() {
-                var div = document.getElementById('refresh');
-                div.innerHTML = div.innerHTML;
-            }
+        var usersLine = document.getElementById('usersLine');
 
-            setInterval(DivRefresh, 1000);
+        const labels = ['January', 'February', 'March', 'April'];
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: 'Users Register',
+                data: [10, 11, 15, 8],
+                borderColor: 'black',
+                backgroundColor: ''
+            }]
+        };
 
-            var usersLine = document.getElementById('usersLine');
-
-            const labels = ['January', 'February', 'March', 'April'];
-            const data = {
-                labels: labels,
-                datasets: [{
-                    label: 'Users Register',
-                    data: [10, 11, 15, 8],
-                    borderColor: 'black',
-                    backgroundColor: ''
-                }]
-            };
-
-            const config = {
-                type: 'line',
-                data: data,
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                        },
-                        title: {
-                            display: true,
-                            text: 'Registers'
-                        }
+        const config = {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Registers'
                     }
-                },
-            };
+                }
+            },
+        };
 
-            new Chart(usersLine, config);
-        });
+        new Chart(usersLine, config);
     </script>
 @endsection

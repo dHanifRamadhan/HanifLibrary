@@ -42,4 +42,10 @@ Route::group(['middleware' => 'role:admin'], function() {
     Route::get('officer/create', function() {
         return view('form.officer.create');
     })->name('officer.create');
+    Route::post('officer', [officerController::class, 'store'])->name('officer.store');
+    Route::put('officer/reset-password', [officerController::class, 'reset'])->name('officer.reset');
+    Route::put('officer/ban/{id}', [officerController::class, 'ban'])->name('officer.ban');
+    Route::put('officer/unban/{id}', [officerController::class, 'unban'])->name('officer.unban');
+    Route::delete('officer/delete/{id}', [officerController::class. 'delete'])->name('officer.delete');
 });
+

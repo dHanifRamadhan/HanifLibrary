@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title')</title>
     <link rel="icon" href="{{ asset('images/icon-books-regis.png') }}">
-    <link rel="preload" href="{{ asset('images/icon-books-regis.png') }}">
+    <link rel="preload" href="{{ asset('images/icon-books-regis.png') }}" as="">
     <script src="https://cdn.tailwindcss.com"></script>
 
     @yield('preload')
@@ -88,6 +88,16 @@
                 @yield('main')
             </div> --}}
     @endif
+    <script src="{{mix('js/app.js')}}"></script>
+    <script>
+        function Refresh() {
+            var refresh = document.getElementById('refresh')
+            refresh.innerHTML = refresh.innerHTML
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            setInterval(Refresh(), 2000);
+        })
+    </script>
 </body>
 
 </html>

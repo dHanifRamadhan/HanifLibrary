@@ -27,7 +27,7 @@
         <img src="{{ asset('images/icon-books-regis.png') }}" alt="" class="w-12">
     </div>
     <div class="px-16 py-3">
-        <form action="" method="POST" enctype="multipart/form-data" class="grid grid-cols-2 gap-5">
+        <form action="{{route('officer.store')}}" method="POST" enctype="multipart/form-data" class="grid grid-cols-2 gap-5">
             @csrf
             <div class="flex flex-col gap-1 relative">
                 <label for="username" id="lu"
@@ -117,7 +117,7 @@
                 </div>
             </div>
             <div class="flex col-span-2 relative gap-10">
-                <a href=""
+                <a href="{{route("officer")}}"
                     class="bg-slate-200 flex items-center justify-center border-2 border-black w-full gap-4 font-semibold rounded-md py-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-back"
                         width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
@@ -275,6 +275,7 @@
                     preview.classList.remove('hidden');
                     divP.classList.remove('hidden');
                     divP.classList.add('flex')
+                    fileInput.classList.add('border-green-500')
                 }
                 reader.readAsDataURL(file);
             } else {
@@ -283,6 +284,7 @@
                 preview.classList.remove('flex');
                 divP.classList.remove('flex');
                 divP.classList.add('hidden')
+                fileInput.classList.remove('border-green-500')
             }
         })
     </script>

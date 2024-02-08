@@ -1,6 +1,6 @@
 <nav class="absolute top-0 left-0 right-0 h-[4rem] ml-60 bg-slate-400 border-l-2 border-black">
     <div class="h-full flex items-center justify-end pr-24 gap-5">
-        <div class="flex">
+        <div class="flex" id="inputSearch">
             <input type="text" placeholder="search" name="search" id="search"
                 class="text-sm border-b-2 border-slate-100 bg-transparent outline-none text-slate-100 pr-7 hidden">
             <button type="button" class="flex relative items-center" onclick="OffSearch()">
