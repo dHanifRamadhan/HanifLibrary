@@ -84,20 +84,11 @@
                 </div>
             @endif
         @endauth
-            {{-- <div class="h-screen ml-60 pt-[4rem]">
+        {{-- <div class="h-screen ml-60 pt-[4rem]">
                 @yield('main')
             </div> --}}
     @endif
-    <script src="{{mix('js/app.js')}}"></script>
-    <script>
-        function Refresh() {
-            var refresh = document.getElementById('refresh')
-            refresh.innerHTML = refresh.innerHTML
-        }
-        document.addEventListener('DOMContentLoaded', function() {
-            setInterval(Refresh(), 2000);
-        })
-    </script>
+    <script src="{{ mix('js/app.js') }}"></script>
 </body>
 
 </html>

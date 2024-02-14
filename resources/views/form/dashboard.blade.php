@@ -192,4 +192,14 @@
 
         new Chart(usersLine, config);
     </script>
+    <script>
+        function Refresh() {
+            var refresh = document.getElementById('refresh');
+            refresh.innerHTML = refresh.innerHTML;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            setInterval(Refresh, 2000); // Pass the function reference without invoking it
+        });
+    </script>
 @endsection

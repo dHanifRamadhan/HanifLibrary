@@ -46,7 +46,7 @@
             <tbody>
                 @foreach ($data as $key => $value)
                     <tr class="text-center border-2 border-black">
-                        <td class="border-r-2 border-black py-6">1</td>
+                        <td class="border-r-2 border-black py-6">{{$key+1}}</td>
                         <td class="border-r-2 border-black">
                             <div class="flex gap-2 items-center justify-center">
                                 <img src="{{ asset('storage/' . $value->profile) }}" alt=""

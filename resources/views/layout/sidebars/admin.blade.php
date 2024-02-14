@@ -14,7 +14,7 @@
             <div class="h-full">
                 <ul class="h-full py-8 flex flex-col gap-6 relative">
                     <li class="border-2 border-slate-600">
-                        <a href="{{route('main')}}"
+                        <a href="{{ route('main') }}"
                             class="font-mono h-full flex items-center py-3 px-6 gap-6  @if (request()->routeIs('main')) bg-slate-400 text-slate-100 @else hover:bg-slate-400 hover:text-white @endif">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chart-treemap"
                                 width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
@@ -33,26 +33,49 @@
                             </span>
                         </a>
                     </li>
+                    @auth
+                        @if (Auth::user()->role == 'admin')
+                            <li class="border-2 border-slate-600">
+                                <a href="{{ route('officer') }}"
+                                    class="font-mono h-full flex items-center py-3 px-6 gap-6  @if (request()->routeIs('officer') || request()->routeIs('officer.*')) bg-slate-400 text-slate-100 @else hover:bg-slate-400 hover:text-white @endif">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-coffee"
+                                        width="20" height="20" viewBox="0 0 24 24" stroke-width="2"
+                                        stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path
+                                            d="M3 14c.83 .642 2.077 1.017 3.5 1c1.423 .017 2.67 -.358 3.5 -1c.83 -.642 2.077 -1.017 3.5 -1c1.423 -.017 2.67 .358 3.5 1" />
+                                        <path d="M8 3a2.4 2.4 0 0 0 -1 2a2.4 2.4 0 0 0 1 2" />
+                                        <path d="M12 3a2.4 2.4 0 0 0 -1 2a2.4 2.4 0 0 0 1 2" />
+                                        <path d="M3 10h14v5a6 6 0 0 1 -6 6h-2a6 6 0 0 1 -6 -6v-5z" />
+                                        <path d="M16.746 16.726a3 3 0 1 0 .252 -5.555" />
+                                    </svg>
+                                    <span class="font-semibold">
+                                        Officer
+                                    </span>
+                                </a>
+                            </li>
+                        @endif
+                    @endauth
                     <li class="border-2 border-slate-600">
-                        <a href="{{route('officer')}}" class="font-mono h-full flex items-center py-3 px-6 gap-6  @if (request()->routeIs('officer') || request()->routeIs('officer.*')) bg-slate-400 text-slate-100 @else hover:bg-slate-400 hover:text-white @endif">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-coffee"
-                                width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <a href="{{route('category')}}"
+                            class="font-mono h-full flex items-center py-3 px-6 gap-6  @if (request()->routeIs('category') || request()->routeIs('category.*')) bg-slate-400 text-slate-100 @else hover:bg-slate-400 hover:text-white @endif">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-category"
+                                width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path
-                                    d="M3 14c.83 .642 2.077 1.017 3.5 1c1.423 .017 2.67 -.358 3.5 -1c.83 -.642 2.077 -1.017 3.5 -1c1.423 -.017 2.67 .358 3.5 1" />
-                                <path d="M8 3a2.4 2.4 0 0 0 -1 2a2.4 2.4 0 0 0 1 2" />
-                                <path d="M12 3a2.4 2.4 0 0 0 -1 2a2.4 2.4 0 0 0 1 2" />
-                                <path d="M3 10h14v5a6 6 0 0 1 -6 6h-2a6 6 0 0 1 -6 -6v-5z" />
-                                <path d="M16.746 16.726a3 3 0 1 0 .252 -5.555" />
+                                <path d="M4 4h6v6h-6z" />
+                                <path d="M14 4h6v6h-6z" />
+                                <path d="M4 14h6v6h-6z" />
+                                <path d="M17 17m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
                             </svg>
                             <span class="font-semibold">
-                                Officer
+                                Category
                             </span>
                         </a>
                     </li>
                     <li class="border-2 border-slate-600">
-                        <a href="" class="font-mono h-full flex items-center py-3 px-6 gap-6  @if (request()->routeIs('books')) bg-slate-400 text-slate-100 @else hover:bg-slate-400 hover:text-white @endif">
+                        <a href="{{route('book')}}"
+                            class="font-mono h-full flex items-center py-3 px-6 gap-6  @if (request()->routeIs('book') || request()->routeIs('book.*')) bg-slate-400 text-slate-100 @else hover:bg-slate-400 hover:text-white @endif">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-books"
                                 width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
                                 fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -74,7 +97,8 @@
                         </a>
                     </li>
                     <li class="border-2 border-slate-600">
-                        <a href="" class="font-mono h-full flex items-center py-3 px-6 gap-6  @if (request()->routeIs('report')) bg-slate-400 text-slate-100 @else hover:bg-slate-400 hover:text-white @endif">
+                        <a href=""
+                            class="font-mono h-full flex items-center py-3 px-6 gap-6  @if (request()->routeIs('report')) bg-slate-400 text-slate-100 @else hover:bg-slate-400 hover:text-white @endif">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-report"
                                 width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
                                 fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -93,13 +117,15 @@
                             </span>
                         </a>
                     </li>
-                    <li class="border-2 border-slate-600 absolute -bottom-2 left-0 right-0 hover:bg-slate-400 hover:text-white">
+                    <li
+                        class="border-2 border-slate-600 absolute -bottom-2 left-0 right-0 hover:bg-slate-400 hover:text-white">
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
                             <button type="submit" class="font-mono h-full flex items-center py-3 px-6 gap-6">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-back"
                                     width="20" height="20" viewBox="0 0 24 24" stroke-width="2"
-                                    stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    stroke="currentColor" fill="none" stroke-linecap="round"
+                                    stroke-linejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                     <path d="M9 11l-4 4l4 4m-4 -4h11a4 4 0 0 0 0 -8h-1" />
                                 </svg>

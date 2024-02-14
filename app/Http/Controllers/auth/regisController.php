@@ -18,13 +18,13 @@ class regisController extends Controller
             'username'  => 'required|unique:users,username',
             'email'     => 'required|email:dns,rfc|unique:users,email',
             'password'  => 'required|min:6',
-            'fullName'      => 'required',
-            'number'     => 'required',
+            'fullName'  => 'required',
+            'number'    => 'required',
             'address'   => 'required',
-            'picture' => 'image|mimes:jpeg,png,jpg',
+            'picture'   => 'required|image|mimes:jpeg,png,jpg',
         ]);
 
-        $number = "+62 ".$request->number;
+        $number = "+62 " . $request->number;
         $picture = null;
 
         $image = $request->file('picture');
@@ -34,14 +34,14 @@ class regisController extends Controller
         }
 
         $id = DB::table('users')->insertGetId([
-            'username' =>  $request->username,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => 'librarian',
+            'username'  =>  $request->username,
+            'email'     => $request->email,
+            'password'  => Hash::make($request->password),
+            'role'      => 'librarian',
             'full_name' => $request->fullName,
-            'phone' => $number,
-            'address' => $request->address,
-            'profile' => $picture,
+            'phone'     => $number,
+            'address'   => $request->address,
+            'profile'   => $picture,
             'created_at' => now(),
         ]);
 
@@ -54,7 +54,7 @@ class regisController extends Controller
 
         return back()->with([
             'message' => 'Email berhasil di registerasi',
-            'warning' => 'Silakan check email kamu '.$request->email.' !', 
+            'warning' => 'Silakan check email kamu ' . $request->email . ' !',
         ]);
     }
 
@@ -63,19 +63,11 @@ class regisController extends Controller
         return view('auth.regis');
     }
 
-    public function acceptAccount($id) {
+    public function acceptAccount($id)
+    {
         DB::table('users')->where('id', $id)->update([
             'email_verified_at' => now(),
         ]);
         return 'Akun anda berhasil terverifikasi';
-    }
-
-    public function mail() {
-        $data = [
-            'id' => 1,
-            'name' => 'Isal Keren'
-        ];
-        Mail::to('isalkeren09@gmail.com')->send(new acceptAccountMail($data));
-        dd('berhasil');
     }
 }

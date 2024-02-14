@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\auth\loginController;
 use App\Http\Controllers\auth\regisController;
+use App\Http\Controllers\bookController;
+use App\Http\Controllers\categoryController;
 use App\Http\Controllers\officerController;
 
 /*
@@ -47,5 +49,18 @@ Route::group(['middleware' => 'role:admin'], function() {
     Route::put('officer/ban/{id}', [officerController::class, 'ban'])->name('officer.ban');
     Route::put('officer/unban/{id}', [officerController::class, 'unban'])->name('officer.unban');
     Route::delete('officer/delete/{id}', [officerController::class. 'delete'])->name('officer.delete');
+});
+
+Route::group(['middleware' => ['role:admin,officer']], function() {
+    Route::get('category', [categoryController::class, 'index'])->name('category');
+    Route::post('category', [categoryController::class, 'store'])->name('category.create');
+    Route::get('category/trash', [categoryController::class, 'trash'])->name('category.trash');
+    Route::get('category/{id}', [categoryController::class, 'show'])->name('category.show');
+    Route::put('category/{id}', [categoryController::class, 'update'])->name('category.update');
+    Route::delete('category/{id}', [categoryController::class, 'delete'])->name('category.delete');
+    Route::delete('category/delete/all', [categoryController::class, 'deleteAll'])->name('category.delete.all');
+    Route::put('category/recive/{id}', [categoryController::class, 'recive'])->name('category.recive');
+
+    Route::get('book', [bookController::class, 'index'])->name('book');
 });
 

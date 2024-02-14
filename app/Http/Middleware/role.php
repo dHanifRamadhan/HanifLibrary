@@ -19,6 +19,9 @@ class role
         if (Auth::check() && in_array(Auth::user()->role, $roles)) {
             return $next($request);
         }
-        abort(403, "Hak Akses Tidak Dizikan");
+
+        return redirect()->route('main')->with([
+            'message' => 'Akses di tolak!'
+        ]);
     }
 }
