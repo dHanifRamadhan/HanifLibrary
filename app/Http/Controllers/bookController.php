@@ -17,14 +17,14 @@ class bookController extends Controller
 
     public function store(Request $request) {
         DB::table("books")->insert([
-            'title' => $request->title,
-            'author' => $request->author,
-            'publisher' => $request->publisher,
-            'year_published'=> $request->year_published,
-            'qty' => $request->qty,
-            'cover_color' => $request->cover_color,
-            'cover' => $request->cover,
-            'created_at' => now()
+                'title' => $request->title,
+                'author' => $request->author,
+                'publisher' => $request->publisher,
+                'year_published'=> $request->year_published,
+                'qty' => $request->qty,
+                'cover_color' => $request->cover_color,
+                'cover' => $request->cover,
+                'created_at' => now()
         ]);
         return response()->json([
             'code' => 200,

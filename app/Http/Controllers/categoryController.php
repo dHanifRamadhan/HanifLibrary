@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 class categoryController extends Controller
 {
     public function index() {
+        // ->whereNull('deleted_at')
         $category = DB::table('categories')->whereNull('deleted_at')->get();
         return response()->json([
             'code' => 200,

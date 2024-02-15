@@ -5,7 +5,10 @@ use App\Http\Controllers\auth\loginController;
 use App\Http\Controllers\auth\regisController;
 use App\Http\Controllers\bookController;
 use App\Http\Controllers\categoryController;
+use App\Http\Controllers\commentContrller;
+use App\Http\Controllers\fullCategoryController;
 use App\Http\Controllers\favoriteController;
+use App\Http\Controllers\commentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,3 +56,15 @@ Route::delete('book/{id}', [bookController::class, 'delete']);
 Route::get('favorite', [favoriteController::class, 'index']);
 Route::post('favorite', [favoriteController::class, 'store']);
 Route::delete('favorite/{id}', [favoriteController::class, 'delete']);
+
+Route::get('fullCategory', [fullCategoryController::class, 'index']);
+Route::get('fullCategory/{id}', [fullCategoryController::class, 'show']);
+Route::post('fullCategory', [fullCategoryController::class, 'store']);
+Route::put('fullCategory/{id}', [fullCategoryController::class, 'update']);
+Route::delete('fullCategory/{id}', [fullCategoryController::class, 'delete']);
+
+Route::get('comment', [commentContrller::class, 'index']);
+Route::get('comment/{id}', [commentContrller::class, 'show']);
+Route::post('comment', [commentContrller::class, 'store']);
+Route::put('comment/{id}', [commentContrller::class, 'update']);
+Route::delete('comment/{id}', [commentContrller::class, 'delete']);
