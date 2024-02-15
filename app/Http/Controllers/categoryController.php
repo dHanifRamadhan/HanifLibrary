@@ -52,12 +52,15 @@ class categoryController extends Controller
             DB::table('categories')->where('id', $id)->update([
                 'deleted_at' => now()
             ]);
+            return redirect()->route('category')->with([
+                'message' => 'Delete Success'
+            ]);
         } else {
             DB::table('categories')->where('id', $id)->delete();
+            return redirect()->route('category.trash')->with([
+                'message' => 'Delete Success'
+            ]);
         }
-        return redirect()->route('category')->with([
-            'message' => 'Delete Success'
-        ]);
     }
 
     public function trash() {
@@ -77,7 +80,7 @@ class categoryController extends Controller
     }
 
     public function deleteAll() {
-        DB::table('categories')->delete();
+        DB::table('categories')->whereNotNull('deleted_at')->delete();
         return redirect()->route('category');
     }
 }

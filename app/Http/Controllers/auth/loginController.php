@@ -43,7 +43,6 @@ class loginController extends Controller
                 $message2 = 'Akun anda dengan email ' . $request->inputAccount . ' telah di hapus oleh admin';
                 break;
         }
-
         if  ($account == 0) {
             return back()->with([
                 'message' => $message1

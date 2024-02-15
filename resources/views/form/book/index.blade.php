@@ -57,18 +57,12 @@
                         <div class="flex flex-col col-span-2">
                             <label class="font-semibold">Category :</label>
                             <div class="mt-2 flex gap-1">
-                                <form action="" method="POST" class="text-xs pl-1">
-                                    @csrf
-                                    <button type="sumbit" class="py-1 px-2 border-2 border-black rounded-md">
-                                        Adventure
-                                    </button>
-                                </form>
-                                <form action="" method="POST" class="text-xs pl-1">
-                                    @csrf
-                                    <button type="sumbit" class="py-1 px-2 border-2 border-black rounded-md">
-                                        Action
-                                    </button>
-                                </form>
+                                <button type="button" class="text-sm py-1 px-2 border-2 border-black rounded-md">
+                                    Adventure
+                                </button>
+                                <button type="button" class="text-sm py-1 px-2 border-2 border-black rounded-md">
+                                    Action
+                                </button>
                             </div>
                         </div>
                         <div class="text-right flex flex-col">

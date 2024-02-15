@@ -32,7 +32,7 @@ class regisController extends Controller
             $path = strval(mt_rand(0000, 9999)) . "-" . $image->getClientOriginalName();
             $picture = $request->picture->storeAs('image/users', $path);
         }
-
+        
         $id = DB::table('users')->insertGetId([
             'username'  =>  $request->username,
             'email'     => $request->email,

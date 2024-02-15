@@ -12,7 +12,7 @@ class officerController extends Controller
     public function index() {
         $data = DB::table('users')
                     ->where('role', 'officer')
-                    ->get();
+                    ->paginate(10);
         return view('form.officer.index', ['data' => $data]);
     }
     

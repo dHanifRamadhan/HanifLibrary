@@ -22,6 +22,7 @@
     </style>
 @endsection
 @section('main')
+@include('form.category.session')
     <div class="px-16 flex flex-col gap-5">
         <div class="flex gap-5">
             @if (request()->routeIs('category'))
