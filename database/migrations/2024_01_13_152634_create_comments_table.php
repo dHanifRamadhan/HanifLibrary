@@ -19,8 +19,6 @@ class CreateCommentsTable extends Migration
             $table->unsignedBigInteger('book_id');
             $table->text('comment');
             $table->decimal('rating', 3, 1);
-            $table->integer('like');
-            $table->integer('dislike');
             // Relasion
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreign('book_id')->references('id')->on('books')->cascadeOnDelete();

@@ -28,7 +28,7 @@
                         {{ $data['name'] }} please click the button below to verify your email. To enter our library
                         website
                     </p>
-                    <a href="{{ route('accept.account', ['id' => $data['id']]) }}"
+                    <a href="http://localhost:8000/auth/register/accept-account/{{$data['id']}}"
                         style="border-width: 2px; background-color: transparent; background-image: none; border-color: #000; padding-top: 0.25rem; padding-bottom: 0.25rem; border-radius: 0.375rem; padding-left: 0.55rem; padding-right: 0.55rem">
                         <span
                             style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; font-size: 0.875rem; line-height: 1.25rem; font-weight: 600;">

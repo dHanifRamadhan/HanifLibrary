@@ -19,10 +19,10 @@
         .animation-dropdown {
             animation: dropdown 0.3s ease-out;
         }
+
     </style>
 @endsection
 @section('main')
-@include('form.category.session')
     <div class="px-16 flex flex-col gap-5">
         <div class="flex gap-5">
             @if (request()->routeIs('category'))
@@ -112,8 +112,10 @@
                     <tr>
                         <td class="border-r-2 border-black py-1">{{ $key + 1 }}</td>
                         <td class="border-r-2 border-black">{{ $value->name }}</td>
-                        <td class="border-r-2 border-black">{{ ($value->created_at != null) ? $value->created_at : 'No action taken yet' }}</td>
-                        <td class="border-r-2 border-black">{{ ($value->updated_at != null) ? $value->updated_at : 'No action taken yet' }}</td>
+                        <td class="border-r-2 border-black">
+                            {{ $value->created_at != null ? $value->created_at : 'No action taken yet' }}</td>
+                        <td class="border-r-2 border-black">
+                            {{ $value->updated_at != null ? $value->updated_at : 'No action taken yet' }}</td>
                         <td class="border-r-2 border-black">
                             @if ($value->deleted_at == null)
                                 Available

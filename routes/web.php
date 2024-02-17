@@ -21,25 +21,26 @@ use App\Http\Controllers\officerController;
 Route::get('/', function () {
     // return view('Mails.accept-account');
     return view('form.dashboard');
-})->name('main');
+})->name('main')->middleware('email_verified');
 
 Route::get('home', function(){
     return redirect()->route('main');
 });
+
+Route::get('auth/register/accept-account/{id}', [regisController::class, 'acceptAccount'])->name('accept.account');
 
 Route::group(['middleware' => 'guest'], function() {
     Route::get('login', [loginController::class, 'authLogin'])->name('auth.login');
     Route::post('login', [loginController::class,'login'])->name('login');
     Route::get('register', [regisController::class, 'authRegis'])->name('auth.regis');
     Route::post('register', [regisController::class, 'regis'])->name('regis');
-    Route::get('auth/register/accept-account/{id}', [regisController::class, 'acceptAccount'])->name('accept.account');
 });
 
 Route::group(['middleware' => 'auth'], function() {
     Route::post('auth/logout', [loginController::class, 'logout'])->name('logout');
 });
 
-Route::group(['middleware' => 'role:admin'], function() {
+Route::group(['middleware' => ['role:admin', 'email_verified']], function() {
     Route::get('officer', [officerController::class, 'index'])->name('officer');
     Route::get('officer/create', function() {
         return view('form.officer.create');
@@ -51,7 +52,7 @@ Route::group(['middleware' => 'role:admin'], function() {
     Route::delete('officer/delete/{id}', [officerController::class. 'delete'])->name('officer.delete');
 });
 
-Route::group(['middleware' => ['role:admin,officer']], function() {
+Route::group(['middleware' => ['role:admin,officer', 'email_verified']], function() {
     Route::get('category', [categoryController::class, 'index'])->name('category');
     Route::post('category', [categoryController::class, 'store'])->name('category.create');
     Route::get('category/trash', [categoryController::class, 'trash'])->name('category.trash');
@@ -62,5 +63,6 @@ Route::group(['middleware' => ['role:admin,officer']], function() {
     Route::put('category/recive/{id}', [categoryController::class, 'recive'])->name('category.recive');
 
     Route::get('book', [bookController::class, 'index'])->name('book');
+    Route::get('book/create', [bookController::class, 'create'])->name('book.create');
 });
 

@@ -19,10 +19,12 @@ class CreateBooksTable extends Migration
             $table->string('author');
             $table->string('publisher');
             $table->date('year_published');
-            $table->integer('qty')->unsigned();
+            $table->integer('qty')->unsigned()->default(0);
             $table->enum('status', ['available','unavailable'])->default('available');
-            $table->string('cover_color');
-            $table->text('cover');
+            // Coloring
+            $table->string('cover_bottom_color')->default('#1E293B');
+            $table->string('cover_right_color')->default('#475569');
+            $table->string('cover')->default('#64748B');
             // Penanggalan
             $table->timestamps();
             $table->softDeletes();

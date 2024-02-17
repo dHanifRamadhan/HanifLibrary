@@ -7,7 +7,7 @@
 @section('main')
     <div class="mx-16 flex flex-col gap-4">
         <div class="flex gap-4">
-            <a href="" class="flex gap-3 py-2 px-4 items-center border-2 border-black rounded-md font-semibold">
+            <a href="{{route('book.create')}}" class="flex gap-3 py-2 px-4 items-center border-2 border-black rounded-md font-semibold">
                 <svg xmlns="http://www.w3.org/2000/svg" class="" width="20" height="20" viewBox="0 0 24 24"
                     stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />

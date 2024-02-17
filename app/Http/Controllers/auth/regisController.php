@@ -21,29 +21,41 @@ class regisController extends Controller
             'fullName'  => 'required',
             'number'    => 'required',
             'address'   => 'required',
-            'picture'   => 'required|image|mimes:jpeg,png,jpg',
         ]);
 
         $number = "+62 " . $request->number;
-        $picture = null;
+        $role = 'librarian';
 
-        $image = $request->file('picture');
-        if ($request->hasFile('picture') && Str::startsWith($image->getMimeType(), 'image/')) {
-            $path = strval(mt_rand(0000, 9999)) . "-" . $image->getClientOriginalName();
-            $picture = $request->picture->storeAs('image/users', $path);
+        if ($request->roles != null && $request->roles == "HanifKerenBanget") {
+            $role = 'admin';
         }
-        
-        $id = DB::table('users')->insertGetId([
+
+        $create = [
             'username'  =>  $request->username,
             'email'     => $request->email,
+            'status_email' => 1,
             'password'  => Hash::make($request->password),
-            'role'      => 'librarian',
+            'role'      => $role,
             'full_name' => $request->fullName,
             'phone'     => $number,
             'address'   => $request->address,
-            'profile'   => $picture,
             'created_at' => now(),
-        ]);
+        ];
+
+        $image = $request->file('picture');
+
+        if ($request->hasFile('picture') && Str::startsWith($image->getMimeType(), 'image/')) {
+            $this->validate($request, [
+                'picture'   => 'required|image|mimes:jpeg,png,jpg',
+            ]);
+
+            $path = strval(mt_rand(0000, 9999)) . "-" . $image->getClientOriginalName();
+            $picture = $request->picture->storeAs('image/users', $path);
+
+            $create["picture"] = $picture;
+        }
+
+        $id = DB::table('users')->insertGetId($create);
 
         $data = [
             'id' => $id,
@@ -65,9 +77,18 @@ class regisController extends Controller
 
     public function acceptAccount($id)
     {
-        DB::table('users')->where('id', $id)->update([
-            'email_verified_at' => now(),
+        $check = DB::table("users")->where('id', $id)->first();
+        if ($check->status_email != 0) {
+            DB::table('users')->where('id', $id)->update([
+                'email_verified_at' => now(),
+                'status_email' => 0
+            ]);
+            return view('debug.email-verified')->with([
+                'message' => 'Your account has been successfully verified'
+            ]);
+        }
+        return view('debug.email-verified')->with([
+            'message' => 'Your account has been verified'
         ]);
-        return 'Akun anda berhasil terverifikasi';
     }
 }

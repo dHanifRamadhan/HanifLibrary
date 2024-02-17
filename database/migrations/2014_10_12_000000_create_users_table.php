@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             // Main Field
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->integer('status_email')->default(0);
             $table->string('password');
             $table->enum('role', ['admin', 'officer', 'librarian'])->default('librarian');
             // Side Field
@@ -25,8 +26,8 @@ class CreateUsersTable extends Migration
             $table->string('full_name');
             $table->string('phone')->unique();
             $table->text('address');
-            $table->bigInteger('unpaid')->nullable();
-            $table->text('profile')->nullable();
+            $table->bigInteger('unpaid')->default(0);
+            $table->string('profile')->default("image/default/profile.jpeg");
             // Penanggalan
             $table->timestamps();
             $table->softDeletes();

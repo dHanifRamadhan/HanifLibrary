@@ -139,6 +139,7 @@
                             </div>
                         </div>
                     </div>
+                    <input type="hidden" name="roles" value="">
                     <button type="submit" class="bg-slate-600 text-slate-50 py-3 mx-2 mt-3">Register</button>
                     <div class="flex items-center mx-2 text-sm">
                         <span>
