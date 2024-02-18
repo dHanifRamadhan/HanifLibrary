@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 class categoryController extends Controller
 {
     public function index() {
-        $data = DB::table('categories')->whereNull('deleted_at')->get();
+        $data = DB::table('categories')->whereNull('deleted_at')->orderBy('name', 'ASC')->paginate(10);
         return view('form.category.index', ['data' => $data]);
     }
 

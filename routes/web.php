@@ -62,7 +62,12 @@ Route::group(['middleware' => ['role:admin,officer', 'email_verified']], functio
     Route::delete('category/delete/all', [categoryController::class, 'deleteAll'])->name('category.delete.all');
     Route::put('category/recive/{id}', [categoryController::class, 'recive'])->name('category.recive');
 
-    Route::get('book', [bookController::class, 'index'])->name('book');
-    Route::get('book/create', [bookController::class, 'create'])->name('book.create');
+    Route::get('categories-required', function() {
+        return view('debug.categories-required');
+    })->name('categories-required');
+
+    Route::get('book', [bookController::class, 'index'])->name('book')->middleware('catgories_required');
+    Route::get('book/create', [bookController::class, 'create'])->name('book.create')->middleware('catgories_required');
+    Route::post('book', [bookController::class, 'store'])->name('book.store');
 });
 

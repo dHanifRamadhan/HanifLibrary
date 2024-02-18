@@ -198,6 +198,7 @@
             </tbody>
         </table>
         <div class="py-2 flex items-center justify-center">
+            {{$data->links('pagination::tailwind')}}
         </div>
     </div>
     <script>

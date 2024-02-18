@@ -15,7 +15,7 @@ class CreateBooksTable extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('title')->unique();
             $table->string('author');
             $table->string('publisher');
             $table->date('year_published');
@@ -25,6 +25,7 @@ class CreateBooksTable extends Migration
             $table->string('cover_bottom_color')->default('#1E293B');
             $table->string('cover_right_color')->default('#475569');
             $table->string('cover')->default('#64748B');
+            $table->string('picture');
             // Penanggalan
             $table->timestamps();
             $table->softDeletes();

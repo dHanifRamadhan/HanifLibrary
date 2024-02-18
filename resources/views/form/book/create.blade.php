@@ -149,6 +149,9 @@
     </style>
 @endsection
 @section('main')
+    <div class="mx-16 flex mb-4">
+        <h1 class="font-semibold text-2xl ">Created Book</h1>
+    </div>
     <div class="mx-16 flex">
         <div class="py-10 pt-20 px-16 flex items-center justify-center">
             <div class="scale-150 h-max w-max flex items-center justify-center py-3">
@@ -158,8 +161,8 @@
                         id="cover_color">
                         <img src="" class="w-full h-full rounded-tr-lg hidden" alt="" id="cover_image">
                     </div>
-                    <div class="absolute bottom-5 right-[0.95rem] left-0 rounded-lg h-6"
-                        style="background-color: #1E293B;" id="cover_bottom_color">
+                    <div class="absolute bottom-5 right-[0.95rem] left-0 rounded-lg h-6" style="background-color: #1E293B;"
+                        id="cover_bottom_color">
                         <div class="relative w-full h-full flex items-center pl-4 pr-1">
                             <div class="h-4 w-full bg-slate-200 bg-opacity-90 rounded-md flex flex-col gap-[0.20rem] py-1">
                                 <hr class="border-slate-400">
@@ -171,63 +174,77 @@
                 </div>
             </div>
         </div>
-        <form action="" method="" class="w-full h-max">
+        <form action="{{ request()->routeIs('book.create') ? route('book.store') : route('book.update', $data->id) }}"
+            method="POST" class="w-full h-max" enctype="multipart/form-data">
             @csrf
             <div class=" grid grid-cols-2 gap-3">
                 <div class="col-span-2 py-4 px-5 relative flex">
                     <input type="text" name="title" id="title"
                         class="bg-transparent outline-none border-b-2 border-black py-2 px-1 text-2xl font-semibold text-center"
-                        required>
+                        required value="{{ request()->routeIs('book.create') ? '' : $data->title }}">
                 </div>
                 <div class="flex flex-col gap-1">
                     <label for="author" class="font-semibold">Author :</label>
                     <input type="text" name="author" id="author"
-                        class="mx-2 mr-28 outline-none bg-transparent border-b-2 border-black" required>
+                        class="mx-2 mr-28 outline-none bg-transparent border-b-2 border-black" required
+                        value="{{ request()->routeIs('book.create') ? '' : $data->author }}">
                 </div>
-                <div class="flex justify-end">
-                    <input type="date" name="year_published" class="bg-transparent h-max mx-2 outline-none" required>
+                <div class="flex gap-2 justify-end">
+                    <label for="" class="font-semibold">Year Published :</label>
+                    <input type="date" name="year_published" class="bg-transparent h-max mx-2 outline-none" required
+                        value="{{ request()->routeIs('book.create') ? '' : $data->year_published }}">
                 </div>
                 <div class="col-span-2 flex flex-col gap-1">
                     <label for="publisher" class="font-semibold">Publisher :</label>
                     <input type="text" name="publisher" id="publisher"
+                        value="{{ request()->routeIs('book.create') ? '' : $data->publisher }}"
                         class="bg-transparent outline-none border-b-2 border-black mx-2 mr-[29.8rem]" required>
                 </div>
                 <div class="flex flex-col gap-1">
                     <label for="category" class="font-semibold">Category :</label>
-                    <select name="category" id="category" multiple>
-                        <option value="5">Russia</option>
+                    <select name="category[]" id="category" multiple>
+                        @foreach ($categories as $key => $value)
+                            <option value="{{$value->id}}">{{$value->name}}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="flex flex-col items-end gap-1 px-2">
                     <label for="stock" class="font-semibold">Stock :</label>
                     <input type="number" name="qty" id="stock"
-                        class="bg-transparent outline-none border-b-2 border-black" required>
+                        value="{{ request()->routeIs('book.create') ? '' : $data->qty }}"
+                        class="bg-transparent outline-none border-b-2 border-black text-right" required>
                 </div>
                 <div class="col-span-2 flex flex-col gap-3 mt-1">
                     <div class="flex gap-5">
                         <label for="cover" class="font-semibold">Cover :</label>
                         <input type="text" placeholder="#" name="cover" id="cover"
+                            value="{{ request()->routeIs('book.create') ? '' : $data->cover }}"
                             class="bg-transparent outline-none border-b-2 border-black">
                     </div>
                     <div class="flex gap-5">
                         <label for="cover_right" class="font-semibold">Cover Right :</label>
                         <input type="text" placeholder="#" name="cover_right_color" id="cover_right"
+                            value="{{ request()->routeIs('book.create') ? '' : $data->cover_right_color }}"
                             class="bg-transparent outline-none border-b-2 border-black">
                     </div>
                     <div class="flex gap-5">
                         <label for="cover_bottom" class="font-semibold">Cover Bottom :</label>
                         <input type="text" placeholder="#" name="cover_bottom_color" id="cover_bottom"
+                            value="{{ request()->routeIs('book.create') ? '' : $data->cover_bottom_color }}"
                             class="bg-transparent outline-none border-b-2 border-black">
                     </div>
-                    <div class="flex mt-4 gap-5">
-                        <label for="picture" class="font-semibold">Picture :</label>
-                        <input type="file" placeholder="" name="picture" id="picture"
-                            class="bg-transparent outline-none border-b-2 border-black" required>
-                    </div>
+                    @if (request()->routeIs('book.create'))
+                        <div class="flex mt-4 gap-5">
+                            <label for="picture" class="font-semibold">Picture :</label>
+                            <input type="file" placeholder="" name="picture" id="picture"
+                                class="bg-transparent outline-none border-b-2 border-black" required>
+                        </div>
+                    @endif
                 </div>
             </div>
             <div class="flex gap-5 items-center justify-center my-20">
-                <a href="" class="border-2 border-black rounded-md py-2 px-5 font-semibold flex gap-4 items-center">
+                <a href=""
+                    class="border-2 border-black rounded-md py-2 px-5 font-semibold flex gap-4 items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-back-up"
                         width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                         fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -290,11 +307,12 @@
             var color = document.getElementById('cover_right_color')
 
             var validasi = input.replace(/\s+/g, '')
+
             if (!validasi.startsWith('#')) {
                 validasi = '#' + validasi
             }
 
-            e.target.input = validasi;
+            e.target.value = validasi;
             color.style.backgroundColor = validasi
         })
 
@@ -317,7 +335,7 @@
 
             if (file) {
                 var reader = new FileReader()
-                reader.onloadend = function(){
+                reader.onloadend = function() {
                     preview.src = reader.result
                     preview.classList.remove('hidden')
                 }
