@@ -19,7 +19,7 @@ class CreateBorrowingTable extends Migration
             $table->unsignedBigInteger('book_id');
             $table->date('borrowing_date');
             $table->date('return_date');
-            $table->enum('status', ['borrow','returned', 'expired'])->default('borrow');
+            $table->enum('status', ['borrow', 'returned', 'expired'])->default('borrow');
             // Relasion
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreign('book_id')->references('id')->on('books')->cascadeOnDelete();

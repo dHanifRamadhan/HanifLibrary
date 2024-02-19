@@ -64,7 +64,7 @@ class categoryController extends Controller
     }
 
     public function trash() {
-        $data = DB::table('categories')->whereNotNull('deleted_at')->get();
+        $data = DB::table('categories')->whereNotNull('deleted_at')->paginate(10);
         return view('form.category.index', ['data' => $data]);
     }
 

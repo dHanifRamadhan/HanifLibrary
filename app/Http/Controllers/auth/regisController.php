@@ -46,13 +46,13 @@ class regisController extends Controller
 
         if ($request->hasFile('picture') && Str::startsWith($image->getMimeType(), 'image/')) {
             $this->validate($request, [
-                'picture'   => 'required|image|mimes:jpeg,png,jpg',
+                'picture'   => 'required|image',
             ]);
 
-            $path = strval(mt_rand(0000, 9999)) . "-" . $image->getClientOriginalName();
+            $path = strval(mt_rand(0000, 9999)) . "-" . str_replace(' ', '', $image->getClientOriginalName());
             $picture = $request->picture->storeAs('image/users', $path);
 
-            $create["picture"] = $picture;
+            $create["profile"] = $picture;
         }
 
         $id = DB::table('users')->insertGetId($create);
