@@ -108,12 +108,4 @@ class officerController extends Controller
             'success' => 'Success UNBAN officer with id ' . $id
         ]);
     }
-
-    public function delete($id)
-    {
-        DB::table('users')->where('role', 'officer')->where('id', $id)->delete();
-        return back()->with([
-            'success' => 'Success Delete officer with id ' . $id
-        ]);
-    }
 }

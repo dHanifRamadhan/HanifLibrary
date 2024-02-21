@@ -9,6 +9,15 @@
     @auth
         @if (Auth::user()->role == 'admin' || Auth::user()->role == 'officer')
             <div class="px-16 py-5">
+                <h1 class="font-mono text-xl font-semibold">
+                    Welcome 
+                    <span class="font-bold italic">
+                        {{Auth::user()->username}}
+                    </span>
+                    in Dashbord Hanif Library !!
+                </h1>
+            </div>
+            <div class="px-16 py-5">
                 <div class="h-full w-full grid grid-cols-4 gap-5">
                     <div class="border-2 border-black rounded-lg bg-slate-200">
                         <div class="h-full p-3 relative">

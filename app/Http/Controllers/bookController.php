@@ -13,11 +13,11 @@ class bookController extends Controller
         $check = DB::table('categories')->whereNull('deleted_at')->count();
 
         $data = DB::table('full_category AS a')
-        ->join('books AS b', 'a.book_id', '=', 'b.id')
-        ->join('categories AS c', 'a.category_id', '=', 'c.id')
-        ->select('b.*', DB::raw('GROUP_CONCAT(c.name) AS category'))
-        ->groupBy('a.book_id')
-        ->paginate(5);
+            ->join('books AS b', 'a.book_id', '=', 'b.id')
+            ->join('categories AS c', 'a.category_id', '=', 'c.id')
+            ->select('b.*', DB::raw('GROUP_CONCAT(c.name) AS category'))
+            ->groupBy('a.book_id')
+            ->paginate(5);
 
         return view('form.book.index', ['check' => $check, 'data' => $data]);
     }
@@ -26,6 +26,34 @@ class bookController extends Controller
     {
         $data = DB::table('categories')->whereNull('deleted_at')->orderBy('name', 'ASC')->get();
         return view('form.book.create', ['categories' => $data]);
+    }
+
+    public function show($id)
+    {
+        $data = DB::table('full_category AS a')
+            ->join('books AS b', 'a.book_id', '=', 'b.id')
+            ->join('categories AS c', 'a.category_id', '=', 'c.id')
+            ->select('b.*', DB::raw('GROUP_CONCAT(a.category_id) AS category'))
+            ->where('a.book_id', $id)
+            ->groupBy('a.book_id')
+            ->first();
+
+        $dataCategory = DB::table('categories')->whereNull('deleted_at')->get();
+        $category = [];
+
+        foreach ($dataCategory as $key => $value) {
+            $category[$value->id] = (object)[
+                'id' => $value->id,
+                'name' => $value->name,
+                'selected' => 'no'
+            ];
+        }
+
+        foreach (explode(',', $data->category) as $key => $value) {
+            $category[$value]->selected = 'yes';
+        }
+
+        return view('form.book.create', ['data' => $data, 'categories' => $category]);
     }
 
     public function store(Request $request)
@@ -75,5 +103,10 @@ class bookController extends Controller
         ])->withErrors([
             'message' =>  'Failed to create data for the book'
         ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        dd($request);
     }
 }

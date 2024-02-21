@@ -156,12 +156,12 @@
         <div class="py-10 pt-20 px-16 flex items-center justify-center">
             <div class="scale-150 h-max w-max flex items-center justify-center py-3">
                 <div class="relative w-44 h-60 flex pb-8">
-                    <div class="w-5 rounded-tl-xl" style="background-color: #475569;" id="cover_right_color"></div>
-                    <div class="w-4/5 rounded-tr-xl flex items-start justify-end pb-2" style="background-color: #64748B;"
+                    <div class="w-5 rounded-tl-xl" style="background-color: {{request()->routeIs('book.create') ? '#475569' : $data->cover_right_color}};" id="cover_right_color"></div>
+                    <div class="w-4/5 rounded-tr-xl flex items-start justify-end pb-2" style="background-color: {{request()->routeIs('book.create') ? '#64748B' : $data->cover}};"
                         id="cover_color">
-                        <img src="" class="w-full h-full rounded-tr-lg hidden" alt="" id="cover_image">
+                        <img src="{{request()->routeIs('book.create') ? '' : asset('storage/'.$data->picture)}}" class="w-full h-full rounded-tr-lg {{request()->routeIs('book.create') ? 'hidden' : ''}}" alt="" id="cover_image">
                     </div>
-                    <div class="absolute bottom-5 right-[0.95rem] left-0 rounded-lg h-6" style="background-color: #1E293B;"
+                    <div class="absolute bottom-5 right-[0.95rem] left-0 rounded-lg h-6" style="background-color: {{request()->routeIs('book.create') ? '#1E293B' : $data->cover_bottom_color}};"
                         id="cover_bottom_color">
                         <div class="relative w-full h-full flex items-center pl-4 pr-1">
                             <div class="h-4 w-full bg-slate-200 bg-opacity-90 rounded-md flex flex-col gap-[0.20rem] py-1">
@@ -174,9 +174,12 @@
                 </div>
             </div>
         </div>
-        <form action="{{ request()->routeIs('book.create') ? route('book.store') : route('book.update', $data->id) }}"
-            method="POST" class="w-full h-max" enctype="multipart/form-data">
+        <form action="{{ request()->routeIs('book.create') ? route('book.store') : route('book.update', $data->id) }}" method="POST"
+            class="w-full h-max" enctype="multipart/form-data">
             @csrf
+            @if (request()->routeIs('book.create') != true) 
+                @method('PUT')
+            @endif
             <div class=" grid grid-cols-2 gap-3">
                 <div class="col-span-2 py-4 px-5 relative flex">
                     <input type="text" name="title" id="title"
@@ -203,9 +206,16 @@
                 <div class="flex flex-col gap-1">
                     <label for="category" class="font-semibold">Category :</label>
                     <select name="category[]" id="category" multiple>
-                        @foreach ($categories as $key => $value)
-                            <option value="{{$value->id}}">{{$value->name}}</option>
-                        @endforeach
+                        @if (request()->routeIs('book.create'))
+                            @foreach ($categories as $key => $value)
+                                <option value="{{ $value->id }}">{{ $value->name }}</option>
+                            @endforeach
+                        @else
+                            @foreach ($categories as $key => $value)
+                                <option value="{{ $value->id }}" {{ $value->selected == 'yes' ? 'selected' : '' }}>
+                                    {{ $value->name }} </option>
+                            @endforeach
+                        @endif
                     </select>
                 </div>
                 <div class="flex flex-col items-end gap-1 px-2">
@@ -214,33 +224,33 @@
                         value="{{ request()->routeIs('book.create') ? '' : $data->qty }}"
                         class="bg-transparent outline-none border-b-2 border-black text-right" required>
                 </div>
-                <div class="col-span-2 flex flex-col gap-3 mt-1">
-                    <div class="flex gap-5">
-                        <label for="cover" class="font-semibold">Cover :</label>
-                        <input type="text" placeholder="#" name="cover" id="cover"
-                            value="{{ request()->routeIs('book.create') ? '' : $data->cover }}"
-                            class="bg-transparent outline-none border-b-2 border-black">
-                    </div>
-                    <div class="flex gap-5">
-                        <label for="cover_right" class="font-semibold">Cover Right :</label>
-                        <input type="text" placeholder="#" name="cover_right_color" id="cover_right"
-                            value="{{ request()->routeIs('book.create') ? '' : $data->cover_right_color }}"
-                            class="bg-transparent outline-none border-b-2 border-black">
-                    </div>
-                    <div class="flex gap-5">
-                        <label for="cover_bottom" class="font-semibold">Cover Bottom :</label>
-                        <input type="text" placeholder="#" name="cover_bottom_color" id="cover_bottom"
-                            value="{{ request()->routeIs('book.create') ? '' : $data->cover_bottom_color }}"
-                            class="bg-transparent outline-none border-b-2 border-black">
-                    </div>
-                    @if (request()->routeIs('book.create'))
+                @if (request()->routeIs('book.create'))
+                    <div class="col-span-2 flex flex-col gap-3 mt-1">
+                        <div class="flex gap-5">
+                            <label for="cover" class="font-semibold">Cover :</label>
+                            <input type="text" placeholder="#" name="cover" id="cover"
+                                value="{{ request()->routeIs('book.create') ? '' : $data->cover }}"
+                                class="bg-transparent outline-none border-b-2 border-black">
+                        </div>
+                        <div class="flex gap-5">
+                            <label for="cover_right" class="font-semibold">Cover Right :</label>
+                            <input type="text" placeholder="#" name="cover_right_color" id="cover_right"
+                                value="{{ request()->routeIs('book.create') ? '' : $data->cover_right_color }}"
+                                class="bg-transparent outline-none border-b-2 border-black">
+                        </div>
+                        <div class="flex gap-5">
+                            <label for="cover_bottom" class="font-semibold">Cover Bottom :</label>
+                            <input type="text" placeholder="#" name="cover_bottom_color" id="cover_bottom"
+                                value="{{ request()->routeIs('book.create') ? '' : $data->cover_bottom_color }}"
+                                class="bg-transparent outline-none border-b-2 border-black">
+                        </div>
                         <div class="flex mt-4 gap-5">
                             <label for="picture" class="font-semibold">Picture :</label>
                             <input type="file" placeholder="" name="picture" id="picture"
                                 class="bg-transparent outline-none border-b-2 border-black" required>
                         </div>
-                    @endif
-                </div>
+                    </div>
+                @endif
             </div>
             <div class="flex gap-5 items-center justify-center my-20">
                 <a href=""

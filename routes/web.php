@@ -66,8 +66,12 @@ Route::group(['middleware' => ['role:admin,officer', 'email_verified']], functio
         return view('debug.categories-required');
     })->name('categories-required');
 
-    Route::get('book', [bookController::class, 'index'])->name('book')->middleware('catgories_required');
-    Route::get('book/create', [bookController::class, 'create'])->name('book.create')->middleware('catgories_required');
-    Route::post('book', [bookController::class, 'store'])->name('book.store');
+    Route::middleware('catgories_required')->group(function () {
+        Route::get('book', [bookController::class, 'index'])->name('book');
+        Route::get('book/create', [bookController::class, 'create'])->name('book.create');
+        Route::post('book', [bookController::class, 'store'])->name('book.store');
+        Route::get('book/show/{id}', [bookController::class, 'show'])->name('book.show');
+        Route::put('book/{id}', [bookController::class, 'update'])->name('book.update');
+    });
 });
 

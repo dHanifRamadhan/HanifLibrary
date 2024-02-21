@@ -51,6 +51,7 @@ class regisController extends Controller
 
             $path = strval(mt_rand(0000, 9999)) . "-" . str_replace(' ', '', $image->getClientOriginalName());
             $picture = $request->picture->storeAs('image/users', $path);
+            // $picture = 'image/users/'.$path;
 
             $create["profile"] = $picture;
         }
