@@ -3,6 +3,9 @@
     Books
 @endsection
 @section('preload')
+    @foreach ($data as $gambar)
+        <link rel="preload" href="{{ asset('storage/' . $gambar->picture) }}" as="{{ $gambar->title }}">
+    @endforeach
 @endsection
 @section('main')
     <div class="mx-16 flex flex-col gap-4">
@@ -70,8 +73,9 @@
                                 <label class="font-semibold">Category :</label>
                                 <div class="mt-2 flex flex-wrap gap-1">
                                     @foreach (explode(',', $value->category) as $keyCategory => $valueCategory)
-                                        <span class="text-sm py-1 px-2 border-2 border-black rounded-md pointer-events-none">
-                                            {{$valueCategory}}
+                                        <span
+                                            class="text-sm py-1 px-2 border-2 border-black rounded-md pointer-events-none">
+                                            {{ $valueCategory }}
                                         </span>
                                     @endforeach
                                 </div>
@@ -79,14 +83,14 @@
                             <div class="text-right flex flex-col items-end">
                                 <span>Available</span>
                                 <div class="flex gap-1">
-                                    <input type="text" value="{{$value->qty}}" id="qtyInput"
+                                    <input type="text" value="{{ $value->qty }}" id="qtyInput"
                                         class="text-right bg-transparent outline-none">
                                     <span>Pcs</span>
                                 </div>
                             </div>
                             <div class="flex justify-end gap-2 px-3 col-span-3">
                                 <form action="" method="POST" class="flex gap-2">
-                                    <a href="{{route('book.show', $value->id)}}" class="text-yellow-500">
+                                    <a href="{{ route('book.show', $value->id) }}" class="text-yellow-500">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit"
                                             width="22" height="22" viewBox="0 0 24 24" stroke-width="1.5"
                                             stroke="currentColor" fill="none" stroke-linecap="round"

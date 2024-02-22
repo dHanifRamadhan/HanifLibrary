@@ -107,6 +107,23 @@ class bookController extends Controller
 
     public function update(Request $request, $id)
     {
-        dd($request);
+        $this->validate($request, [
+            'title' => 'required',
+            'author' => 'required',
+            'year_published' => 'required',
+            'publisher' => 'required',
+            'qty' => 'required',
+            'category' => 'required'
+        ]);
+
+        $data = DB::table('full_category')->whereIn('category_id', $request->category)->get();
+
+        $category = [];
+        foreach ($request->category as $key => $value) {
+            $category[] = (object)[
+                'id' => $value
+            ];
+        }
+        dd($category);
     }
 }

@@ -27,7 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('phone')->unique();
             $table->text('address');
             $table->bigInteger('unpaid')->default(0);
-            $table->string('profile')->default("image/default/profile.jpeg");
+            $table->string('profile')->nullable();
             // Penanggalan
             $table->timestamps();
             $table->softDeletes();

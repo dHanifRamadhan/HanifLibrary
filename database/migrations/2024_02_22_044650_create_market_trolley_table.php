@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLogsTable extends Migration
+class CreateMarketTrolleyTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,16 @@ class CreateLogsTable extends Migration
      */
     public function up()
     {
-        Schema::create('logs', function (Blueprint $table) {
+        Schema::create('market_trolley', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->text('comment');
-            $table->unsignedBigInteger('book_id')->nullable();
-            $table->unsignedBigInteger('category_id')->nullable();
+            $table->unsignedBigInteger('book_id');
+            $table->unsignedInteger('unit_qty');
+            $table->unsignedBigInteger('unit_price');
+
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
-            $table->foreign('book_id')->references('id')->on('books')->nullOnDelete();
-            $table->foreign('category_id')->references('id')->on('categories')->nullOnDelete();
+            $table->foreign('book_id')->references('id')->on('books')->cascadeOnDelete();
+
             $table->timestamps();
             $table->softDeletes();
         });
@@ -34,6 +35,6 @@ class CreateLogsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('logs');
+        Schema::dropIfExists('market_trolley');
     }
 }

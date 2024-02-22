@@ -66,7 +66,7 @@ Route::group(['middleware' => ['role:admin,officer', 'email_verified']], functio
         return view('debug.categories-required');
     })->name('categories-required');
 
-    Route::middleware('catgories_required')->group(function () {
+    Route::group(['middleware' => 'catgories_required'], function () {
         Route::get('book', [bookController::class, 'index'])->name('book');
         Route::get('book/create', [bookController::class, 'create'])->name('book.create');
         Route::post('book', [bookController::class, 'store'])->name('book.store');

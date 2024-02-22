@@ -177,12 +177,12 @@
         <form action="{{ request()->routeIs('book.create') ? route('book.store') : route('book.update', $data->id) }}" method="POST"
             class="w-full h-max" enctype="multipart/form-data">
             @csrf
-            @if (request()->routeIs('book.create') != true) 
+            @if (request()->routeIs('book.create') != true)
                 @method('PUT')
             @endif
             <div class=" grid grid-cols-2 gap-3">
                 <div class="col-span-2 py-4 px-5 relative flex">
-                    <input type="text" name="title" id="title"
+                    <input type="text" name="title" id="title" placeholder="Title"
                         class="bg-transparent outline-none border-b-2 border-black py-2 px-1 text-2xl font-semibold text-center"
                         required value="{{ request()->routeIs('book.create') ? '' : $data->title }}">
                 </div>
