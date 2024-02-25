@@ -91,6 +91,7 @@ Route::group(['middleware' => ['auth', 'check.verified']], function () {
             Route::post('book', [BooksController::class, 'store'])->name('book.store');
             Route::get('book/show/{id}', [BooksController::class, 'show'])->name('book.show');
             Route::put('book/update/{id}', [BooksController::class, 'update'])->name('book.update');
+            Route::delete('book/delete/{id}', [BooksController::class, 'delete'])->name('book.delete');
         });
     });
 

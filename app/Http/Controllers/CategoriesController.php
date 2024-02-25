@@ -8,8 +8,15 @@ use Illuminate\Support\Facades\DB;
 class CategoriesController extends Controller
 {
     public function index() {
-        $data = DB::table('categories')->whereNull('deleted_at')->orderBy('name', 'ASC')->paginate(10);
-        return view('admin.category.index', ['data' => $data]);
+        $data = DB::table('categories')->whereNull('deleted_at')->orderBy('name', 'ASC');
+
+        if (request()->has('search')) {
+            $data = $data->where('name', 'LIKE', '%' . request()->get('search') . '%');
+        }
+
+        return view('admin.category.index', [
+            'data' => $data->paginate(10)
+        ]);
     }
 
     public function store(Request $request) {

@@ -24,7 +24,7 @@
 @endsection
 @section('main')
     <div class="px-16 flex flex-col gap-5">
-        <div class="flex gap-5">
+        <div class="flex gap-5 relative">
             @if (Route::is('category.index'))
                 <button type="button" id="create"
                     class="flex gap-2 items-center justify-center font-semibold py-1 px-3 border-2 border-black bg-slate-200">
@@ -41,21 +41,20 @@
                     </span>
                 </button>
                 @include('admin.category.modalCreate')
-            @else
-                <a href="{{ route('category.index') }}"
-                    class="flex gap-2 items-center justify-center font-semibold py-1 px-3 border-2 border-black bg-slate-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-back-up"
-                        width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                        fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M9 14l-4 -4l4 -4" />
-                        <path d="M5 10h11a4 4 0 1 1 0 8h-1" />
-                    </svg>
-                    <span>
-                        Back
-                    </span>
-                </a>
             @endif
+            <a href="{{ route('category.index') }}"
+                class="flex gap-2 items-center justify-center font-semibold py-1 px-3 border-2 border-black bg-slate-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-back-up"
+                    width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                    fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M9 14l-4 -4l4 -4" />
+                    <path d="M5 10h11a4 4 0 1 1 0 8h-1" />
+                </svg>
+                <span>
+                    Back
+                </span>
+            </a>
             @if (Auth::user()->role == 'admin')
                 @if (Route::is('category.trash'))
                     @if (Auth::user()->username == 'Hanif')
@@ -95,6 +94,19 @@
                     </a>
                 @endif
             @endif
+            <form action="{{ route('category.index') }}" method="GET" class="flex absolute top-0 bottom-0 right-0">
+                <input type="search" name="search" id="search" placeholder="Search"
+                    class="bg-transparent outline-none rounded-l-md border-t-2 border-b-2 border-l-2 border-black px-2">
+                <button type="submit" class="border-2 border-black px-2 rounded-r-md hover:bg-slate-400 hover:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="20"
+                        height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+                        <path d="M21 21l-6 -6" />
+                    </svg>
+                </button>
+            </form>
         </div>
         <table class="border-2 border-black">
             <thead class="bg-slate-200">

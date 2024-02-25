@@ -111,8 +111,8 @@
                     <li class="border-2 border-slate-600">
                         <a href="" @class([
                             'font-mono h-full flex items-center py-3 px-6 gap-6',
-                            'bg-slate-400 text-slate-100' => 'route',
-                            'hover:bg-slate-400 hover:text-white' => !'route',
+                            'bg-slate-400 text-slate-100' => session('success'),
+                            'hover:bg-slate-400 hover:text-white',
                         ])>
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-report"
                                 width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"

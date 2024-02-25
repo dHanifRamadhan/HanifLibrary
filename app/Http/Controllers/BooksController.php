@@ -9,16 +9,30 @@ class BooksController extends Controller
 {
     public function index()
     {
-        $check = DB::table('categories')->whereNull('deleted_at')->count();
+        $mode = "default";
+        $sub = DB::table('full_category AS b')
+            ->rightJoin('categories AS c', 'b.category_id', '=', 'c.id')
+            ->select('b.book_id', DB::raw('GROUP_CONCAT(c.name) AS category_name'))
+            ->groupBy('b.book_id');
 
-        $data = DB::table('full_category AS a')
-            ->join('books AS b', 'a.book_id', '=', 'b.id')
-            ->join('categories AS c', 'a.category_id', '=', 'c.id')
-            ->select('b.*', DB::raw('GROUP_CONCAT(c.name) AS category'))
-            ->groupBy('a.book_id')
-            ->paginate(5);
+        $data = DB::table('books AS a')
+            ->leftJoinSub($sub, 'd', function ($query) {
+                $query->on('d.book_id', '=', 'a.id');
+            })
+            ->select('a.*', 'd.category_name')
+            ->whereNull('deleted_at');
 
-        return view('admin.book.index', ['check' => $check, 'data' => $data]);
+        if (request()->has('search')) {
+            $data = $data->where('title', 'LIKE', '%' . request()->get('search') . '%');
+        }
+
+        if ($mode == 'default') {
+            $data = $data->paginate(5);
+        } else {
+            $data = $data->paginate(10);
+        }
+
+        return view('admin.book.index', ['data' => $data, 'mode' => $mode]);
     }
 
     public function create()
@@ -114,14 +128,41 @@ class BooksController extends Controller
             'category' => 'required'
         ]);
 
-        $data = DB::table('full_category')->whereIn('category_id', $request->category)->get();
-
         $category = [];
         foreach ($request->category as $key => $value) {
-            $category[] = (object)[
-                'id' => $value
+            $category[] = [
+                'book_id' => $id,
+                'category_id' => $value,
+                'created_at' => now()
             ];
         }
-        dd($category);
+
+        DB::table('books')->whereNull('deleted_at')->where('id', $id)->update([
+            'title' => $request->title,
+            'author' => $request->author,
+            'publisher' => $request->publisher,
+            'year_published' => $request->year_published,
+            'qty' => $request->qty,
+            'updated_at' => now()
+        ]);
+
+        DB::table('full_category')->where('book_id', $id)->delete();
+        DB::table('full_category')->insert($category);
+
+        return redirect()->route('book.index')->with('success', (object)[
+            'title' => 'Successful',
+            'message' => 'Successfully updated books ' . $request->title . ' !'
+        ]);
+    }
+
+    public function delete($id) {
+        DB::table('books')->where('id', $id)->update([
+            'deleted_at' => now()
+        ]);
+
+        return redirect()->route('book.index')->with('success', (object)[
+            'title' => 'Successful',
+            'message' => 'Successfully deleted book!'
+        ]);
     }
 }
