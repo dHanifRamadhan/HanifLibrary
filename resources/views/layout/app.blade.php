@@ -8,7 +8,7 @@
     <title>@yield('title')</title>
     <link rel="icon" href="{{ asset('images/icon-books-login.png') }}">
     <link rel="preload" href="{{ asset('images/icon-books-login.png') }}" as="">
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @yield('preload')
     {{-- Contoh --}}
@@ -52,6 +52,22 @@
             /* Warna track scrollbar */
         }
 
+        .overflow-x-auto::-webkit-scrollbar {
+            height: 8px;
+            /* Safari dan Chrome */
+        }
+
+        .overflow-x-auto::-webkit-scrollbar-thumb {
+            border-radius: 20px;
+            background-color: #aaa;
+            /* Warna thumb scrollbar */
+        }
+
+        .overflow-x-auto::-webkit-scrollbar-track {
+            background-color: #eee;
+            /* Warna track scrollbar */
+        }
+
         @keyframes fadeInDown {
             from {
                 transform: translateY(-40px);
@@ -82,7 +98,8 @@
                     'border-red-600' => session('error'),
                 ])>
                     <div class="relative py-4 px-10 flex flex-col w-[24rem] gap-2">
-                        <h1 class="text-center font-semibold text-lg"> {{ session('success') ? session('success')->title : session('error')->title }} </h1>
+                        <h1 class="text-center font-semibold text-lg">
+                            {{ session('success') ? session('success')->title : session('error')->title }} </h1>
                         <span class="text-center text-sm">
                             {{ session('success') ? session('success')->message : session('error')->message }}
                         </span>
@@ -115,9 +132,13 @@
                 </div>
             @endif
         @endauth
-        {{-- <div class="h-screen ml-60 pt-[4rem]">
+
+        @if ((Auth::check() && Auth::user()->role == 'librarian') || Auth::check() != true)
+            @include('layout.navbars.guest')
+            <main class="h-screen w-screen bg-slate-400 bg-opacity-40 pt-[6.72rem] pb-5 overflow-y-scroll">
                 @yield('main')
-            </div> --}}
+            </main>
+        @endif
     @endif
     <script src="{{ asset('js/app.js') }}"></script>
 </body>

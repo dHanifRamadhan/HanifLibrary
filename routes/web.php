@@ -8,6 +8,7 @@ use App\Http\Controllers\BooksController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\OfficerController;
 use App\Mail\acceptEmailUsers;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,7 +23,8 @@ use Illuminate\Support\Facades\Route;
 */
 // Dashboard
 Route::get('/', function () {
-    return view('dashboard');
+    $data = DB::table('categories')->get();
+    return view('dashboard', ['data' => $data]);
 })->name('dashboard');
 Route::get('dashboard', function () {
     return redirect()->route('dashboard');
@@ -80,11 +82,11 @@ Route::group(['middleware' => ['auth', 'check.verified']], function () {
         Route::delete('category/delete/all', [CategoriesController::class, 'deleteAll'])->name('category.delete.all');
         Route::get('category/trash', [CategoriesController::class, 'trash'])->name('category.trash');
         Route::put('category/recive/{id}', [CategoriesController::class, 'recive'])->name('category.recive');
-        Route::get('category/required', function() {
+        Route::get('category/required', function () {
             return view('debug.categories-required');
         })->name('category.check');
 
-        Route::group(['middleware' => 'check.categories'], function() {
+        Route::group(['middleware' => 'check.categories'], function () {
             // Books
             Route::get('book', [BooksController::class, 'index'])->name('book.index');
             Route::get('book/create', [BooksController::class, 'create'])->name('book.create');
