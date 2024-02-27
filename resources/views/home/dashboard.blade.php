@@ -17,14 +17,16 @@
             </a>
         </div>
         <div class="mt-3 flex gap-5 overflow-x-auto w-full">
-            <a class="px-2w w-max">
+            <a class="px-2w w-max" href="">
                 <div class="h-max w-max flex items-center justify-center pt-4">
                     <div class="relative w-44 h-60 flex pb-8">
-                        <div class="w-5 rounded-tl-xl" style="background-color: #475569;" id="cover_right_color"></div>
-                        <div class="w-4/5 rounded-tr-xl flex items-start justify-end pb-2"
+                        <div class="w-5 rounded-tl-xl" style="background-color: #475569;"
+                            id="cover_right_color">
+                        </div>
+                        <div class="w-[8.75rem] rounded-tr-xl flex items-start justify-end pb-2"
                             style="background-color: #64748B;" id="cover_color">
-                            <img src="" class="w-full h-full rounded-tr-lg border-0" alt=""
-                                id="cover_image">
+                            <img src="https://i.pinimg.com/564x/0c/c1/c9/0cc1c92beccbd13d4ef2e4357e64a903.jpg"
+                                class="w-fit h-fit rounded-tr-xl border-0" alt="" id="cover_image">
                         </div>
                         <div class="absolute bottom-5 right-[0.95rem] left-0 rounded-lg h-6"
                             style="background-color: #1E293B" id="cover_bottom_color">
@@ -44,7 +46,7 @@
                         <span class="text-center font-semibold underline">
                             Bran
                         </span>
-                        <span class=" flex items-center justify-center text-yellow-300">
+                        <span class="flex items-center justify-center text-yellow-300 scale-75 mt-2 gap-1">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-star-filled"
                                 width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -85,6 +87,7 @@
                                 <path
                                     d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
                             </svg>
+                            <span class="text-xs ml-2 text-black">3.8</span>
                         </span>
                     </div>
                 </div>
@@ -165,4 +168,4 @@
             </a>
         </div>
     </div>
-    @include('home.books.detail')
+    {{-- @include('home.books.detail') --}}
