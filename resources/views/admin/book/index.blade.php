@@ -6,6 +6,13 @@
     @foreach ($data as $gambar)
         <link rel="preload" href="{{ asset('storage/' . $gambar->picture) }}" as="{{ $gambar->title }}">
     @endforeach
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+        }
+    </style>
 @endsection
 @section('main')
     <div class="mx-16 flex flex-col gap-4">
@@ -49,9 +56,12 @@
             </form>
         </div>
         @if ($mode == 'default')
-            @include('admin.book.card-index')
+        @include('admin.book.card-index')
         @else
-            @include('admin.book.table-index')
+        @include('admin.book.table-index')
         @endif
+        <div class="flex justify-center">
+            {{$data->links('pagination::tailwind')}}
+        </div>
     </div>
 @endsection

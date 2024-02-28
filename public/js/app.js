@@ -124,19 +124,11 @@ function showPassword() {
 
 function CurrentTime() {
     var currentTimeElement = document.getElementById('currentTime')
-    currentTimeElement.innerText = new Date().toLocaleTimeString()
+    currentTimeElement.innerText = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 }
+
 if (document.getElementById('currentTime')) {
     document.addEventListener('DOMContentLoaded', function () {
         setInterval(CurrentTime, 1000)
     });
 }
-
-function AutoRefresh() {
-    setTimeout(function() {
-        document.getElementById('refresh')
-        AutoRefresh()
-    }, 1000)
-}
-
-window.onload = AutoRefresh

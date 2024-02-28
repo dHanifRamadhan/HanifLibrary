@@ -121,6 +121,13 @@
     @if (Route::is('login') || Route::is('register') || Route::is('*.password'))
         @yield('main')
     @else
+        @if ((Auth::check() && Auth::user()->role == 'librarian') || Auth::check() != true)
+            @include('layout.navbars.guest')
+            <main class="h-screen w-screen bg-slate-400 bg-opacity-40 pt-[6.72rem] pb-5 overflow-y-scroll">
+                @yield('main')
+            </main>
+        @endif
+
         @auth
             @if (Auth::user()->role == 'admin' || Auth::user()->role == 'officer')
                 @include('layout.sidebars.admin')
@@ -133,12 +140,6 @@
             @endif
         @endauth
 
-        @if ((Auth::check() && Auth::user()->role == 'librarian') || Auth::check() != true)
-            @include('layout.navbars.guest')
-            <main class="h-screen w-screen bg-slate-400 bg-opacity-40 pt-[6.72rem] pb-5 overflow-y-scroll">
-                @yield('main')
-            </main>
-        @endif
     @endif
     <script src="{{ asset('js/app.js') }}"></script>
 </body>

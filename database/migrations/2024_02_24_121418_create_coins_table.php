@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->integer('qty');
             $table->bigInteger('price');
-            $table->text('desc');
             $table->string('picture');
 
             $table->timestamps();

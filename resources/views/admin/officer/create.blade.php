@@ -82,12 +82,12 @@
             </div>
             <div class="flex col-span-2 relative">
                 <label for="number" id="ln"
-                    class="text-sm text-slate-800 font-semibold bg-slate-100 absolute top-[0.55rem] left-4 px-1 py-0">Phone
+                    class="text-sm text-slate-800 font-semibold bg-slate-100 absolute top-[0.60rem] left-4 px-1 py-0">Phone
                     Number</label>
                 <input type="text" id="region" value="+62"
-                    class="w-[3.8rem] border-y-2 border-l-2 border-black rounded-l-md pl-5 pr-2 py-2" disabled>
+                    class="w-[3.8rem] border-y-2 border-l-2 border-black rounded-l-md pl-5 pr-2 py-2 bg-transparent border-0" disabled>
                 <input type="tel" name="number" id="number" onclick="Animasi('ln', 'number')"
-                    class="w-full px-5 py-2 rounded-r-md outline-none border-y-2 border-r-2 border-black bg-transparent text-sm pr-9"
+                    class="w-full px-5 py-2 rounded-r-md outline-none border-y-2 border-r-2 border-0 border-black bg-transparent text-sm pr-9"
                     required autocomplete="off">
                 <svg xmlns="http://www.w3.org/2000/svg" class="absolute top-[0.55rem] right-3 text-green-400 hidden"
                     id="cn" width="20" height="20" viewBox="0 0 24 24" stroke-width="2"
@@ -110,7 +110,7 @@
             </div>
             <div class="flex col-span-2 relative gap-6">
                 <input type="file" name="image" id="image"
-                    class="w-full px-5 py-2 rounded-md outline-none border-y-2 border-2 border-black bg-transparent text-sm pr-9">
+                    class="w-full rounded-md outline-none border-y-2 border-2 border-black text-sm pr-9 ">
                 <div class="items-center justify-center hidden" id="divP">
                     <img src="" alt="" class="rounded-full w-20 h-20 border-2 border-black hidden"
                         id="preview">

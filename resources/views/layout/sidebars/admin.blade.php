@@ -12,135 +12,159 @@
         </div>
         <div class="h-5/6 w-52 p-2">
             <div class="h-full">
-                <ul class="h-full py-8 flex flex-col gap-6 relative">
-                    <li class="border-2 border-slate-600">
-                        <a href="{{ route('dashboard') }}" @class([
-                            'font-mono h-full flex items-center py-3 px-6 gap-6',
-                            'bg-slate-400 text-slate-100' => Route::is('dashboard'),
-                            'hover:bg-slate-400 hover:text-white' => !Route::is('dashboard'),
-                        ])>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chart-treemap"
-                                width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                                fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path
-                                    d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
-                                <path d="M12 4v16" />
-                                <path d="M4 15h8" />
-                                <path d="M12 12h8" />
-                                <path d="M16 12v8" />
-                                <path d="M16 16h4" />
-                            </svg>
-                            <span class="font-semibold">
-                                Home
-                            </span>
-                        </a>
-                    </li>
-                    @auth
-                        @if (Auth::user()->role == 'admin')
-                            <li class="border-2 border-slate-600">
-                                <a href="{{ route('officer.index') }}" @class([
-                                    'font-mono h-full flex items-center py-3 px-6 gap-6',
-                                    'bg-slate-400 text-slate-100' => Route::is('officer.*'),
-                                    'hover:bg-slate-400 hover:text-white' => !Route::is('officer.*'),
-                                ])>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-coffee"
-                                        width="20" height="20" viewBox="0 0 24 24" stroke-width="2"
-                                        stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path
-                                            d="M3 14c.83 .642 2.077 1.017 3.5 1c1.423 .017 2.67 -.358 3.5 -1c.83 -.642 2.077 -1.017 3.5 -1c1.423 -.017 2.67 .358 3.5 1" />
-                                        <path d="M8 3a2.4 2.4 0 0 0 -1 2a2.4 2.4 0 0 0 1 2" />
-                                        <path d="M12 3a2.4 2.4 0 0 0 -1 2a2.4 2.4 0 0 0 1 2" />
-                                        <path d="M3 10h14v5a6 6 0 0 1 -6 6h-2a6 6 0 0 1 -6 -6v-5z" />
-                                        <path d="M16.746 16.726a3 3 0 1 0 .252 -5.555" />
-                                    </svg>
-                                    <span class="font-semibold">
-                                        Officer
-                                    </span>
-                                </a>
-                            </li>
-                        @endif
-                    @endauth
-                    <li class="border-2 border-slate-600">
-                        <a href="{{ route('category.index') }}" @class([
-                            'font-mono h-full flex items-center py-3 px-6 gap-6',
-                            'bg-slate-400 text-slate-100' => Route::is('category.*'),
-                            'hover:bg-slate-400 hover:text-white' => !Route::is('category.*'),
-                        ])>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-category"
-                                width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M4 4h6v6h-6z" />
-                                <path d="M14 4h6v6h-6z" />
-                                <path d="M4 14h6v6h-6z" />
-                                <path d="M17 17m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-                            </svg>
-                            <span class="font-semibold">
-                                Category
-                            </span>
-                        </a>
-                    </li>
-                    <li class="border-2 border-slate-600">
-                        <a href="{{ route('book.index') }}" @class([
-                            'font-mono h-full flex items-center py-3 px-6 gap-6',
-                            'bg-slate-400 text-slate-100' => Route::is('book.*'),
-                            'hover:bg-slate-400 hover:text-white' => !Route::is('book.*'),
-                        ])>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-books"
-                                width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                                fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path
-                                    d="M5 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
-                                <path
-                                    d="M9 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
-                                <path d="M5 8h4" />
-                                <path d="M9 16h4" />
-                                <path
-                                    d="M13.803 4.56l2.184 -.53c.562 -.135 1.133 .19 1.282 .732l3.695 13.418a1.02 1.02 0 0 1 -.634 1.219l-.133 .041l-2.184 .53c-.562 .135 -1.133 -.19 -1.282 -.732l-3.695 -13.418a1.02 1.02 0 0 1 .634 -1.219l.133 -.041z" />
-                                <path d="M14 9l4 -1" />
-                                <path d="M16 16l3.923 -.98" />
-                            </svg>
-                            <span class="font-semibold">
-                                Books
-                            </span>
-                        </a>
-                    </li>
-                    <li class="border-2 border-slate-600">
-                        <a href="" @class([
-                            'font-mono h-full flex items-center py-3 px-6 gap-6',
-                            'bg-slate-400 text-slate-100' => session('success'),
-                            'hover:bg-slate-400 hover:text-white',
-                        ])>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-report"
-                                width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                                fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M8 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h5.697" />
-                                <path d="M18 14v4h4" />
-                                <path d="M18 11v-4a2 2 0 0 0 -2 -2h-2" />
-                                <path
-                                    d="M8 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
-                                <path d="M18 18m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
-                                <path d="M8 11h4" />
-                                <path d="M8 15h3" />
-                            </svg>
-                            <span class="font-semibold">
-                                Report
-                            </span>
-                        </a>
-                    </li>
+                <ul class="h-full py-8 flex flex-col justify-between relative">
+                    <div class="flex flex-col gap-6 h-[27rem] w-full overflow-y-scroll">
+                        <li class="border-2 border-slate-600">
+                            <a href="{{ route('dashboard') }}" @class([
+                                'font-mono h-full flex items-center py-3 px-6 gap-6',
+                                'bg-slate-400 text-slate-100' => Route::is('dashboard'),
+                                'hover:bg-slate-400 hover:text-white' => !Route::is('dashboard'),
+                            ])>
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="icon icon-tabler icon-tabler-chart-treemap" width="20" height="20"
+                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path
+                                        d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
+                                    <path d="M12 4v16" />
+                                    <path d="M4 15h8" />
+                                    <path d="M12 12h8" />
+                                    <path d="M16 12v8" />
+                                    <path d="M16 16h4" />
+                                </svg>
+                                <span class="font-semibold">
+                                    Home
+                                </span>
+                            </a>
+                        </li>
+                        @auth
+                            @if (Auth::user()->role == 'admin')
+                                <li class="border-2 border-slate-600">
+                                    <a href="{{ route('officer.index') }}" @class([
+                                        'font-mono h-full flex items-center py-3 px-6 gap-6',
+                                        'bg-slate-400 text-slate-100' => Route::is('officer.*'),
+                                        'hover:bg-slate-400 hover:text-white' => !Route::is('officer.*'),
+                                    ])>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-coffee"
+                                            width="20" height="20" viewBox="0 0 24 24" stroke-width="2"
+                                            stroke="currentColor" fill="none" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path
+                                                d="M3 14c.83 .642 2.077 1.017 3.5 1c1.423 .017 2.67 -.358 3.5 -1c.83 -.642 2.077 -1.017 3.5 -1c1.423 -.017 2.67 .358 3.5 1" />
+                                            <path d="M8 3a2.4 2.4 0 0 0 -1 2a2.4 2.4 0 0 0 1 2" />
+                                            <path d="M12 3a2.4 2.4 0 0 0 -1 2a2.4 2.4 0 0 0 1 2" />
+                                            <path d="M3 10h14v5a6 6 0 0 1 -6 6h-2a6 6 0 0 1 -6 -6v-5z" />
+                                            <path d="M16.746 16.726a3 3 0 1 0 .252 -5.555" />
+                                        </svg>
+                                        <span class="font-semibold">
+                                            Officer
+                                        </span>
+                                    </a>
+                                </li>
+                            @endif
+                        @endauth
+                        <li class="border-2 border-slate-600">
+                            <a href="{{ route('category.index') }}" @class([
+                                'font-mono h-full flex items-center py-3 px-6 gap-6',
+                                'bg-slate-400 text-slate-100' => Route::is('category.*'),
+                                'hover:bg-slate-400 hover:text-white' => !Route::is('category.*'),
+                            ])>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-category"
+                                    width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5"
+                                    stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M4 4h6v6h-6z" />
+                                    <path d="M14 4h6v6h-6z" />
+                                    <path d="M4 14h6v6h-6z" />
+                                    <path d="M17 17m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+                                </svg>
+                                <span class="font-semibold">
+                                    Category
+                                </span>
+                            </a>
+                        </li>
+                        <li class="border-2 border-slate-600">
+                            <a href="{{ route('book.index') }}" @class([
+                                'font-mono h-full flex items-center py-3 px-6 gap-6',
+                                'bg-slate-400 text-slate-100' => Route::is('book.*'),
+                                'hover:bg-slate-400 hover:text-white' => !Route::is('book.*'),
+                            ])>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-books"
+                                    width="20" height="20" viewBox="0 0 24 24" stroke-width="2"
+                                    stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path
+                                        d="M5 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+                                    <path
+                                        d="M9 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+                                    <path d="M5 8h4" />
+                                    <path d="M9 16h4" />
+                                    <path
+                                        d="M13.803 4.56l2.184 -.53c.562 -.135 1.133 .19 1.282 .732l3.695 13.418a1.02 1.02 0 0 1 -.634 1.219l-.133 .041l-2.184 .53c-.562 .135 -1.133 -.19 -1.282 -.732l-3.695 -13.418a1.02 1.02 0 0 1 .634 -1.219l.133 -.041z" />
+                                    <path d="M14 9l4 -1" />
+                                    <path d="M16 16l3.923 -.98" />
+                                </svg>
+                                <span class="font-semibold">
+                                    Books
+                                </span>
+                            </a>
+                        </li>
+                        <li class="border-2 border-slate-600">
+                            <a href="{{route('coin.index')}}" @class([
+                                'font-mono h-full flex items-center py-3 px-6 gap-6',
+                                'bg-slate-400 text-slate-100' => Route::is('coin.*'),
+                                'hover:bg-slate-400 hover:text-white' => !Route::is('coin.*'),
+                            ])>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-coin"
+                                    width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5"
+                                    stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+                                    <path
+                                        d="M14.8 9a2 2 0 0 0 -1.8 -1h-2a2 2 0 1 0 0 4h2a2 2 0 1 1 0 4h-2a2 2 0 0 1 -1.8 -1" />
+                                    <path d="M12 7v10" />
+                                </svg>
+                                <span>
+                                    Coins
+                                </span>
+                            </a>
+                        </li>
+                        <li class="border-2 border-slate-600">
+                            <a href="" @class([
+                                'font-mono h-full flex items-center py-3 px-6 gap-6',
+                                'bg-slate-400 text-slate-100' => session('asdasd'),
+                                'hover:bg-slate-400 hover:text-white',
+                            ])>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-report"
+                                    width="20" height="20" viewBox="0 0 24 24" stroke-width="2"
+                                    stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M8 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h5.697" />
+                                    <path d="M18 14v4h4" />
+                                    <path d="M18 11v-4a2 2 0 0 0 -2 -2h-2" />
+                                    <path
+                                        d="M8 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
+                                    <path d="M18 18m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+                                    <path d="M8 11h4" />
+                                    <path d="M8 15h3" />
+                                </svg>
+                                <span class="font-semibold">
+                                    Report
+                                </span>
+                            </a>
+                        </li>
+                    </div>
                     <li
-                        class="border-2 border-slate-600 absolute -bottom-2 left-0 right-0 hover:bg-slate-400 hover:text-white">
+                        class="border-2 border-slate-600 hover:bg-slate-400 hover:text-white absolute bottom-0 left-0 right-0">
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
                             <button type="submit" class="font-mono h-full flex items-center py-3 px-6 gap-6">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-back"
-                                    width="20" height="20" viewBox="0 0 24 24" stroke-width="2"
-                                    stroke="currentColor" fill="none" stroke-linecap="round"
-                                    stroke-linejoin="round">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="icon icon-tabler icon-tabler-arrow-back" width="20" height="20"
+                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                     <path d="M9 11l-4 4l4 4m-4 -4h11a4 4 0 0 0 0 -8h-1" />
                                 </svg>

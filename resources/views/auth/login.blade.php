@@ -20,13 +20,13 @@
                     class="flex flex-col justify-center w-full h-full gap-5">
                     @csrf
                     <div class="flex flex-col relative">
-                        <select name="choose" id="choose" class="text-sm font-mono bg-transparent outline-none w-24"
+                        <select name="choose" id="choose" class="text-xs font-mono bg-transparent outline-none border-0 w-max p-0 "
                             onclick="Choose()">
                             <option value="username" class="font-mono">Username</option>
                             <option value="email" class="font-mono">email</option>
                         </select>
                         <input type="text" id="inputAccount" name="inputAccount" oninput="Account()"
-                            class="bg-transparent border-b-2 border-slate-500 outline-none py-1 px-2 text-sm" required>
+                            class="bg-transparent border-b border-0 border-slate-500 py-1 px-2 text-sm" required>
                         <svg xmlns="http://www.w3.org/2000/svg" id="check"
                             class="hidden absolute bottom-0 right-0 text-green-500" width="24" height="24"
                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
@@ -38,7 +38,7 @@
                     <div class="flex flex-col relative">
                         <label for="" class="text-xs underline font-mono">Password</label>
                         <input type="password" id="password" name="password"
-                            class="bg-transparent border-b-2 border-slate-500 outline-none py-1 px-2 text-sm" required>
+                            class="bg-transparent border-b border-slate-500 outline-none py-1 px-2 text-sm border-0" required>
                         <svg xmlns="http://www.w3.org/2000/svg" id="showPassword" onclick="showPassword()"
                             class="absolute bottom-1 right-0 text-red-600 cursor-pointer hidden" width="21"
                             height="21" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"

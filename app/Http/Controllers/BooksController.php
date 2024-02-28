@@ -27,7 +27,7 @@ class BooksController extends Controller
         }
 
         if ($mode == 'default') {
-            $data = $data->paginate(5);
+            $data = $data->paginate(3);
         } else {
             $data = $data->paginate(10);
         }
@@ -114,6 +114,22 @@ class BooksController extends Controller
         return redirect()->route('book.index')->with('success', (object)[
             'title' => 'Successful',
             'message' => 'Book added successfully!'
+        ]);
+    }
+
+    public function updateStock($id, Request $request)
+    {
+        $this->validate($request, [
+            'qty' => 'required|numeric'
+        ]);
+
+        DB::table('books')->where('id', $id)->update([
+            'qty' => $request->qty
+        ]);
+
+        return redirect()->route('book.index')->with('success', (object)[
+            'title' => 'Successful',
+            'message' => 'Successfully update stock'
         ]);
     }
 

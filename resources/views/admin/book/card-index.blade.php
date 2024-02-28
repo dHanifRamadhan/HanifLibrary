@@ -64,11 +64,13 @@
                     </div>
                     <div class="text-right flex flex-col items-end">
                         <span>Available</span>
-                        <div class="flex gap-1">
-                            <input type="text" value="{{ $value->qty }}" id="qtyInput"
-                                class="text-right bg-transparent outline-none">
-                            <span>Pcs</span>
-                        </div>
+                        <form action="{{route('book.stock', $value->id)}}" method="POST" class="flex items-center">
+                            @csrf
+                            @method('PUT')
+                            <input type="number" name="qty" value="{{ $value->qty }}" id="qtyInput"
+                                class="text-right bg-transparent outline-none border-0 p-0 pr-1" min="0">
+                            <button type="submit">Pcs</button>
+                        </form>
                     </div>
                     <div class="flex justify-end gap-2 px-3 col-span-3">
                         <form action="{{route('book.delete', $value->id)}}" method="POST" class="flex gap-2">

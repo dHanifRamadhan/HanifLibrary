@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\registerController;
 use App\Http\Controllers\Auth\forgotPasswordController;
 use App\Http\Controllers\BooksController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\CoinsController;
 use App\Http\Controllers\OfficerController;
 use App\Mail\acceptEmailUsers;
 use Illuminate\Support\Facades\DB;
@@ -29,6 +30,10 @@ Route::get('/', function () {
 Route::get('dashboard', function () {
     return redirect()->route('dashboard');
 });
+
+Route::get('detail', function() {
+    return view('home.books.detail');
+})->name('details.book');
 
 // Route group untuk form user yang belum login
 Route::group(['middleware' => 'guest'], function () {
@@ -93,8 +98,12 @@ Route::group(['middleware' => ['auth', 'check.verified']], function () {
             Route::post('book', [BooksController::class, 'store'])->name('book.store');
             Route::get('book/show/{id}', [BooksController::class, 'show'])->name('book.show');
             Route::put('book/update/{id}', [BooksController::class, 'update'])->name('book.update');
+            Route::put('book/stock/{id}', [BooksController::class, 'updateStock'])->name('book.stock');
             Route::delete('book/delete/{id}', [BooksController::class, 'delete'])->name('book.delete');
         });
+
+        // Coins
+        Route::get('coins', [CoinsController::class, 'index'])->name('coin.index');
     });
 
     // Route group untuk form user dengan role librarian

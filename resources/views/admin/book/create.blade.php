@@ -183,25 +183,25 @@
             <div class=" grid grid-cols-2 gap-3">
                 <div class="col-span-2 py-4 px-5 relative flex">
                     <input type="text" name="title" id="title" placeholder="Title"
-                        class="bg-transparent outline-none border-b-2 border-black py-2 px-1 text-2xl font-semibold text-center"
+                        class="bg-transparent outline-none border-b border-0 border-black py-2 px-1 text-2xl font-semibold text-center"
                         required value="{{ Route::is('book.create') ? '' : $data->title }}">
                 </div>
                 <div class="flex flex-col gap-1">
                     <label for="author" class="font-semibold">Author :</label>
                     <input type="text" name="author" id="author"
-                        class="mx-2 mr-28 outline-none bg-transparent border-b-2 border-black" required
+                        class="mx-2 mr-28 outline-none bg-transparent border-b border-0 border-black" required
                         value="{{ Route::is('book.create') ? '' : $data->author }}">
                 </div>
                 <div class="flex gap-2 justify-end">
                     <label for="" class="font-semibold">Year Published :</label>
-                    <input type="date" name="year_published" class="bg-transparent h-max mx-2 outline-none" required
+                    <input type="date" name="year_published" class="bg-transparent h-max mx-2 outline-none border-0 p-0" required
                         value="{{ Route::is('book.create') ? '' : $data->year_published }}">
                 </div>
                 <div class="col-span-2 flex flex-col gap-1">
                     <label for="publisher" class="font-semibold">Publisher :</label>
                     <input type="text" name="publisher" id="publisher"
                         value="{{ Route::is('book.create') ? '' : $data->publisher }}"
-                        class="bg-transparent outline-none border-b-2 border-black mx-2 mr-[29.8rem]" required>
+                        class="bg-transparent outline-none border-b-2 border-black mx-2 mr-[29.8rem] border-0" required>
                 </div>
                 <div class="flex flex-col gap-1">
                     <label for="category" class="font-semibold">Category :</label>
@@ -220,9 +220,9 @@
                 </div>
                 <div class="flex flex-col items-end gap-1 px-2">
                     <label for="stock" class="font-semibold">Stock :</label>
-                    <input type="number" name="qty" id="stock"
+                    <input type="number" name="qty" min="0" id="stock"
                         value="{{ Route::is('book.create') ? '' : $data->qty }}"
-                        class="bg-transparent outline-none border-b-2 border-black text-right" required>
+                        class="bg-transparent outline-none border-b-2 border-black text-right border-0" required>
                 </div>
                 @if (Route::is('book.create'))
                     <div class="col-span-2 flex flex-col gap-3 mt-1">
