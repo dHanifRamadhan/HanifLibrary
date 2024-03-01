@@ -4,6 +4,8 @@
 // ==========================
 // 
 
+// const { document } = require("postcss");
+
 document.addEventListener('DOMContentLoaded', function () {
     var checkLevelPassword = document.getElementsByClassName('check-level-password');
 
@@ -132,3 +134,54 @@ if (document.getElementById('currentTime')) {
         setInterval(CurrentTime, 1000)
     });
 }
+
+if (document.getElementById('price')) {
+    document.getElementById('price').addEventListener('input', function (e) {
+        var input = e.target
+
+        input.value = input.value.replace(/\D/g, '')
+    })
+}
+
+if (document.getElementById('create')) {
+    document.getElementById('create').addEventListener('click', function () {
+        var modal = document.getElementById('modal')
+        modal.classList.remove('hidden')
+        modal.classList.add('flex')
+    })
+}
+
+if (document.getElementById('close')) {
+    document.getElementById('close').addEventListener('click', function () {
+        var modal = document.getElementById('modal')
+        modal.classList.remove('flex')
+        modal.classList.add('hidden')
+    })
+}
+
+if (document.getElementById('moneyIndonesia')) {
+    const moneyIndonesiaSpans = document.querySelectorAll('[id^="moneyIndonesia"]');
+
+    moneyIndonesiaSpans.forEach(span => {
+        const originValue = span.innerText;
+        const formatValue = formatIndonesiaCurrency(originValue);
+        span.innerText = formatValue;
+    });
+
+    function formatIndonesiaCurrency(value) {
+        return Number(value).toLocaleString('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 2
+        });
+    }
+}
+
+// if (document.getElementById('refresh')) {
+//     addEventListener('DOMContentLoaded', function () {
+//         setInterval(function () {
+//             var refresh = document.getElementById('refresh')
+//             refresh.innerHTML = refresh.innerHTML
+//         }, 1000);
+//     })
+// }

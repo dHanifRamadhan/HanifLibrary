@@ -4,6 +4,12 @@
     Dashboard
 @endsection
 
+@section('preload')
+    @foreach ($books as $key => $value)
+        <link rel="preload" href="{{ asset('storage/' . $value->picture) }}">
+    @endforeach
+@endsection
+
 @section('main')
     {{-- Admin || Officer --}}
     @auth

@@ -7,7 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title')</title>
     <link rel="icon" href="{{ asset('images/icon-books-login.png') }}">
-    <link rel="preload" href="{{ asset('images/icon-books-login.png') }}" as="">
+    <link rel="preload" href="{{ asset('images/icon-books-login.png') }}">
+    <link rel="preload" href="{{ asset('js/app.js') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @yield('preload')
@@ -52,18 +53,18 @@
             /* Warna track scrollbar */
         }
 
-        .overflow-x-auto::-webkit-scrollbar {
+        .overflow-x-scroll::-webkit-scrollbar {
             height: 8px;
             /* Safari dan Chrome */
         }
 
-        .overflow-x-auto::-webkit-scrollbar-thumb {
+        .overflow-x-scroll::-webkit-scrollbar-thumb {
             border-radius: 20px;
             background-color: #aaa;
             /* Warna thumb scrollbar */
         }
 
-        .overflow-x-auto::-webkit-scrollbar-track {
+        .overflow-x-scroll::-webkit-scrollbar-track {
             background-color: #eee;
             /* Warna track scrollbar */
         }

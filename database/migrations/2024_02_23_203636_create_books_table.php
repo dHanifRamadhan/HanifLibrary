@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('publisher');
             $table->date('year_published');
             $table->integer('qty')->unsigned()->default(0);
+            $table->bigInteger('price')->unsigned();
             $table->enum('status', ['available','unavailable'])->default('available');
 
             // Coloring Picture

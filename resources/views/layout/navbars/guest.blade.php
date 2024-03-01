@@ -25,7 +25,7 @@
         <div class="w-full flex flex-wrap justify-end gap-3">
             <form action="{{ route('dashboard') }}" method="GET" class="flex items-center">
                 <input type="search" name="search"
-                    class="h-[1.9rem] px-2 py-1 text-xs rounded-l-md outline-none w-[24rem]">
+                    class="h-[1.9rem] px-2 py-1 text-xs rounded-l-md outline-none w-[24rem]" placeholder="search...">
                 <button type="submit"
                     class="px-2 bg-slate-100 h-[1.9rem] rounded-r-md border-black border-t-[1px] border-r-[1px] border-b-[1px]">
                     <svg xmlns="http://www.w3.org/2000/svg" class="" width="16" height="16"
@@ -37,41 +37,74 @@
                     </svg>
                 </button>
             </form>
-            <a href="" class="flex items-center gap-2 font-bold">
-                <svg xmlns="http://www.w3.org/2000/svg" class="text-yellow-400" width="21" height="21"
-                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M9 14c0 1.657 2.686 3 6 3s6 -1.343 6 -3s-2.686 -3 -6 -3s-6 1.343 -6 3z" />
-                    <path d="M9 14v4c0 1.656 2.686 3 6 3s6 -1.344 6 -3v-4" />
-                    <path
-                        d="M3 6c0 1.072 1.144 2.062 3 2.598s4.144 .536 6 0c1.856 -.536 3 -1.526 3 -2.598c0 -1.072 -1.144 -2.062 -3 -2.598s-4.144 -.536 -6 0c-1.856 .536 -3 1.526 -3 2.598z" />
-                    <path d="M3 6v10c0 .888 .772 1.45 2 2" />
-                    <path d="M3 11c0 .888 .772 1.45 2 2" />
-                </svg>
-                <span class="text-xs text-yellow-400 font-mono">
-                    100
-                </span>
-            </a>
-            <div class="flex items-center">
-                <a href=""
-                    class="relative ring-gray-400 ring-2 rounded-full p-[0.4rem] w-8 h-8 flex justify-center items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="text-slate-400" width="18" height="18"
-                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
-                        stroke-linecap="round" stroke-linejoin="round">
+            @auth
+                <a href="" @class([
+                    'flex items-center gap-2 font-bold mr-6 my-[0.4rem] px-2',
+                    'border border-black rounded-md bg-slate-400 bg-opacity-25 text-orange-500 text-opacity-85' => Route::is(
+                        'topup'),
+                    'text-orange-400 text-opacity-85' => !Route::is('topup'),
+                ])>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24"
+                        stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round"
+                        stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M9 14c0 1.657 2.686 3 6 3s6 -1.343 6 -3s-2.686 -3 -6 -3s-6 1.343 -6 3z" />
+                        <path d="M9 14v4c0 1.656 2.686 3 6 3s6 -1.344 6 -3v-4" />
                         <path
-                            d="M6 2a1 1 0 0 1 .993 .883l.007 .117v1.068l13.071 .935a1 1 0 0 1 .929 1.024l-.01 .114l-1 7a1 1 0 0 1 -.877 .853l-.113 .006h-12v2h10a3 3 0 1 1 -2.995 3.176l-.005 -.176l.005 -.176c.017 -.288 .074 -.564 .166 -.824h-5.342a3 3 0 1 1 -5.824 1.176l-.005 -.176l.005 -.176a3.002 3.002 0 0 1 1.995 -2.654v-12.17h-1a1 1 0 0 1 -.993 -.883l-.007 -.117a1 1 0 0 1 .883 -.993l.117 -.007h2zm0 16a1 1 0 1 0 0 2a1 1 0 0 0 0 -2zm11 0a1 1 0 1 0 0 2a1 1 0 0 0 0 -2z"
-                            stroke-width="0" fill="currentColor" />
+                            d="M3 6c0 1.072 1.144 2.062 3 2.598s4.144 .536 6 0c1.856 -.536 3 -1.526 3 -2.598c0 -1.072 -1.144 -2.062 -3 -2.598s-4.144 -.536 -6 0c-1.856 .536 -3 1.526 -3 2.598z" />
+                        <path d="M3 6v10c0 .888 .772 1.45 2 2" />
+                        <path d="M3 11c0 .888 .772 1.45 2 2" />
                     </svg>
-                    <span class="rounded-full bg-green-500 w-3 h-3 absolute -bottom-1 right-0 ">
+                    <span class="text-xs font-mono">
+                        @php
+                            $coins = [];
+                            if (Auth::check()) {
+                                $coins = DB::table('user_coins')
+                                    ->where('user_id', Auth::user()->id)
+                                    ->first();
+                            }
+                        @endphp
+                        {{ $coins == null ? '0' : $coins->save_coins }}
                     </span>
                 </a>
-            </div>
-            @auth
+                <div class="flex items-center">
+                    <a href=""
+                        class="relative ring-gray-400 ring-2 rounded-full p-[0.4rem] w-8 h-8 flex justify-center items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="text-slate-400" width="18" height="18"
+                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path
+                                d="M6 2a1 1 0 0 1 .993 .883l.007 .117v1.068l13.071 .935a1 1 0 0 1 .929 1.024l-.01 .114l-1 7a1 1 0 0 1 -.877 .853l-.113 .006h-12v2h10a3 3 0 1 1 -2.995 3.176l-.005 -.176l.005 -.176c.017 -.288 .074 -.564 .166 -.824h-5.342a3 3 0 1 1 -5.824 1.176l-.005 -.176l.005 -.176a3.002 3.002 0 0 1 1.995 -2.654v-12.17h-1a1 1 0 0 1 -.993 -.883l-.007 -.117a1 1 0 0 1 .883 -.993l.117 -.007h2zm0 16a1 1 0 1 0 0 2a1 1 0 0 0 0 -2zm11 0a1 1 0 1 0 0 2a1 1 0 0 0 0 -2z"
+                                stroke-width="0" fill="currentColor" />
+                        </svg>
+                        <span class="rounded-full bg-green-500 w-3 h-3 absolute -bottom-1 right-0 ">
+                        </span>
+                    </a>
+                </div>
+                @if (Auth::user()->profile != null)
+                    <img class="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
+                        src="{{ asset('storage/users/' . Auth::user()->profile) }}" alt="Bordered avatar">
+                @else
+                    <a href="" class="w-10 flex items-center bg-slate-">
+                        <div class="w-9 h-9 p-1 rounded-full ring-[1px] ring-gray-400 flex items-center justify-center">
+                            <div class="w-full h-full rounded-full ring-2 ring-gray-300 flex items-center justify-center">
+                                <span class="font-bold">
+                                    {{ substr(Auth::user()->username, 0, 1) }}
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                @endif
             @else
-                <img class="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
-                    src="https://placehold.co/100x100" alt="Bordered avatar">
+                <a href="{{ route('login') }}"
+                    class="border border-black rounded-md text-xs my-[0.4rem] px-5 flex items-center">
+                    Login
+                </a>
+                <a href="{{ route('register') }}"
+                    class="border border-black rounded-md text-xs my-[0.4rem] px-5 flex items-center">
+                    Register
+                </a>
             @endauth
         </div>
     </div>
