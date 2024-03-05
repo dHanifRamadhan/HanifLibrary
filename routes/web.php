@@ -23,91 +23,153 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+
 // Dashboard
-Route::get('dashboard/{search?}', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/', function () {
-    return redirect()->route('dashboard');
-});
+// Route::get('dashboard/{search?}', [DashboardController::class, 'index'])->name('dashboard');
+// Route::get('/', function () {
+//     return redirect()->route('dashboard');
+// });
 
-Route::get('detail/{id}', [DashboardController::class, 'detail'])->name('details.book');
+// Route::get('detail/{id}', [DashboardController::class, 'detail'])->name('details.book');
 
-// Route group untuk form user yang belum login
-Route::group(['middleware' => 'guest'], function () {
-    // Login
-    Route::get('login', [loginController::class, 'login'])->name('login');
-    Route::post('login', [loginController::class, 'authLogin'])->name('auth.login');
+// // Route group untuk form user yang belum login
+// Route::group(['middleware' => 'guest'], function () {
+//     // Login
+//     Route::get('login', [loginController::class, 'login'])->name('login');
+//     Route::post('login', [loginController::class, 'authLogin'])->name('auth.login');
 
-    // Forgot Password
-    Route::get('forgot-password', [forgotPasswordController::class, 'index'])->name('forgot.password');
-    Route::post('forgot-password/send', [forgotPasswordController::class, 'setToken'])->name('set-token.passoword');
-    Route::get('forgot-password/verified/{id}', [forgotPasswordController::class, 'check'])->name('verified.password');
-    Route::post('forgot-password/verified/{id}', [forgotPasswordController::class, 'checkToken'])->name('verified-token.password');
-    Route::get('change/password/{id}', [forgotPasswordController::class, 'change'])->name('change-input.password');
-    Route::post('change/password/{id}', [forgotPasswordController::class, 'changePassword'])->name('change.password');
+//     // Forgot Password
+//     Route::get('forgot-password', [forgotPasswordController::class, 'index'])->name('forgot.password');
+//     Route::post('forgot-password/send', [forgotPasswordController::class, 'setToken'])->name('set-token.passoword');
+//     Route::get('forgot-password/verified/{id}', [forgotPasswordController::class, 'check'])->name('verified.password');
+//     Route::post('forgot-password/verified/{id}', [forgotPasswordController::class, 'checkToken'])->name('verified-token.password');
+//     Route::get('change/password/{id}', [forgotPasswordController::class, 'change'])->name('change-input.password');
+//     Route::post('change/password/{id}', [forgotPasswordController::class, 'changePassword'])->name('change.password');
 
-    // Register
-    Route::get('register', [registerController::class, 'register'])->name('register');
-    Route::post('register', [registerController::class, 'authRegister'])->name('auth.register');
+//     // Register
+//     Route::get('register', [registerController::class, 'register'])->name('register');
+//     Route::post('register', [registerController::class, 'authRegister'])->name('auth.register');
 
-    // Accept Email
-    Route::get('accept-email-verification/{id}', [acceptEmailController::class, 'emailVerified'])->name('accept.email.verification');
-});
+//     // Accept Email
+//     Route::get('accept-email-verification/{id}', [acceptEmailController::class, 'emailVerified'])->name('accept.email.verification');
+// });
 
-// Route group untuk form user yang sudah login
-Route::group(['middleware' => ['auth', 'check.verified']], function () {
-    // Logout
-    Route::post('logout', [loginController::class, 'logout'])->name('logout');
+// // Route group untuk form user yang sudah login
+// Route::group(['middleware' => ['auth', 'check.verified']], function () {
+//     // Logout
+//     Route::post('logout', [loginController::class, 'logout'])->name('logout');
 
-    // Route group untuk form user dengan role admin
-    Route::group(['middleware' => 'role:admin'], function () {
-        // Officer
-        Route::get('officer', [OfficerController::class, 'index'])->name('officer.index');
-        Route::get('officer/create', function () {
-            return view('admin.officer.create');
-        })->name('officer.create');
-        Route::post('officer', [OfficerController::class, 'store'])->name('officer.store');
-        Route::put('officer/reset-password', [OfficerController::class, 'reset'])->name('officer.reset');
-        Route::put('officer/ban/{id}', [OfficerController::class, 'ban'])->name('officer.ban');
-        Route::put('officer/unban/{id}', [OfficerController::class, 'unban'])->name('officer.unban');
-        Route::delete('officer/delete/{id}', [OfficerController::class, 'delete'])->name('officer.delete');
-    });
+//     // Route group untuk form user dengan role admin
+//     Route::group(['middleware' => 'role:admin'], function () {
+//         // Officer
+//         Route::get('officer', [OfficerController::class, 'index'])->name('officer.index');
+//         Route::get('officer/create', function () {
+//             return view('admin.officer.create');
+//         })->name('officer.create');
+//         Route::post('officer', [OfficerController::class, 'store'])->name('officer.store');
+//         Route::put('officer/reset-password', [OfficerController::class, 'reset'])->name('officer.reset');
+//         Route::put('officer/ban/{id}', [OfficerController::class, 'ban'])->name('officer.ban');
+//         Route::put('officer/unban/{id}', [OfficerController::class, 'unban'])->name('officer.unban');
+//         Route::delete('officer/delete/{id}', [OfficerController::class, 'delete'])->name('officer.delete');
+//     });
 
-    // Route group untuk form user dengan role admin, officer
-    Route::group(['middleware' => 'role:admin,officer'], function () {
-        // Categories
-        Route::get('category', [CategoriesController::class, 'index'])->name('category.index');
-        Route::post('category', [CategoriesController::class, 'store'])->name('category.store');
-        Route::get('category/show/{id}', [CategoriesController::class, 'show'])->name('category.show');
-        Route::put('category/update/{id}', [CategoriesController::class, 'update'])->name('category.update');
-        Route::delete('category/delete/{id}', [CategoriesController::class, 'delete'])->name('category.delete');
-        Route::delete('category/delete/all', [CategoriesController::class, 'deleteAll'])->name('category.delete.all');
-        Route::get('category/trash', [CategoriesController::class, 'trash'])->name('category.trash');
-        Route::put('category/recive/{id}', [CategoriesController::class, 'recive'])->name('category.recive');
-        Route::get('category/required', function () {
-            return view('debug.categories-required');
-        })->name('category.check');
+//     // Route group untuk form user dengan role admin, officer
+//     Route::group(['middleware' => 'role:admin,officer'], function () {
+//         // Categories
+//         Route::get('category', [CategoriesController::class, 'index'])->name('category.index');
+//         Route::post('category', [CategoriesController::class, 'store'])->name('category.store');
+//         Route::get('category/show/{id}', [CategoriesController::class, 'show'])->name('category.show');
+//         Route::put('category/update/{id}', [CategoriesController::class, 'update'])->name('category.update');
+//         Route::delete('category/delete/{id}', [CategoriesController::class, 'delete'])->name('category.delete');
+//         Route::delete('category/delete/all', [CategoriesController::class, 'deleteAll'])->name('category.delete.all');
+//         Route::get('category/trash', [CategoriesController::class, 'trash'])->name('category.trash');
+//         Route::put('category/recive/{id}', [CategoriesController::class, 'recive'])->name('category.recive');
+//         Route::get('category/required', function () {
+//             return view('debug.categories-required');
+//         })->name('category.check');
 
-        Route::group(['middleware' => 'check.categories'], function () {
-            // Books
-            Route::get('book', [BooksController::class, 'index'])->name('book.index');
-            Route::get('book/create', [BooksController::class, 'create'])->name('book.create');
-            Route::post('book', [BooksController::class, 'store'])->name('book.store');
-            Route::get('book/show/{id}', [BooksController::class, 'show'])->name('book.show');
-            Route::put('book/update/{id}', [BooksController::class, 'update'])->name('book.update');
-            Route::put('book/stock/{id}', [BooksController::class, 'updateStock'])->name('book.stock');
-            Route::delete('book/delete/{id}', [BooksController::class, 'delete'])->name('book.delete');
-        });
+//         Route::group(['middleware' => 'check.categories'], function () {
+//             // Books
+//             Route::get('book', [BooksController::class, 'index'])->name('book.index');
+//             Route::get('book/create', [BooksController::class, 'create'])->name('book.create');
+//             Route::post('book', [BooksController::class, 'store'])->name('book.store');
+//             Route::get('book/show/{id}', [BooksController::class, 'show'])->name('book.show');
+//             Route::put('book/update/{id}', [BooksController::class, 'update'])->name('book.update');
+//             Route::put('book/stock/{id}', [BooksController::class, 'updateStock'])->name('book.stock');
+//             Route::delete('book/delete/{id}', [BooksController::class, 'delete'])->name('book.delete');
+//         });
 
-        // Coins
-        Route::get('coin', [CoinsController::class, 'index'])->name('coin.index');
-        Route::post('coin', [CoinsController::class, 'store'])->name('coin.store');
-        Route::delete('coin/delete/{id}', [CoinsController::class, 'delete'])->name('coin.delete');
-    });
+//         // Coins
+//         Route::get('coin', [CoinsController::class, 'index'])->name('coin.index');
+//         Route::post('coin', [CoinsController::class, 'store'])->name('coin.store');
+//         Route::delete('coin/delete/{id}', [CoinsController::class, 'delete'])->name('coin.delete');
+//     });
 
-    // Route group untuk form user dengan role librarian
-    Route::group(['middleware' => 'role:librarian'], function () {
-    });
-});
+//     // Route group untuk form user dengan role librarian
+//     Route::group(['middleware' => 'role:librarian'], function () {
+//     });
+// });
 
 // Debug
 // Route::get('session', [registerController::class, 'regisSession'])->name('session');
+
+
+// Update
+Route::get('/', function () {
+
+    $recommended = [];
+    $category = [];
+    
+    for ($i = 0; $i < 8; $i++) {
+        $random = rand(1, 10);
+        $recommended[] = (object) [
+            'title' => 'Book '.$i,
+            'author' => 'Author '.$i,
+            'picture' => 'https://i.pinimg.com/564x/d3/4d/c1/d34dc16977d5a06b31fa0316e6a574f0.jpg',
+            'bottom_color' => '#111',
+            'right_color' => '#222',
+            'cover_color' => '#000',
+            'rating' => $random,
+            'rating_true' => $random
+        ];
+
+        $category[] = (object)[
+            'name' => 'Category '."$i",
+        ];
+    }
+
+
+    return view('dashboard', ['recommended' => $recommended, 'category' => $category]);
+})->name('dashboard');
+
+Route::get('books', function() {
+
+    $data = (object)[
+        'title' => 'Alice Neverland',
+        'author' => 'Jeni Conrad',
+        'publisher' => 'SMK Informatika Utama',
+        'year_published' => 'Senin, 21 Januari 2020',
+        'sinopsis' => 'Aku hanya lah seorang pemula yang sedang belajar',
+        'rating' => 10,
+        'qty' => 100,
+        'price' => 100000,
+        'category_name' => 'Fantasy, Adventure'
+    ];
+
+    return view('contents.detail-books', ['data' => $data]);
+})->name('detail');
+
+
+
+// Session
+Route::get('/a', function() {
+    return redirect()->route('dashboard')->with('success', (object)[
+        'message' => 'Berhasil membuat session'
+    ]);
+});
+Route::get('/b', function() {
+    return redirect()->route('dashboard')->with('error', (object)[
+        'message' => 'Failed membuat session'
+    ]);
+});

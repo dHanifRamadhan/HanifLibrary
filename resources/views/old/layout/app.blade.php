@@ -17,7 +17,7 @@
 
     <style>
         @keyframes slideAndDisappear {
-            0% {
+            0% {    
                 transform: translateX(0) scale(1);
                 opacity: 1;
             }

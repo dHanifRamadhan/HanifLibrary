@@ -13,11 +13,14 @@ return new class extends Migration
     {
         Schema::create('market_trolley', function (Blueprint $table) {
             $table->id();
+
+            // Data diri
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('book_id');
             $table->unsignedInteger('unit_qty');
             $table->unsignedBigInteger('unit_price');
 
+            // Relasi
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreign('book_id')->references('id')->on('books')->cascadeOnDelete();
 

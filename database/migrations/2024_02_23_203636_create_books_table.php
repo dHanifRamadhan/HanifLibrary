@@ -13,17 +13,23 @@ return new class extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
+            
+            // Data diri 
             $table->string('title')->unique();
             $table->string('author');
             $table->string('publisher');
             $table->date('year_published');
+            $table->string('rating_age');
+            $table->string('synopsis');
+
+            // Penjualan
             $table->integer('qty')->unsigned()->default(0);
             $table->bigInteger('price')->unsigned();
             $table->enum('status', ['available','unavailable'])->default('available');
 
             // Coloring Picture
-            $table->string('cover_bottom_color')->default('#1E293B');
-            $table->string('cover_right_color')->default('#475569');
+            $table->string('bottom_color')->default('#1E293B');
+            $table->string('right_color')->default('#475569');
             $table->string('cover_color')->default('#64748B');
             $table->string('picture');
 

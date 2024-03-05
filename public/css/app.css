@@ -1,0 +1,15 @@
+.overflow-y-scroll::-webkit-scrollbar {
+    width: 0px;
+}
+
+.overflow-x-scroll::-webkit-scrollbar {
+    height: 8px;
+    border-radius: 20px;
+    background-color: rgb(148 163 184 / 1);
+}
+
+.overflow-x-scroll::-webkit-scrollbar-thumb {
+    border: 1px #000 solid;
+    border-radius: 20px;
+    background-color: rgb(100 116 139 / 1);
+}

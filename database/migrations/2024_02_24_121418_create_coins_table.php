@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('coins', function (Blueprint $table) {
             $table->id();
-            $table->integer('qty');
+
+            // Data diri
+            $table->integer('pcs');
             $table->bigInteger('price');
             $table->string('picture');
 

@@ -13,19 +13,39 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+
+            // Untuk Verifikasi
             $table->string('username')->unique();
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('role', ['admin', 'courier', 'officer', 'librarian'])->default('librarian');
-            $table->string('full_name');
+            // Untuk Verifikasi
+
+            // Data diri
+            $table->string('name');
+            $table->unsignedInteger('age')->default(14);
             $table->string('phone');
             $table->text('address');
-            $table->bigInteger('unpaid')->default(0);
-            $table->string('profile')->nullable();
+            // Data diri
+
+            // Mata uang Hanif Liibrary
+            $table->integer('unpaid')->default(0);
+            $table->unsignedInteger('coins')->default(0);
+            // Mata uang Hanif Liibrary
+
+            // picture
+            $table->string('picture')->nullable();
+            $table->string('bg_color')->nullable();
+            // picture
+
+            // Hak izin
+            $table->timestamp('email_verified_at')->nullable();
+            $table->enum('status_verification', ['already', 'accepted', 'failed'])->default('already');
+            $table->date('email_expired')->nullable();
+            $table->enum('role', ['admin', 'courier', 'officer', 'librarian'])->default('librarian');
+            $table->softDeletes();
+            // Hak izin
 
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

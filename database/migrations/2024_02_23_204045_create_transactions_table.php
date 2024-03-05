@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+
+            // Data diri
             $table->unsignedBigInteger('user_id');
             $table->date('transaction_date');
             $table->unsignedInteger('total_qty');
             $table->bigInteger('total_amount');
-            $table->enum('payment_method', ['cod', 'transfer']);
-            $table->string('picture')->nullable();
 
+            // Relasi
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
 
             $table->timestamps();

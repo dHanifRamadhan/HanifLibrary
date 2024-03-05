@@ -13,11 +13,17 @@ return new class extends Migration
     {
         Schema::create('transaction_details', function (Blueprint $table) {
             $table->id();
+
+            // Data diri
             $table->unsignedBigInteger('transaction_id');
             $table->unsignedBigInteger('book_id');
             $table->unsignedInteger('unit_qty');
             $table->unsignedBigInteger('unit_price');
             $table->unsignedBigInteger('sub_total');
+
+            $table->date('package arrived');
+            $table->enum('status', ['send', 'arrived', 'received'])->default('send');
+            $table->string('picture')->nullable();
 
             $table->foreign('transaction_id')->references('id')->on('transactions')->cascadeOnDelete();
             $table->foreign('book_id')->references('id')->on('books')->cascadeOnDelete();

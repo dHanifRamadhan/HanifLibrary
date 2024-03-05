@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('favorites', function (Blueprint $table) {
             $table->id();
+            
+            // Data diri
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('book_id');
 
+            // Relasi
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreign('book_id')->references('id')->on('books')->cascadeOnDelete();
 

@@ -13,11 +13,15 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
+            
+            // Data diri
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('book_id');
-            $table->text('comment');
-            $table->decimal('rating', 3, 1);
+            $table->text('comment')->nullable();
+            $table->date('date');
+            $table->unsignedInteger('rating')->default(2);
 
+            // Relasi
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreign('book_id')->references('id')->on('books')->cascadeOnDelete();
 
