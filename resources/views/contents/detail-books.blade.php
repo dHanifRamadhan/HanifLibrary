@@ -18,10 +18,10 @@
             <img src="{{ asset('images/doodles.webp') }}" alt="">
         </div>
         <div class="bg-slate-400 bg-opacity-30 border-l border-black col-span-5 relative">
-            <div class="absolute top-12 -left-20 h-screen">
+            <div class="absolute top-0 -left-20 h-full flex items-center">
                 <div class="p-4 bg-slate-300 rounded-md border border-black shadow-2xl">
                     <img src="https://i.pinimg.com/564x/d3/4d/c1/d34dc16977d5a06b31fa0316e6a574f0.jpg" alt=""
-                        width="" class="w-72">
+                        width="" class="w-60">
                 </div>
             </div>
             <div class="ml-64 h-full relative">
@@ -48,7 +48,7 @@
                         <span class="text-md font-semibold text-slate-400">
                             {{ $data->author }}
                         </span>
-                        <div class="flex gap-2 text-slate-700">
+                        <div class="flex gap-2 text-yellow-400">
                             @for ($i = 0; $i < floor($data->rating); $i++)
                                 @if ($i % 2)
                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
@@ -126,7 +126,8 @@
 
                     {{-- Comments --}}
                     <main id="commentsBook" class="h-full py-3 hidden">
-                        <div class="h-80 w-full border border-slate-400 rounded-md overflow-y-scroll overflow-x-hidden">
+                        <div
+                            class="grid grid-flow-row h-[22.2rem] w-full border border-slate-400 rounded-md overflow-y-scroll overflow-x-hidden">
                             @for ($i = 0; $i < 3; $i++)
                                 <div class="px-8 py-4 bg-slate-300 border-b border-black">
                                     <div class="flex items-center gap-4 text-xs font-semibold">
@@ -194,7 +195,7 @@
                                 </div>
                             @endfor
                         </div>
-                        <button
+                        <button id="btn-modal"
                             class="flex items-center justify-center gap-5 py-3 rounded-md border border-black text-slate-800 font-semibold mt-4 bg-slate-400 bg-opacity-50 w-full">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-message"
                                 width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5"
@@ -246,31 +247,130 @@
                         </div>
                         <div class="flex flex-col gap-5 w-max">
                             <span class="font-semibold">
-                                Hanif
+                                {{ $data->title }}
                             </span>
                             <span>
-                                Hanif
+                                {{ $data->author }}
                             </span>
                             <span>
-                                Hanif
+                                {{ $data->publisher }}
                             </span>
                             <span>
-                                Hanif
+                                {{ $data->year_published }}
                             </span>
                             <span>
-                                Hanif
+                                {{ $data->category_name }}
                             </span>
                             <span>
-                                Hanif
+                                {{ $data->qty }}
                             </span>
                             <span>
-                                Hanif
+                                {{ $data->price }}
                             </span>
                         </div>
                     </main>
                     {{-- Description --}}
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="absolute top-0 right-0 bottom-0 left-0 bg-slate-400 items-center justify-center bg-opacity-40 z-50 hidden"
+        id="modal">
+        <div class="bg-slate-300 border border-black rounded-md relative px-16 py-6">
+            <h1 class="font-semibold text-lg">Overal, how would you rate name_book ?</h1>
+            <div class="flex justify-center my-4">
+                <span class="text-yellow-400 flex gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer " id="star-full-0" width="19"
+                        height="19" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path
+                            d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"
+                            stroke-width="0" fill="currentColor" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer hidden" id="star-full-1"
+                        width="19" height="19" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                        fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path
+                            d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"
+                            stroke-width="0" fill="currentColor" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer hidden" id="star-full-2"
+                        width="19" height="19" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                        fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path
+                            d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"
+                            stroke-width="0" fill="currentColor" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer hidden" id="star-full-3"
+                        width="19" height="19" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                        fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path
+                            d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"
+                            stroke-width="0" fill="currentColor" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer hidden" id="star-full-4"
+                        width="19" height="19" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                        fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path
+                            d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"
+                            stroke-width="0" fill="currentColor" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer " id="star-0" width="19"
+                        height="19" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path
+                            d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer " id="star-1" width="19"
+                        height="19" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path
+                            d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer " id="star-2" width="19"
+                        height="19" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path
+                            d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer " id="star-3" width="19"
+                        height="19" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path
+                            d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
+                    </svg>
+                </span>
+            </div>
+            <form action="" method="POST">
+                @csrf
+                <input type="hidden" name="rating" id="rating" value="2" min="2" max="10"
+                    maxlength="2" required>
+                <div class="flex flex-col gap-2">
+                    <label for="comment" class="text-sm">You want to leave a comment?</label>
+                    <textarea name="comment" id="comment" rows="3"
+                        class="text-sm p-0 border-0 border-b bg-transparent resize-none" required></textarea>
+                </div>
+                <button type="submit"
+                    class="text-sm py-2 text-center w-full border border-black rounded-md hover:bg-slate-500 hover:text-slate-50 mt-4">
+                    Comment
+                </button>
+            </form>
+            <svg xmlns="http://www.w3.org/2000/svg" class="absolute top-4 right-4 cursor-pointer" id="btn-close-modal" width="19" height="19"
+                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M18 6l-12 12" />
+                <path d="M6 6l12 12" />
+            </svg>
         </div>
     </div>
 @endsection

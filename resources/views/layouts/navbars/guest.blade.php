@@ -109,19 +109,39 @@
     </div>
     <div class="bg-slate-100 bg-opacity-65 rounded-md">
         <div class="flex flex-wrap gap-1 items-center mt-2 py-1 px-2 justify-end">
-            <a class="bg-slate-400 text-xs py-2 px-5 rounded-md cursor-pointer font-semibold text-slate-50">
+            <a href="{{route('dashboard')}}" @class([
+                'text-xs py-2 px-5 rounded-md cursor-pointer font-semibold',
+                'bg-slate-400 text-slate-50' => Route::is('dashboard'),
+                'hover:bg-slate-200' => !Route::is('dashboard'),
+            ])>
                 Home
             </a>
-            <a class="hover:bg-slate-200 text-xs py-2 px-5 font-semibold rounded-md cursor-pointer">
+            <a @class([
+                'text-xs py-2 px-5 rounded-md cursor-pointer font-semibold',
+                'bg-slate-400 text-slate-50' => Route::is('favorite'),
+                'hover:bg-slate-200' => !Route::is('favorite'),
+            ])>
                 Favorite
             </a>
-            <a class="hover:bg-slate-200 text-xs py-2 px-5 font-semibold rounded-md cursor-pointer">
+            <a @class([
+                'text-xs py-2 px-5 rounded-md cursor-pointer font-semibold',
+                'bg-slate-400 text-slate-50' => Route::is('borrowing'),
+                'hover:bg-slate-200' => !Route::is('borrowing'),
+            ])>
                 Borrowing
             </a>
-            <a class="hover:bg-slate-200 text-xs py-2 px-5 font-semibold rounded-md cursor-pointer">
+            <a @class([
+                'text-xs py-2 px-5 rounded-md cursor-pointer font-semibold',
+                'bg-slate-400 text-slate-50' => Route::is('history'),
+                'hover:bg-slate-200' => !Route::is('history'),
+            ])>
                 History
             </a>
-            <a class="hover:bg-slate-200 text-xs py-2 px-5 font-semibold rounded-md cursor-pointer">
+            <a @class([
+                'text-xs py-2 px-5 rounded-md cursor-pointer font-semibold',
+                'bg-slate-400 text-slate-50' => Route::is('settings'),
+                'hover:bg-slate-200' => !Route::is('settings'),
+            ])>
                 Settings
             </a>
         </div>

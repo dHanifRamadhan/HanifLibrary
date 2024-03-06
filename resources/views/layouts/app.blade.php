@@ -8,6 +8,15 @@
     <title>@yield('title')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="preload" href="{{asset('js/app.js')}}" as="script">
+    <link rel="preload" href="{{asset('css/app.css')}}" as="style">
+    <link rel="preload" href="{{asset('images/doodles-landscape.webp')}}" as="image" type="image/webp">
+    <link rel="preload" href="{{asset('images/doodles.webp')}}" as="image" type="image/webp">
+    <link rel="preload" href="{{asset('images/icon-book.webp')}}" as="image" type="image/webp">
+    <link rel="preload" href="{{asset('images/icon-books-forgot.webp')}}" as="image" type="image/webp">
+    <link rel="preload" href="{{asset('images/icon-books-login.webp')}}" as="image" type="image/webp">
+    <link rel="preload" href="{{asset('images/icon-books-regis.webp')}}" as="image" type="image/webp">
+    <link rel="preload" href="{{asset('images/icon-email.webp')}}" as="image" type="image/webp">    
 </head>
 
 <body @class([
@@ -15,6 +24,14 @@
     'flex items-center justify-center' =>
         Auth::check() != true && Route::is('auth.*'),
 ])>
+
+<img src="{{asset('images/doodles-landscape.webp')}}" alt="" class="hidden">
+<img src="{{asset('images/doodles.webp')}}" alt="" class="hidden">
+<img src="{{asset('images/icon-book.webp')}}" alt="" class="hidden">
+<img src="{{asset('images/icon-books-forgot.webp')}}" alt="" class="hidden">
+<img src="{{asset('images/icon-books-login.webp')}}" alt="" class="hidden">
+<img src="{{asset('images/icon-books-regis.webp')}}" alt="" class="hidden">
+<img src="{{asset('images/icon-email.webp')}}" alt="" class="hidden">
 
     {{-- All Sesssion --}}
     @if (session('success') || session('error'))

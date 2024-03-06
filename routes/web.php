@@ -160,6 +160,9 @@ Route::get('books', function() {
     return view('contents.detail-books', ['data' => $data]);
 })->name('detail');
 
+Route::get('favorite', function() {
+    return view('contents.favorite');
+})->name('favorite');
 
 
 // Session

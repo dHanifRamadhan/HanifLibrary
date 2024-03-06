@@ -12,13 +12,25 @@
         </span>
     </div>
     <div @class([
+        '-z-10',
         'flex gap-4 overflow-x-scroll' => $recommended != null,
         'flex items-center justify-center py-10' => $recommended == null,
     ])>
         @forelse ($recommended as $key => $value)
             {{-- Books not null --}}
-            <a href="{{route('detail')}}" class="px-2 w-max flex flex-col items-center">
-                <div class="h-max w-max flex items-center justify-center pt-4 relative left-[0.6rem]">
+            <a href="{{ route('detail') }}" class="px-2 w-max flex flex-col items-center relative group">
+                <form action="" method="POST" class="absolute top-2 right-2 z-20 invisible group-hover:visible">
+                    @csrf
+                    <button type="submit" class="p-2 bg-slate-300 rounded-lg border border-black hover:bg-slate-400 hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                        </svg>
+                    </button>
+                </form>
+                <div class="h-max w-max flex items-center justify-center pt-4 relative left-[0.6rem] z-10">
                     <div class="relative w-44 h-60 flex pb-8">
                         <div class="w-5 rounded-tl-xl" style="background-color: {{ $value->right_color }};">
                         </div>
@@ -98,8 +110,8 @@
         @endforelse
     </div>
 </div>
-<div class="my-6">
-    <div class="border border-black rounded-md py-2 px-4 bg-slate-400 bg-opacity-25">
+<div class="my-6 relative flex flex-col bg-slate-400 bg-opacity-80 rounded-lg">
+    <div class="border border-black rounded-md py-2 px-4 bg-slate-200">
         <div class="px-1 py-2 flex justify-between">
             <span class="flex gap-2 items-center font-semibold text-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
@@ -182,13 +194,26 @@
         </div>
     </div>
     <div @class([
-        'py-4 grid grid-cols-7 gap-y-8 gap-x-7' => $recommended != null,
+        'z-10',
+        'py-4 grid grid-cols-6 gap-y-8' => $recommended != null,
         'flex items-center justify-center py-16' => $recommended == null,
     ])>
         @forelse ($recommended as $key => $value)
             {{-- Books not Null --}}
-            <div class="w-max flex flex-col items-center relative group hover:z-20 hover:shadow-2xl">
-                <a href="{{route('detail')}}" class="bg-slate-200 pl-[0.7rem] pt-7 rounded-lg text-center border border-slate-300 group-hover:border-black group-hover:border-b-0 group-hover:bg-slate-300">
+            <div class="w-full flex flex-col items-center justify-center relative group hover:z-10">
+                <form action="" method="POST" class="absolute top-4 right-11 invisible group-hover:visible">
+                    @csrf
+                    <button type="submit" class="p-1 bg-slate-400 rounded-md text-white border border-black">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                        </svg>
+                    </button>
+                </form>
+                <a href="{{ route('detail') }}"
+                    class="bg-slate-300 pl-[0.7rem] pt-7 rounded-lg text-center border border-slate-700 group-hover:border-black group-hover:border-b-0 group-hover:bg-slate-200 group-hover:shadow-black group-hover:shadow-2xl">
                     <div class="h-max w-max flex items-center justify-center scale-75">
                         <div class="relative w-44 h-60 flex pb-8">
                             <div class="w-5 rounded-tl-xl" style="background-color: {{ $value->right_color }};">
@@ -215,34 +240,36 @@
                         {{ $value->title }}
                     </span>
                 </a>
-                <div class="absolute -bottom-12 left-0 right-0 py-2 w-full bg-slate-300 rounded-b-lg flex-col border border-t-0 border-black hidden group-hover:flex">
-                    <div class="flex flex-col">
-                        <span class="text-md text-center font-semibold">
-                            {{ $value->title }}
-                        </span>
-                        <span class="text-center text-xs">
-                            {{ $value->author }}
-                        </span>
-                    </div>
-                    <form action="" method="POST" class="mt-2 flex items-center justify-center">
-                        <button type="submit"
-                            class="border border-black rounded-md px-4 py-1 hover:bg-slate-400 hover:text-white hover:bg-opacity-50 flex items-center gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                class="scale-75" width="24" height="24"
-                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M4 19a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                                <path d="M12.5 17h-6.5v-14h-2" />
-                                <path d="M6 5l14 1l-.86 6.017m-2.64 .983h-10.5" />
-                                <path d="M16 19h6" />
-                                <path d="M19 16v6" />
-                            </svg>
-                            <span class="text-xs font-semibold">
-                                Add Cart
+                <div class="absolute -bottom-12 left-0 right-0 flex items-center justify-center">
+                    <div
+                        class="w-[11.8rem] py-2 bg-slate-300 rounded-b-lg flex-col border border-t-0 border-black hidden group-hover:flex group-hover:shadow-2xl group-hover:shadow-black">
+                        <div class="flex flex-col">
+                            <span class="text-md text-center font-semibold">
+                                {{ $value->title }}
                             </span>
-                        </button>
-                    </form>
+                            <span class="text-center text-xs">
+                                {{ $value->author }}
+                            </span>
+                        </div>
+                        <form action="" method="POST" class="mt-2 flex items-center justify-center">
+                            <button type="submit"
+                                class="border border-black rounded-md px-4 py-1 hover:bg-slate-400 hover:text-white hover:bg-opacity-50 flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="scale-75" width="24"
+                                    height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M4 19a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                    <path d="M12.5 17h-6.5v-14h-2" />
+                                    <path d="M6 5l14 1l-.86 6.017m-2.64 .983h-10.5" />
+                                    <path d="M16 19h6" />
+                                    <path d="M19 16v6" />
+                                </svg>
+                                <span class="text-xs font-semibold">
+                                    Add Cart
+                                </span>
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
             {{-- Books not Null --}}
@@ -253,5 +280,8 @@
             </span>
             {{-- Books is Null --}}
         @endforelse
+    </div>
+    <div class="absolute -bottom-14 left-0 right-0 z-0 flex justify-center">
+        <img src="{{ asset('images/doodles-landscape.webp') }}" alt="" class="">
     </div>
 </div>

@@ -3,7 +3,7 @@
     Dashboard
 @endsection
 @section('main')
-    <div class="w-full h-full overflow-y-scroll py-4 bg-green-600 px-5">
+    <div class="w-full h-full overflow-y-scroll py-4 px-5">
         @if (Auth::check() != true || (Auth::check() && Auth::user()->role == 'librarian'))
             @include('contents.dashboard')
         @endif
