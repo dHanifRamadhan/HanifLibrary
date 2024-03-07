@@ -2,20 +2,19 @@
 //                  Hanif Ramadhan                 //
 // =============================================== //
 
-
 if (document.getElementById('sessionModal') && document.getElementById('closeSession')) {
     var closeButton = document.getElementById('closeSession')
-    var modal = document.getElementById('sessionModal')
-    closeButton.addEventListener('click', function() {
-        modal.classList.add('hidden');
+    var modalSession = document.getElementById('sessionModal')
+    closeButton.addEventListener('click', function () {
+        modalSession.classList.add('hidden')
     })
 }
 
 const CurrentTime = () => {
     var Times = document.getElementById('currentTime')
     Times.innerHTML = new Date().toLocaleTimeString([], {
-        hour : '2-digit',
-        minute : '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
     })
 }
 
@@ -81,7 +80,7 @@ var star1 = document.getElementById('star-1')
 var star2 = document.getElementById('star-2')
 var star3 = document.getElementById('star-3')
 
-if (inputRating && fullStar0 && fullStar1 && fullStar2 && fullStar3 && fullStar4 && star0 && star1 && star2 &&star3) {
+if (inputRating && fullStar0 && fullStar1 && fullStar2 && fullStar3 && fullStar4 && star0 && star1 && star2 && star3) {
     fullStar0.addEventListener('click', () => {
         fullStar0.classList.remove('hidden')
         fullStar1.classList.add('hidden')
@@ -230,8 +229,110 @@ const HistoryModal = (btn, iconDown, iconUp, modal) => {
     }
 }
 
+var levelPassword = document.getElementsByClassName('level-password')
+var inputPassword = document.getElementById('password')
+
+if (levelPassword && inputPassword) {
+    Array.from(levelPassword).forEach((levelPassword) => {
+        levelPassword.addEventListener('input', () => {
+            inputPassword.classList.remove('border-slate-500');
+
+            if (inputPassword.value.length < 6) {
+                inputPassword.classList.remove('border-orange-500')
+                inputPassword.classList.remove('border-green-600')
+                inputPassword.classList.add('border-red-600')
+            } else if (inputPassword.value.length >= 6 && inputPassword.value.length < 12) {
+                inputPassword.classList.remove('border-red-600')
+                inputPassword.classList.remove('border-green-600')
+                inputPassword.classList.add('border-orange-500')
+            } else {
+                inputPassword.classList.remove('border-red-600') // Corrected from 'border-red-500'
+                inputPassword.classList.remove('border-orange-500')
+                inputPassword.classList.add('border-green-600')
+            }
+        })
+    })
+}
+
+
+var inputNoSpace = document.getElementById('no-space')
+if (inputNoSpace) {
+    Array.from(inputNoSpace).forEach((inputNoSpace) => {
+        inputNoSpace.addEventListener('click', () => {
+            inputNoSpace.value = inputNoSpace.value.replace(/\s/g, '')
+        })
+    })
+}
+
+var email = document.getElementById('email')
+var checkEmail = document.getElementById('check-email')
+var pathEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+if (email && checkEmail) {
+    email.addEventListener('input', () => {
+        email.value = email.value.toLowerCase()
+        if (pathEmail.test(email.value)) {
+            checkEmail.classList.remove('hidden')
+            email.classList.remove('border-slate-500')
+            email.classList.add('border-green-600')
+        } else {
+            checkEmail.classList.add('hidden')
+            email.classList.add('border-slate-500')
+            email.classList.remove('border-green-600')
+        }
+    })
+}
+
+var showPassword = document.getElementById('show-password')
+var hiddenPassword = document.getElementById('hidden-password')
+
+if (inputPassword && showPassword && hiddenPassword) {
+    showPassword.addEventListener('click', () => {
+        inputPassword.type = 'text'
+        showPassword.classList.add('hidden')
+        hiddenPassword.classList.remove('hidden')
+    })
+    hiddenPassword.addEventListener('click', () => {
+        inputPassword.type = 'password'
+        showPassword.classList.remove('hidden')
+        hiddenPassword.classList.add('hidden')
+    })
+}
+
+var number = document.getElementById('number')
+
+if (number) {
+    number.addEventListener('input', () => {
+        var numberValue = number.value
+        var clean = numberValue.replace(/\D/g, '')
+        var format = clean.slice(0, 3) + '-' + clean.slice(3, 7) + '-' + clean.slice(7, 12)
+        number.value = format
+    })
+}
+
+var imageInput = document.getElementById('image-input')
+var imagePreview = document.getElementById('image-preview')
+var imageFileReader = new FileReader()
+
+if (imageInput && imagePreview) {
+    imageInput.addEventListener('input', () => {
+        if (imageInput.files[0]) {
+            imageFileReader.onloadend = () => {
+                imagePreview.src = imageFileReader.result
+                imagePreview.classList.remove('hidden')
+                imagePreview.classList.add('flex')
+            }
+            imageFileReader.readAsDataURL(imageInput.files[0])
+        } else {
+            imagePreview.src = ''
+            imagePreview.classList.remove('flex')
+            imagePreview.classList.add('hidden')
+        }
+    })
+}
+
 // LOAD
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     if (document.getElementById('currentTime')) {
         setInterval(CurrentTime, 1000)
     }

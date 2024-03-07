@@ -1,35 +1,15 @@
-@extends('layout.app')
+@extends('layouts.app')
 @section('title')
     Register
 @endsection
 @section('main')
-    {{-- @if (session('message') && session('warning'))
-        <div class="absolute top-12 right-0 left-0 flex justify-center fadeInDown" id="session">
-            <div
-                class="p-10 bg-slate-600 rounded-md font-mono text-slate-50 flex flex-col justify-center items-center relative">
-                <h1 class="text-xl">{{ session('message') }}</h1>
-                <p class="text-center text-sm mt-5 w-48">
-                    {{ session('warning') }}
-                </p>
-                <button class="absolute top-4 right-4" type="button" onclick="cardSession()">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="24"
-                        height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M18 6l-12 12" />
-                        <path d="M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-    @endif --}}
     <div class="p-10 grid grid-cols-2">
         <div class="flex items-center justify-center">
-            <img src="{{ asset('images/icon-books-regis.png') }}" alt="Image Regis" width="400px">
+            <img src="{{ asset('images/icon-books-regis.webp') }}" alt="Image Regis" width="400px">
         </div>
         <div class="flex flex-col items-center gap-5">
             <h1 class="font-mono underline text-2xl font-semibold">Register</h1>
-            <form action="{{ route('auth.register') }}" method="POST" enctype="multipart/form-data"
+            <form action="{{route('auth.register.post')}}" method="POST" enctype="multipart/form-data"
                 class="w-full h-full p-2">
                 @csrf
                 <div class="w-full h-96 overflow-y-scroll flex flex-col gap-2">
@@ -39,20 +19,20 @@
                             class="input-no-space bg-transparent border-b-2 border-slate-500 outline-none pr-6" required name="username">
                         <svg xmlns="http://www.w3.org/2000/svg"
                             class="icon icon-tabler icon-tabler-check absolute bottom-0 right-1 text-green-600 hidden"
-                            id="usernameIcon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2"
+                            id="usernameIcon" width="19" height="19" viewBox="0 0 24 24" stroke-width="2"
                             stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <path d="M5 12l5 5l10 -10" />
                         </svg>
                     </div>
                     <div class="flex flex-col px-2 relative">
-                        <label for="email" class="text-sm text-slate-500">Email</label>
+                        <label for="email" class="text-sm text-slate-500 no-space">Email</label>
                         <input type="email" id="email"
                             class="bg-transparent border-b-2 border-slate-500 outline-none pr-6" required name="email"
-                            autocomplete="off" oninput="inputEmail()">
+                            autocomplete="off">
                         <svg xmlns="http://www.w3.org/2000/svg"
                             class="icon icon-tabler icon-tabler-check absolute bottom-0 right-1 text-green-600 hidden"
-                            id="checkEmail" width="20" height="20" viewBox="0 0 24 24" stroke-width="2"
+                            id="check-email" width="19" height="19" viewBox="0 0 24 24" stroke-width="2"
                             stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <path d="M5 12l5 5l10 -10" />
@@ -61,12 +41,12 @@
                     <div class="flex flex-col px-2 relative">
                         <label for="password" class="text-sm text-slate-500">Password</label>
                         <input type="password" id="password"
-                            class="bg-transparent border-b-2 border-slate-500 outline-none pr-6 check-level-password"
+                            class="bg-transparent border-b-2 border-slate-500 outline-none pr-6 level-password"
                             required autocomplete="off" name="password">
                         <svg xmlns="http://www.w3.org/2000/svg"
-                            class="icon icon-tabler icon-tabler-eye-check absolute bottom-1 right-1 hidden" id="showPassword"
-                            width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                            onclick="showPassword()" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            class="absolute bottom-1 right-1 cursor-pointer" id="show-password"
+                            width="19" height="19" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
                             <path
@@ -74,9 +54,9 @@
                             <path d="M15 19l2 2l4 -4" />
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg"
-                            class="icon icon-tabler icon-tabler-eye-x absolute bottom-1 right-1 cursor-pointer"
-                            id="hiddenPassword" width="20" height="20" viewBox="0 0 24 24" stroke-width="2"
-                            stroke="currentColor" onclick="showPassword()" fill="none" stroke-linecap="round"
+                            class="absolute bottom-1 right-1 cursor-pointer hidden"
+                            id="hidden-password" width="19" height="19" viewBox="0 0 24 24" stroke-width="2"
+                            stroke="currentColor" fill="none" stroke-linecap="round"
                             stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
@@ -93,7 +73,7 @@
                             required oninput="validasi('fullName', 'fullNameIcon')">
                         <svg xmlns="http://www.w3.org/2000/svg"
                             class="icon icon-tabler icon-tabler-check absolute bottom-0 right-1 text-green-600 hidden"
-                            id="fullNameIcon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2"
+                            id="fullNameIcon" width="19" height="19" viewBox="0 0 24 24" stroke-width="2"
                             stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <path d="M5 12l5 5l10 -10" />
@@ -115,7 +95,7 @@
                             class="bg-transparent outline-none border-b-2 border-slate-500"></textarea>
                         <svg xmlns="http://www.w3.org/2000/svg"
                             class="icon icon-tabler icon-tabler-check absolute top-6 right-1 text-green-600 hidden"
-                            id="addressIcon" width="20" height="20" viewBox="0 0 24 24" stroke-width="2"
+                            id="addressIcon" width="19" height="19" viewBox="0 0 24 24" stroke-width="2"
                             stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <path d="M5 12l5 5l10 -10" />
@@ -124,11 +104,11 @@
                     <div class="flex flex-col px-2 relative">
                         <label for="picture" class="text-sm text-slate-500">Picture</label>
                         <div class="flex gap-2 items-center">
-                            <input type="file" id="imageInput" name="picture"
+                            <input type="file" id="image-input" name="picture"
                                 class="bg-transparent outline-none border-b-2 border-slate-500 py-2 w-36">
                             <div class="w-full items-center justify-center flex">
                                 <img src="" alt="" class="mt-2 rounded-full border-2 hidden w-32 h-32"
-                                    id="preview">
+                                    id="image-preview">
                             </div>
                         </div>
                     </div>
@@ -138,7 +118,7 @@
                         <span>
                             Ingin kembali ke-
                         </span>
-                        <a href="{{ route('login') }}" class="text-slate-600 underline font-mono">
+                        <a href="{{ route('auth.login') }}" class="text-slate-600 underline font-mono">
                             login
                         </a>
                         <span>
@@ -149,11 +129,13 @@
             </form>
         </div>
     </div>
+
+
     <script>
-        function validasi(params1, params2) {
+        const validasi = (params1, params2) => {
             var input = document.getElementById(params1)
             var icon = document.getElementById(params2)
-
+    
             if (input.value.length >= 4) {
                 icon.classList.remove('hidden');
                 input.classList.add('border-green-600')

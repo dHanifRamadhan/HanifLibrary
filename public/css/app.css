@@ -13,3 +13,7 @@
     border-radius: 20px;
     background-color: rgb(100 116 139 / 1);
 }
+
+.border-orange-500 {
+    border-color: #EAF023;
+}

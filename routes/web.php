@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\forgotPasswordController;
 use App\Http\Controllers\BooksController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CoinsController;
+use App\Http\Controllers\contentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OfficerController;
 use App\Mail\acceptEmailUsers;
@@ -116,57 +117,21 @@ use Illuminate\Support\Facades\Route;
 
 
 // Update
-Route::get('/', function () {
 
-    $recommended = [];
-    $category = [];
-    
-    for ($i = 0; $i < 8; $i++) {
-        $random = rand(1, 10);
-        $recommended[] = (object) [
-            'title' => 'Book '.$i,
-            'author' => 'Author '.$i,
-            'picture' => 'https://i.pinimg.com/564x/d3/4d/c1/d34dc16977d5a06b31fa0316e6a574f0.jpg',
-            'bottom_color' => '#111',
-            'right_color' => '#222',
-            'cover_color' => '#000',
-            'rating' => $random,
-            'rating_true' => $random
-        ];
-
-        $category[] = (object)[
-            'name' => 'Category '."$i",
-        ];
-    }
+Route::get('/', [contentController::class, 'dashboard'])->name('dashboard');
+Route::get('books/{id}', [contentController::class, 'detail'])->name('detail');
+Route::get('favorite', [contentController::class, 'favorite'])->name('favorite');
+Route::get('history', [contentController::class, 'history'])->name('history');
 
 
-    return view('dashboard', ['recommended' => $recommended, 'category' => $category]);
-})->name('dashboard');
+Route::get('auth/login', [loginController::class, 'login'])->name('auth.login');
+Route::post('auth/login', [loginController::class, 'loginPost'])->name('auth.login.post');
 
-Route::get('books', function() {
+Route::get('auth/register', [registerController::class, 'register'])->name('auth.register');
+Route::post('auth/register', [registerController::class, 'registerPost'])->name('auth.register.post');
 
-    $data = (object)[
-        'title' => 'Alice Neverland',
-        'author' => 'Jeni Conrad',
-        'publisher' => 'SMK Informatika Utama',
-        'year_published' => 'Senin, 21 Januari 2020',
-        'sinopsis' => 'Aku hanya lah seorang pemula yang sedang belajar',
-        'rating' => 10,
-        'qty' => 100,
-        'price' => 100000,
-        'category_name' => 'Fantasy, Adventure'
-    ];
+Route::post('logout', [loginController::class, 'logout'])->name('logout');
 
-    return view('contents.detail-books', ['data' => $data]);
-})->name('detail');
-
-Route::get('favorite', function() {
-    return view('contents.favorite');
-})->name('favorite');
-
-Route::get('history', function() {
-    return view('contents.history');
-})->name('history');
 
 // Session
 Route::get('/a', function() {

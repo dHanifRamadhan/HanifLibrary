@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         inputPassword.classList.remove('border-green-600');
                         inputPassword.classList.add('border-yellow-500');
                     } else {
-                        inputPassword.classList.remove('border-red-500');
+                        inputPassword.classList.remove('border-red-600');
                         inputPassword.classList.remove('border-yellow-500');
                         inputPassword.classList.add('border-green-600');
                     }

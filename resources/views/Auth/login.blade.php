@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layouts.app')
 @section('title')
     Login
 @endsection
@@ -8,27 +8,27 @@
 @section('main')
     <div class="rounded-md flex gap-2">
         <div class="h-[34rem] w-[24rem] flex justify-center items-center">
-            <img src="{{ asset('images/icon-books-login.png') }}" alt="" class="rounded-l-md h-[16rem]">
+            <img src="{{ asset('images/icon-books-login.webp') }}" alt="" class="rounded-l-md h-[16rem]">
         </div>
         <div class="font-mono flex flex-col items-center py-10 px-5 w-96">
             <div class="w-full flex gap-3 justify-center items-center">
-                <img src="{{ asset('images/icon-books-regis.png') }}" alt="" class="w-10">
+                <img src="{{ asset('images/icon-books-regis.webp') }}" alt="" class="w-10">
                 <h1 class="text-2xl underline font-semibold">Login</h1>
             </div>
             <div class="h-full w-full">
-                <form action="{{ route('auth.login') }}" method="POST"
-                    class="flex flex-col justify-center w-full h-full gap-5">
+                <form action="{{ route('auth.login.post') }}" method="POST" class="flex flex-col justify-center w-full h-full gap-5">
                     @csrf
                     <div class="flex flex-col relative">
-                        <select name="choose" id="choose" class="text-xs font-mono bg-transparent outline-none border-0 w-max p-0 "
-                            onclick="Choose()">
+                        <select name="choose" id="choose"
+                            class="text-xs font-mono bg-transparent outline-none border-0 w-max p-0 " onclick="Choose()">
                             <option value="username" class="font-mono">Username</option>
                             <option value="email" class="font-mono">email</option>
                         </select>
                         <input type="text" id="inputAccount" name="inputAccount" oninput="Account()"
-                            class="bg-transparent border-b border-0 border-slate-500 py-1 px-2 text-sm" required>
+                            class="bg-transparent border-b border-0 border-slate-500 py-1 px-[0.24rem] text-sm outline-none"
+                            required>
                         <svg xmlns="http://www.w3.org/2000/svg" id="check"
-                            class="hidden absolute bottom-0 right-0 text-green-500" width="24" height="24"
+                            class="hidden absolute bottom-0 right-0 text-green-500" width="19" height="19"
                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
                             stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -38,7 +38,7 @@
                     <div class="flex flex-col relative">
                         <label for="" class="text-xs underline font-mono">Password</label>
                         <input type="password" id="password" name="password"
-                            class="bg-transparent border-b border-slate-500 outline-none py-1 px-2 text-sm border-0" required>
+                            class="bg-transparent border-b border-slate-500 outline-none py-2 text-xs border-0" required>
                         <svg xmlns="http://www.w3.org/2000/svg" id="showPassword" onclick="showPassword()"
                             class="absolute bottom-1 right-0 text-red-600 cursor-pointer hidden" width="21"
                             height="21" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -63,7 +63,7 @@
                     </div>
                     <span class="text-xs -mt-4">
                         forgot
-                        <a href="{{ route('forgot.password') }}" class="hover:text-sky-400">
+                        <a href="" class="hover:text-sky-400">
                             password
                         </a>
                     </span>
@@ -73,7 +73,7 @@
                     <div class="flex flex-col">
                         <span class="text-xs">
                             Belum memiliki akun
-                            <a href="{{ route('register') }}" class="hover:text-blue-400">
+                            <a href="{{ route('auth.register') }}" class="hover:text-blue-400">
                                 perpustakaan
                             </a>
                             ?
@@ -91,22 +91,28 @@
         </div>
     </div>
     <script>
-        function Choose() {
-            var choose = document.getElementById('choose')
-            var input = document.getElementById('inputAccount')
+        var input = document.getElementById('inputAccount')
+        var check = document.getElementById('check')
+        var choose = document.getElementById('choose')
 
+        const Choose = () => {
             if (choose.value != 'username') {
                 input.type = 'email'
+                input.value = ""
+                input.classList.remove('border-green-500')
+                input.classList.add('border-slate-500')
+                check.classList.add('hidden')
             } else {
                 input.type = 'text'
+                input.value = ''
+                input.classList.remove('border-green-500')
+                input.classList.add('border-slate-500')
+                check.classList.add('hidden')
             }
         }
 
-        function Account() {
-            var input = document.getElementById('inputAccount')
-            var check = document.getElementById('check')
+        const Account = () => {
             input.value = input.value.replace(/\s/g, '')
-
             switch (input.type) {
                 case 'text':
                     if (input.value.length >= 4) {

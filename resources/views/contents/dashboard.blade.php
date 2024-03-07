@@ -18,7 +18,7 @@
     ])>
         @forelse ($recommended as $key => $value)
             {{-- Books not null --}}
-            <a href="{{ route('detail') }}" class="px-2 w-max flex flex-col items-center relative group">
+            <a href="{{ route('detail', 1) }}" class="px-2 w-max flex flex-col items-center relative group">
                 <form action="" method="POST" class="absolute top-2 right-2 z-20 invisible group-hover:visible">
                     @csrf
                     <button type="submit" class="p-2 bg-slate-300 rounded-lg border border-black hover:bg-slate-400 hover:text-white">
@@ -212,7 +212,7 @@
                         </svg>
                     </button>
                 </form>
-                <a href="{{ route('detail') }}"
+                <a href="{{ route('detail', 1) }}"
                     class="bg-slate-300 pl-[0.7rem] pt-7 rounded-lg text-center border border-slate-700 group-hover:border-black group-hover:border-b-0 group-hover:bg-slate-200 group-hover:shadow-black group-hover:shadow-2xl">
                     <div class="h-max w-max flex items-center justify-center scale-75">
                         <div class="relative w-44 h-60 flex pb-8">

@@ -97,10 +97,10 @@
                     </a>
                 @endif
             @else
-                <a href="" class="border border-black rounded-md text-xs my-[0.4rem] px-5 flex items-center">
+                <a href="{{route('auth.login')}}" class="border border-black rounded-md text-xs my-[0.4rem] px-5 flex items-center">
                     Login
                 </a>
-                <a href="" class="border border-black rounded-md text-xs my-[0.4rem] px-5 flex items-center">
+                <a href="{{route('auth.register')}}" class="border border-black rounded-md text-xs my-[0.4rem] px-5 flex items-center">
                     Register
                 </a>
             @endauth
