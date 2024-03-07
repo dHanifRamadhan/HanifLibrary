@@ -25,7 +25,7 @@
         <div class="w-full flex flex-wrap justify-end gap-3">
             <form action="" method="GET" class="flex items-center">
                 <input type="search" name="search"
-                    class="h-[1.9rem] px-2 py-1 text-xs rounded-l-md outline-none w-[24rem]" placeholder="search...">
+                    class="h-[1.9rem] px-2 py-1 text-xs rounded-l-md outline-none w-[24rem] border border-black" placeholder="search...">
                 <button type="submit"
                     class="px-2 bg-slate-100 h-[1.9rem] rounded-r-md border-black border-t-[1px] border-r-[1px] border-b-[1px]">
                     <svg xmlns="http://www.w3.org/2000/svg" class="" width="16" height="16"
@@ -40,7 +40,8 @@
             @auth
                 <a href="" @class([
                     'flex items-center gap-2 font-bold mr-6 my-[0.4rem] px-2',
-                    'border border-black rounded-md bg-slate-400 bg-opacity-25 text-orange-500 text-opacity-85' => Route::url() == 'qeqwe',
+                    'border border-black rounded-md bg-slate-400 bg-opacity-25 text-orange-500 text-opacity-85' =>
+                        Route::url() == 'qeqwe',
                     'text-orange-400 text-opacity-85',
                 ])>
                     <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24"
@@ -96,12 +97,10 @@
                     </a>
                 @endif
             @else
-                <a href=""
-                    class="border border-black rounded-md text-xs my-[0.4rem] px-5 flex items-center">
+                <a href="" class="border border-black rounded-md text-xs my-[0.4rem] px-5 flex items-center">
                     Login
                 </a>
-                <a href=""
-                    class="border border-black rounded-md text-xs my-[0.4rem] px-5 flex items-center">
+                <a href="" class="border border-black rounded-md text-xs my-[0.4rem] px-5 flex items-center">
                     Register
                 </a>
             @endauth
@@ -109,28 +108,21 @@
     </div>
     <div class="bg-slate-100 bg-opacity-65 rounded-md">
         <div class="flex flex-wrap gap-1 items-center mt-2 py-1 px-2 justify-end">
-            <a href="{{route('dashboard')}}" @class([
+            <a href="{{ route('dashboard') }}" @class([
                 'text-xs py-2 px-5 rounded-md cursor-pointer font-semibold',
                 'bg-slate-400 text-slate-50' => Route::is('dashboard'),
                 'hover:bg-slate-200' => !Route::is('dashboard'),
             ])>
                 Home
             </a>
-            <a @class([
+            <a href="{{ route('favorite') }}" @class([
                 'text-xs py-2 px-5 rounded-md cursor-pointer font-semibold',
                 'bg-slate-400 text-slate-50' => Route::is('favorite'),
                 'hover:bg-slate-200' => !Route::is('favorite'),
             ])>
                 Favorite
             </a>
-            <a @class([
-                'text-xs py-2 px-5 rounded-md cursor-pointer font-semibold',
-                'bg-slate-400 text-slate-50' => Route::is('borrowing'),
-                'hover:bg-slate-200' => !Route::is('borrowing'),
-            ])>
-                Borrowing
-            </a>
-            <a @class([
+            <a href="{{ route('history') }}" @class([
                 'text-xs py-2 px-5 rounded-md cursor-pointer font-semibold',
                 'bg-slate-400 text-slate-50' => Route::is('history'),
                 'hover:bg-slate-200' => !Route::is('history'),

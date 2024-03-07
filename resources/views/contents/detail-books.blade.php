@@ -357,7 +357,7 @@
                 <div class="flex flex-col gap-2">
                     <label for="comment" class="text-sm">You want to leave a comment?</label>
                     <textarea name="comment" id="comment" rows="3"
-                        class="text-sm p-0 border-0 border-b bg-transparent resize-none" required></textarea>
+                        class="text-sm p-0 border-0 border-b bg-transparent resize-none outline-none border-black" required></textarea>
                 </div>
                 <button type="submit"
                     class="text-sm py-2 text-center w-full border border-black rounded-md hover:bg-slate-500 hover:text-slate-50 mt-4">

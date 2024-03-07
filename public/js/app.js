@@ -210,6 +210,26 @@ if (btnModal && modal && btnCloseModal) {
     })
 }
 
+const HistoryModal = (btn, iconDown, iconUp, modal) => {
+    var btn = document.getElementById(btn)
+    var iconDown = document.getElementById(iconDown)
+    var iconUp = document.getElementById(iconUp)
+    var modal = document.getElementById(modal)
+    if (btn && iconDown && iconUp && modal) {
+        if (iconDown.classList.contains('hidden')) {
+            iconDown.classList.remove('hidden')
+            iconUp.classList.add('hidden')
+            modal.classList.add('hidden')
+            modal.classList.remove('animate-fade-down', 'animate-once', 'animate-duration-1500')
+        } else {
+            iconDown.classList.add('hidden')
+            iconUp.classList.remove('hidden')
+            modal.classList.remove('hidden')
+            modal.classList.add('animate-fade-down', 'animate-once', 'animate-duration-1500')
+        }
+    }
+}
+
 // LOAD
 document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('currentTime')) {

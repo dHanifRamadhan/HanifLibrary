@@ -1,2 +1,1 @@
-import 'flowbite';
-import 'animate.css';
+// import 'flowbite';

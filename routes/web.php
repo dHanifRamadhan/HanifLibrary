@@ -164,6 +164,9 @@ Route::get('favorite', function() {
     return view('contents.favorite');
 })->name('favorite');
 
+Route::get('history', function() {
+    return view('contents.history');
+})->name('history');
 
 // Session
 Route::get('/a', function() {

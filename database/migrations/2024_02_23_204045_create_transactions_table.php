@@ -20,6 +20,10 @@ return new class extends Migration
             $table->unsignedInteger('total_qty');
             $table->bigInteger('total_amount');
 
+            $table->date('package_arrived');
+            $table->enum('status', ['send', 'arrived', 'received'])->default('send');
+            $table->string('picture')->nullable();
+
             // Relasi
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
 
