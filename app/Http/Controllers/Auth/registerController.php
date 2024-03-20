@@ -32,12 +32,10 @@ class registerController extends Controller
 
         $services = new registerServices();
         $register = $services->register($request);
-
         
         Mail::to($register->email)->send(new acceptEmailUsers($register));
 
         return back()->with('success', (object)[
-            'title' => 'Email successfully registered',
             'message' => 'Please check your email ' . $request->email . ' !',
         ]);
     }    

@@ -22,7 +22,6 @@ return new class extends Migration
 
             // Data diri
             $table->string('name');
-            $table->unsignedInteger('age')->default(14);
             $table->string('phone');
             $table->text('address');
             // Data diri

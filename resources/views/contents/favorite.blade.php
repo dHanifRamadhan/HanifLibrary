@@ -4,8 +4,13 @@
 @endsection
 @section('main')
     <div class="py-5 px-8 h-full overflow-y-scroll">
-        <div class="grid grid-cols-3 gap-6 h-max">
-            <a href="{{route('detail')}}" class="border border-slate-400 rounded flex gap-2 bg-slate-200 hover:border-black">
+        <div class="flex items-center justify-center">
+            <span class="text-xl font-semibold">
+                There is no book that you like!
+            </span>
+        </div>
+        {{-- <div class="grid grid-cols-3 gap-6 h-max">
+            <a href="{{route('detail', 1)}}" class="border border-slate-400 rounded flex gap-2 bg-slate-200 hover:border-black">
                 <div class="h-max w-max flex items-center justify-center scale-75">
                     <div class="relative w-44 h-60 flex pb-8">
                         <div class="w-5 rounded-tl-xl" style="background-color: #222;">
@@ -48,5 +53,5 @@
                     </div>
                 </div>
             </a>
-        </div>
+        </div> --}}
     @endsection

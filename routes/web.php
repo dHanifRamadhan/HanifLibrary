@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\acceptEmailController;
+use App\Http\Controllers\Auth\acceptMailsControlller;
 use App\Http\Controllers\Auth\loginController;
 use App\Http\Controllers\Auth\registerController;
 use App\Http\Controllers\Auth\forgotPasswordController;
@@ -10,7 +11,6 @@ use App\Http\Controllers\CoinsController;
 use App\Http\Controllers\contentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OfficerController;
-use App\Mail\acceptEmailUsers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
@@ -123,7 +123,6 @@ Route::get('books/{id}', [contentController::class, 'detail'])->name('detail');
 Route::get('favorite', [contentController::class, 'favorite'])->name('favorite');
 Route::get('history', [contentController::class, 'history'])->name('history');
 
-
 Route::get('auth/login', [loginController::class, 'login'])->name('auth.login');
 Route::post('auth/login', [loginController::class, 'loginPost'])->name('auth.login.post');
 
@@ -131,7 +130,17 @@ Route::get('auth/register', [registerController::class, 'register'])->name('auth
 Route::post('auth/register', [registerController::class, 'registerPost'])->name('auth.register.post');
 
 Route::post('logout', [loginController::class, 'logout'])->name('logout');
+Route::get('auth/accept-mail', [acceptMailsControlller::class, 'accept'])->name('auth.accept.mail');
+Route::post('auth/failed-mail', [acceptMailsControlller::class, 'resendMail'])->name('auth.failed.mail');
 
+
+
+
+
+
+
+
+Route::get('kirim', [acceptMailsControlller::class, 'kirim']);
 
 // Session
 Route::get('/a', function() {

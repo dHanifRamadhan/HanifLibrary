@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('author');
             $table->string('publisher');
             $table->date('year_published');
-            $table->string('rating_age');
             $table->string('synopsis');
 
             // Penjualan

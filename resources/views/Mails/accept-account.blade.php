@@ -24,7 +24,7 @@
                         website
                     </p>
                     {{-- http://localhost:8000/auth/register/accept-account/{{$data['id']}} --}}
-                    <a href="{{route('accept.email.verification', $data->id)}}"
+                    <a href="{{route('auth.accept.mail', $data->id)}}"
                     style="border-width:2px;background-color:transparent;background-image:none;border-color:#000;border-radius:0.375rem;padding-left:0.55rem;padding-right:0.55rem;padding-top:0.25rem;padding-bottom:0.25rem;display:flex;text-decoration:none;text-align:center;color:#000;border:1px solid #000;margin-left:auto;margin-right:auto; height: max-content;">
                         <span
                             style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; font-size: 0.875rem; line-height: 1.25rem; font-weight: 600; height: max-content;">

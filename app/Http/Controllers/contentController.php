@@ -50,4 +50,12 @@ class contentController extends Controller
 
         return view('contents.detail-books', ['data' => $data]);
     }
+
+    public function favorite() {
+        return view('contents.favorite');
+    }
+
+    public function history() {
+        return view('contents.history');
+    }
 }

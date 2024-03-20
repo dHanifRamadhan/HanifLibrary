@@ -42,7 +42,7 @@ class acceptEmailUsers extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'Mails.accept-account',
+            view: 'Mails.accept-mail',
         );
     }
 

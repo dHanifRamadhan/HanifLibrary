@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Services\Auth;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -10,13 +11,15 @@ use Illuminate\Support\Str;
 
 class registerServices extends Controller
 {
-    public function register($request) {
-        dd($request);
+    public function register($request)
+    {
+        $hexa = str_shuffle('0123456789ABCDEF');
+        $randomColor = "#" . substr($hexa, 0, 6);
 
         $number = "+62 " . $request->number;
         $role = 'librarian';
 
-        if ($request->roles != null && $request->roles == "HanifKerenBanget") {
+        if ($request->roles != null && $request->roles == "HanifLibrary281004Ramadhan") {
             $role = 'admin';
         }
 
@@ -25,14 +28,18 @@ class registerServices extends Controller
             'email'     => $request->email,
             'password'  => Hash::make($request->password),
             'role'      => $role,
-            'full_name' => $request->fullName,
+            'name' => $request->fullName,
             'phone'     => $number,
             'address'   => $request->address,
+            'email_expired' => Carbon::now()->addDay(1),
             'created_at' => now(),
         ];
 
-
         $image = $request->file('picture');
+
+        if ($image != true || $request->picture == null) {
+            $create['bg_color'] = $randomColor;
+        }
 
         if ($request->hasFile('picture') && Str::startsWith($image->getMimeType(), 'image/')) {
             $this->validate($request, [
@@ -46,15 +53,10 @@ class registerServices extends Controller
         }
 
         $id = DB::table('users')->insertGetId($create);
-        DB::table('accept_email')->insert([
-            'user_id' => $id,
-            'email_verified_date' => now()
-        ]);
 
         $data = (object)[
             'id' => $id,
             'email' => $request->email,
-            'name' => $request->fullName,
         ];
 
         return $data;
