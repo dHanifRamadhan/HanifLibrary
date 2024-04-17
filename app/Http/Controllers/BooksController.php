@@ -10,7 +10,7 @@ class BooksController extends Controller
     public function index()
     {
         $mode = "default";
-        $sub = DB::table('full_category AS b')
+        $sub = DB::table('book_and_category AS b')
             ->rightJoin('categories AS c', 'b.category_id', '=', 'c.id')
             ->select('b.book_id', DB::raw('GROUP_CONCAT(c.name) AS category_name'))
             ->groupBy('b.book_id');
@@ -43,7 +43,7 @@ class BooksController extends Controller
 
     public function show($id)
     {
-        $data = DB::table('full_category AS a')
+        $data = DB::table('book_and_category AS a')
             ->join('books AS b', 'a.book_id', '=', 'b.id')
             ->join('categories AS c', 'a.category_id', '=', 'c.id')
             ->select('b.*', DB::raw('GROUP_CONCAT(a.category_id) AS category'))
@@ -109,7 +109,7 @@ class BooksController extends Controller
             ];
         }
 
-        DB::table('full_category')->insert($data);
+        DB::table('book_and_category')->insert($data);
 
         return redirect()->route('book.index')->with('success', (object)[
             'title' => 'Successful',
@@ -162,8 +162,8 @@ class BooksController extends Controller
             'updated_at' => now()
         ]);
 
-        DB::table('full_category')->where('book_id', $id)->delete();
-        DB::table('full_category')->insert($category);
+        DB::table('book_and_category')->where('book_id', $id)->delete();
+        DB::table('book_and_category')->insert($category);
 
         return redirect()->route('book.index')->with('success', (object)[
             'title' => 'Successful',

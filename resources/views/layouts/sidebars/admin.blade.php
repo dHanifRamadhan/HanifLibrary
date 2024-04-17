@@ -1,4 +1,4 @@
-<aside class="absolute top-0 left-0 bottom-0 bg-slate-200 w-60">
+<aside class="absolute top-0 left-0 bottom-0 bg-slate-200 w-60 z-20">
     <div class="h-full flex flex-col items-center justify-center border-r border-black">
         <div class="border-b-2 border-slate-600 w-52 h-16 flex items-center gap-3">
             <svg version="1.1" viewBox="0 0 1600 1600" width="50" height="50" xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +66,7 @@
                             @endif
                         @endauth
                         <li class="border border-slate-600">
-                            <a href="" @class([
+                            <a href="{{route('category.index')}}" @class([
                                 'font-mono h-full flex items-center py-3 px-6 gap-6',
                                 'bg-slate-400 text-slate-100' => Route::is('category.*'),
                                 'hover:bg-slate-400 hover:text-white' => !Route::is('category.*'),
@@ -86,7 +86,7 @@
                             </a>
                         </li>
                         <li class="border border-slate-600">
-                            <a href="" @class([
+                            <a href="{{route('book.index')}}" @class([
                                 'font-mono h-full flex items-center py-3 px-6 gap-6',
                                 'bg-slate-400 text-slate-100' => Route::is('book.*'),
                                 'hover:bg-slate-400 hover:text-white' => !Route::is('book.*'),
