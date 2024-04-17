@@ -1,5 +1,5 @@
 <aside class="absolute top-0 left-0 bottom-0 bg-slate-200 w-60">
-    <div class="h-full flex flex-col items-center justify-center">
+    <div class="h-full flex flex-col items-center justify-center border-r border-black">
         <div class="border-b-2 border-slate-600 w-52 h-16 flex items-center gap-3">
             <svg version="1.1" viewBox="0 0 1600 1600" width="50" height="50" xmlns="http://www.w3.org/2000/svg"
                 class="text-white">
@@ -14,7 +14,7 @@
             <div class="h-full">
                 <ul class="h-full py-8 flex flex-col justify-between relative">
                     <div class="flex flex-col gap-6 h-[27rem] w-full overflow-y-scroll">
-                        <li class="border-2 border-slate-600">
+                        <li class="border border-slate-600">
                             <a href="{{ route('dashboard') }}" @class([
                                 'font-mono h-full flex items-center py-3 px-6 gap-6',
                                 'bg-slate-400 text-slate-100' => Route::is('dashboard'),
@@ -40,11 +40,11 @@
                         </li>
                         @auth
                             @if (Auth::user()->role == 'admin')
-                                <li class="border-2 border-slate-600">
-                                    <a href="{{ route('officer.index') }}" @class([
+                                <li class="border border-slate-600">
+                                    <a href="{{route('users.index')}}" @class([
                                         'font-mono h-full flex items-center py-3 px-6 gap-6',
-                                        'bg-slate-400 text-slate-100' => Route::is('officer.*'),
-                                        'hover:bg-slate-400 hover:text-white' => !Route::is('officer.*'),
+                                        'bg-slate-400 text-slate-100' => Route::is('users.*'),
+                                        'hover:bg-slate-400 hover:text-white' => !Route::is('users.*'),
                                     ])>
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-coffee"
                                             width="20" height="20" viewBox="0 0 24 24" stroke-width="2"
@@ -58,15 +58,15 @@
                                             <path d="M3 10h14v5a6 6 0 0 1 -6 6h-2a6 6 0 0 1 -6 -6v-5z" />
                                             <path d="M16.746 16.726a3 3 0 1 0 .252 -5.555" />
                                         </svg>
-                                        <span class="font-semibold">
-                                            Officer
+                                        <span class="">
+                                            Users
                                         </span>
                                     </a>
                                 </li>
                             @endif
                         @endauth
-                        <li class="border-2 border-slate-600">
-                            <a href="{{ route('category.index') }}" @class([
+                        <li class="border border-slate-600">
+                            <a href="" @class([
                                 'font-mono h-full flex items-center py-3 px-6 gap-6',
                                 'bg-slate-400 text-slate-100' => Route::is('category.*'),
                                 'hover:bg-slate-400 hover:text-white' => !Route::is('category.*'),
@@ -80,13 +80,13 @@
                                     <path d="M4 14h6v6h-6z" />
                                     <path d="M17 17m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
                                 </svg>
-                                <span class="font-semibold">
+                                <span class="">
                                     Category
                                 </span>
                             </a>
                         </li>
-                        <li class="border-2 border-slate-600">
-                            <a href="{{ route('book.index') }}" @class([
+                        <li class="border border-slate-600">
+                            <a href="" @class([
                                 'font-mono h-full flex items-center py-3 px-6 gap-6',
                                 'bg-slate-400 text-slate-100' => Route::is('book.*'),
                                 'hover:bg-slate-400 hover:text-white' => !Route::is('book.*'),
@@ -106,32 +106,12 @@
                                     <path d="M14 9l4 -1" />
                                     <path d="M16 16l3.923 -.98" />
                                 </svg>
-                                <span class="font-semibold">
+                                <span class="">
                                     Books
                                 </span>
                             </a>
                         </li>
-                        <li class="border-2 border-slate-600">
-                            <a href="{{route('coin.index')}}" @class([
-                                'font-mono h-full flex items-center py-3 px-6 gap-6',
-                                'bg-slate-400 text-slate-100' => Route::is('coin.*'),
-                                'hover:bg-slate-400 hover:text-white' => !Route::is('coin.*'),
-                            ])>
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-coin"
-                                    width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5"
-                                    stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-                                    <path
-                                        d="M14.8 9a2 2 0 0 0 -1.8 -1h-2a2 2 0 1 0 0 4h2a2 2 0 1 1 0 4h-2a2 2 0 0 1 -1.8 -1" />
-                                    <path d="M12 7v10" />
-                                </svg>
-                                <span>
-                                    Coins
-                                </span>
-                            </a>
-                        </li>
-                        <li class="border-2 border-slate-600">
+                        <li class="border border-slate-600">
                             <a href="" @class([
                                 'font-mono h-full flex items-center py-3 px-6 gap-6',
                                 'bg-slate-400 text-slate-100' => session('asdasd'),
@@ -150,14 +130,14 @@
                                     <path d="M8 11h4" />
                                     <path d="M8 15h3" />
                                 </svg>
-                                <span class="font-semibold">
+                                <span class="">
                                     Report
                                 </span>
                             </a>
                         </li>
                     </div>
                     <li
-                        class="border-2 border-slate-600 hover:bg-slate-400 hover:text-white absolute bottom-0 left-0 right-0">
+                        class="border border-slate-600 hover:bg-slate-400 hover:text-white absolute bottom-0 left-0 right-0">
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
                             <button type="submit" class="font-mono h-full flex items-center py-3 px-6 gap-6">
@@ -168,7 +148,7 @@
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                     <path d="M9 11l-4 4l4 4m-4 -4h11a4 4 0 0 0 0 -8h-1" />
                                 </svg>
-                                <span class="font-semibold">
+                                <span class="">
                                     Logout
                                 </span>
                             </button>

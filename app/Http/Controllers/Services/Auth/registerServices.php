@@ -13,13 +13,27 @@ class registerServices extends Controller
 {
     public function register($request)
     {
+        $check = DB::table('users')
+            ->where('email', $request->email)
+            ->orWhere('username', $request->username)
+            ->whereNull('email_verified_at')
+            ->where('status_verification', 'already')
+            ->first();
+
+        if ($check != null) {
+            return $data = (object) [
+                'id' => $check->id,
+                'email' => $check->email
+            ];
+        }
+
         $hexa = str_shuffle('0123456789ABCDEF');
         $randomColor = "#" . substr($hexa, 0, 6);
 
         $number = "+62 " . $request->number;
         $role = 'librarian';
 
-        if ($request->roles != null && $request->roles == "HanifLibrary281004Ramadhan") {
+        if ($request->roles != null && $request->roles == " ") {
             $role = 'admin';
         }
 
@@ -49,7 +63,7 @@ class registerServices extends Controller
             $path = strval(mt_rand(0000, 9999)) . "-" . str_replace(' ', '', $image->getClientOriginalName());
             $picture = $request->picture->storeAs('image/users', $path);
 
-            $create["profile"] = $picture;
+            $create["picture"] = $picture;
         }
 
         $id = DB::table('users')->insertGetId($create);

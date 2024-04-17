@@ -129,7 +129,7 @@
             ])>
                 History
             </a>
-            <a @class([
+            <a href="{{ route('settings') }}" @class([
                 'text-xs py-2 px-5 rounded-md cursor-pointer font-semibold',
                 'bg-slate-400 text-slate-50' => Route::is('settings'),
                 'hover:bg-slate-200' => !Route::is('settings'),

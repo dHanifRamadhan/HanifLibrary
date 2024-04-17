@@ -11,6 +11,8 @@ use App\Http\Controllers\CoinsController;
 use App\Http\Controllers\contentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OfficerController;
+use App\Http\Controllers\usersController;
+use App\Http\Controllers\userSettings;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
@@ -117,38 +119,57 @@ use Illuminate\Support\Facades\Route;
 
 
 // Update
-
+Route::get('/home', function () {
+    return redirect()->route('dashboard');
+});
 Route::get('/', [contentController::class, 'dashboard'])->name('dashboard');
-Route::get('books/{id}', [contentController::class, 'detail'])->name('detail');
-Route::get('favorite', [contentController::class, 'favorite'])->name('favorite');
-Route::get('history', [contentController::class, 'history'])->name('history');
+
+Route::group(['middleware' => ['guest']], function () {
+    Route::get('books/{id}', [contentController::class, 'detail'])->name('detail');
+    Route::get('favorite', [contentController::class, 'favorite'])->name('favorite');
+    Route::get('history', [contentController::class, 'history'])->name('history');
+    Route::get('settings', [userSettings::class, 'index'])->name('settings');
+});
 
 Route::get('auth/login', [loginController::class, 'login'])->name('auth.login');
 Route::post('auth/login', [loginController::class, 'loginPost'])->name('auth.login.post');
-
 Route::get('auth/register', [registerController::class, 'register'])->name('auth.register');
 Route::post('auth/register', [registerController::class, 'registerPost'])->name('auth.register.post');
-
-Route::post('logout', [loginController::class, 'logout'])->name('logout');
 Route::get('auth/accept-mail', [acceptMailsControlller::class, 'accept'])->name('auth.accept.mail');
 Route::post('auth/failed-mail', [acceptMailsControlller::class, 'resendMail'])->name('auth.failed.mail');
 
+Route::post('logout', [loginController::class, 'logout'])->name('logout');
 
+Route::get('auth/users', [usersController::class, 'index'])->name('users.index');
+Route::post('auth/users', [usersController::class, 'store'])->name('users.store');
+Route::delete('auth/users/delete', [usersController::class, 'delete'])->name('users.delete');
 
+Route::get('category', [CategoriesController::class, 'index'])->name('category.index');
+Route::post('category', [CategoriesController::class, 'store'])->name('category.store');
+Route::get('category/show/{id}', [CategoriesController::class, 'show'])->name('category.show');
+Route::put('category/update/{id}', [CategoriesController::class, 'update'])->name('category.update');
+Route::delete('category/delete/{id}', [CategoriesController::class, 'delete'])->name('category.delete');
+Route::delete('category/delete/all', [CategoriesController::class, 'deleteAll'])->name('category.delete.all');
+Route::get('category/trash', [CategoriesController::class, 'trash'])->name('category.trash');
+Route::put('category/recive/{id}', [CategoriesController::class, 'recive'])->name('category.recive');
 
-
-
-
+Route::get('book', [BooksController::class, 'index'])->name('book.index');
+Route::get('book/create', [BooksController::class, 'create'])->name('book.create');
+Route::post('book', [BooksController::class, 'store'])->name('book.store');
+Route::get('book/show/{id}', [BooksController::class, 'show'])->name('book.show');
+Route::put('book/update/{id}', [BooksController::class, 'update'])->name('book.update');
+Route::put('book/stock/{id}', [BooksController::class, 'updateStock'])->name('book.stock');
+Route::delete('book/delete/{id}', [BooksController::class, 'delete'])->name('book.delete');
 
 Route::get('kirim', [acceptMailsControlller::class, 'kirim']);
 
 // Session
-Route::get('/a', function() {
+Route::get('/a', function () {
     return redirect()->route('dashboard')->with('success', (object)[
         'message' => 'Berhasil membuat session'
     ]);
 });
-Route::get('/b', function() {
+Route::get('/b', function () {
     return redirect()->route('dashboard')->with('error', (object)[
         'message' => 'Failed membuat session'
     ]);

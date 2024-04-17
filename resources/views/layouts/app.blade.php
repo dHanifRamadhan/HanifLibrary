@@ -61,6 +61,8 @@
         @guest
             @include('layouts.navbars.guest')
         @else
+            @include('layouts.navbars.admin')
+            @include('layouts.sidebars.admin')
         @endguest
         <main @class([
             'w-full h-full',

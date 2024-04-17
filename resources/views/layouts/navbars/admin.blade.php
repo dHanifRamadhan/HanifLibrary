@@ -1,4 +1,4 @@
-<nav class="absolute top-0 left-0 right-0 h-[4rem] ml-60 bg-slate-400 border-l-2 border-black">
+<nav class="absolute top-0 left-0 right-0 h-[4rem] ml-60 bg-slate-400 border-b border-black -z-10">
     <div class="h-full flex items-center justify-end pr-24 gap-5">
         <a href="">
             <svg xmlns="http://www.w3.org/2000/svg" class="text-slate-100" width="22" height="22" viewBox="0 0 24 24"

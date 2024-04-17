@@ -58,7 +58,7 @@
                 <span class="font-semibold">
                     Users
                 </span>
-                <canvas id="usersLine" height="120"></canvas>   
+                <canvas id="usersLine" height="120"></canvas>
             </div>
         </div>
         <div class="border-2 border-black rounded-lg bg-slate-200">

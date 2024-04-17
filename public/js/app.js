@@ -331,6 +331,47 @@ if (imageInput && imagePreview) {
     })
 }
 
+var inputUpdate = document.getElementById('officer-updated-id')
+var inputDelete = document.getElementById('officer-deleted-id')
+var checkboxOfficer = document.querySelectorAll('.checkbox-officer-id')
+
+if (inputDelete && inputUpdate && checkboxOfficer) {
+    checkboxOfficer.forEach((data) => {
+        data.addEventListener('change', () => {
+            let valueId = ''
+            checkboxOfficer.forEach((checkbox) => {
+                if (checkbox.checked) {
+                    valueId += checkbox.value + ','
+                }
+            })
+            inputUpdate.value = valueId.slice(0, -1)
+            inputDelete.value = valueId.slice(0, -1)
+        })
+    })
+}
+
+var customerCoin = document.getElementById('customer-coin-id')
+var customerBan = document.getElementById('customer-ban-id')
+var customerDelete = document.getElementById('customer-delete-id')
+var customerCheckBox = document.querySelectorAll('.checkbox-customer-id')
+
+// if (customerCoin && customerUpdate && customerBan && customerDelete && customerCheckBox) {
+    customerCheckBox.forEach((data) => {
+        data.addEventListener('change', () => {
+            let valueId = ''
+            customerCheckBox.forEach((checkbox) => {
+                if (checkbox.checked) {
+                    valueId += checkbox.value + ','
+                }
+            })
+            customerCoin.value = valueId.slice(0, -1)
+            customerUpdate.value = valueId.slice(0, -1)
+            customerBan.value = valueId.slice(0, -1)
+            customerDelete.value = valueId.slice(0, -1)
+        })
+    })
+// }
+
 // LOAD
 document.addEventListener('DOMContentLoaded', function () {
     if (document.getElementById('currentTime')) {

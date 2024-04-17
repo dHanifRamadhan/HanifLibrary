@@ -16,8 +16,8 @@ class registerController extends Controller
 
     public function registerPost(Request $request) {
         $this->validate($request, [
-            'username'  => 'required|unique:users,username',
-            'email'     => 'required|email:dns,rfc|unique:users,email',
+            'username'  => 'required',
+            'email'     => 'required|email:dns,rfc',
             'password'  => 'required|min:6',
             'fullName'  => 'required',
             'number'    => 'required',

@@ -21,7 +21,8 @@
             <a href="{{ route('detail', 1) }}" class="px-2 w-max flex flex-col items-center relative group">
                 <form action="" method="POST" class="absolute top-2 right-2 z-20 invisible group-hover:visible">
                     @csrf
-                    <button type="submit" class="p-2 bg-slate-300 rounded-lg border border-black hover:bg-slate-400 hover:text-white">
+                    <button type="submit"
+                        class="p-2 bg-slate-300 rounded-lg border border-black hover:bg-slate-400 hover:text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24"
                             stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round"
                             stroke-linejoin="round">
@@ -281,7 +282,9 @@
             {{-- Books is Null --}}
         @endforelse
     </div>
-    <div class="absolute -bottom-14 left-0 right-0 z-0 flex justify-center">
-        <img src="{{ asset('images/doodles-landscape.webp') }}" alt="" class="">
-    </div>
+    @if ($recommended != null)
+        <div class="absolute -bottom-14 left-0 right-0 z-0 flex justify-center">
+            <img src="{{ asset('images/doodles-landscape.webp') }}" alt="" class="">
+        </div>
+    @endif
 </div>

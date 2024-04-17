@@ -11,23 +11,23 @@ class contentController extends Controller
         $recommended = [];
         $category = [];
 
-        for ($i = 0; $i < 8; $i++) {
-            $random = rand(1, 10);
-            $recommended[] = (object) [
-                'title' => 'Book ' . $i,
-                'author' => 'Author ' . $i,
-                'picture' => 'https://i.pinimg.com/564x/d3/4d/c1/d34dc16977d5a06b31fa0316e6a574f0.jpg',
-                'bottom_color' => '#111',
-                'right_color' => '#222',
-                'cover_color' => '#000',
-                'rating' => $random,
-                'rating_true' => $random
-            ];
+        // for ($i = 0; $i < 8; $i++) {
+        //     $random = rand(1, 10);
+        //     $recommended[] = (object) [
+        //         'title' => 'Book ' . $i,
+        //         'author' => 'Author ' . $i,
+        //         'picture' => 'https://i.pinimg.com/564x/d3/4d/c1/d34dc16977d5a06b31fa0316e6a574f0.jpg',
+        //         'bottom_color' => '#111',
+        //         'right_color' => '#222',
+        //         'cover_color' => '#000',
+        //         'rating' => $random,
+        //         'rating_true' => $random
+        //     ];
 
-            $category[] = (object)[
-                'name' => 'Category ' . "$i",
-            ];
-        }
+        //     $category[] = (object)[
+        //         'name' => 'Category ' . "$i",
+        //     ];
+        // }
 
 
         return view('dashboard', ['recommended' => $recommended, 'category' => $category]);
