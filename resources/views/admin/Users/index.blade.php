@@ -3,7 +3,7 @@
     Users
 @endsection
 @section('main')
-    <div class="w-full h-full pt-[4rem] pl-60 relative">
+    <div class="w-full h-full pt-[4rem] pl-60 relative overflow-y-scroll">
         <div class="p-4 flex flex-col gap-4">
             <div class="py-1 flex items-center gap-1">
                 <hr class="w-20 border-black">

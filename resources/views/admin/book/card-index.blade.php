@@ -4,14 +4,14 @@
         <div class="flex gap-2 border-2 border-black py-3 pt-8 px-10 rounded-md bg-slate-200">
             <div class="h-max w-max flex items-center justify-center py-3">
                 <div class="relative w-44 h-60 flex pb-8">
-                    <div class="w-5 rounded-tl-xl" style="background-color: {{ $value->cover_right_color }};"></div>
+                    <div class="w-5 rounded-tl-xl" style="background-color: {{ $value->right_color }};"></div>
                     <div class="w-4/5 rounded-tr-xl flex items-start justify-end pb-2"
                         style="background-color: {{ $value->cover_color }};">
                         <img src="{{ asset('storage/' . $value->picture) }}" class="w-full h-full rounded-tr-lg"
                             alt="">
                     </div>
                     <div class="absolute bottom-5 right-[0.95rem] left-0 rounded-lg h-6"
-                        style="background-color: {{ $value->cover_bottom_color }};">
+                        style="background-color: {{ $value->bottom_color }};">
                         <div class="relative w-full h-full flex items-center pl-4 pr-1">
                             <div
                                 class="h-4 w-full bg-slate-200 bg-opacity-90 rounded-md flex flex-col gap-[0.20rem] py-1">

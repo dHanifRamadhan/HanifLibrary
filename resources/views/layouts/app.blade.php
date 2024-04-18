@@ -5,19 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" href="{{asset('images/icon-books-login.webp')}}">
+    <link rel="icon" href="{{ asset('images/icon-books-login.webp') }}">
     <title>@yield('title')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="preload" href="{{asset('js/app.js')}}" as="script">
-    <link rel="preload" href="{{asset('css/app.css')}}" as="style">
-    <link rel="preload" href="{{asset('images/doodles-landscape.webp')}}" as="image" type="image/webp">
-    <link rel="preload" href="{{asset('images/doodles.webp')}}" as="image" type="image/webp">
-    <link rel="preload" href="{{asset('images/icon-book.webp')}}" as="image" type="image/webp">
-    <link rel="preload" href="{{asset('images/icon-books-forgot.webp')}}" as="image" type="image/webp">
-    <link rel="preload" href="{{asset('images/icon-books-login.webp')}}" as="image" type="image/webp">
-    <link rel="preload" href="{{asset('images/icon-books-regis.webp')}}" as="image" type="image/webp">
-    <link rel="preload" href="{{asset('images/icon-email.webp')}}" as="image" type="image/webp">    
+    <link rel="preload" href="{{ asset('js/app.js') }}" as="script">
+    <link rel="preload" href="{{ asset('css/app.css') }}" as="style">
+    <link rel="preload" href="{{ asset('images/doodles-landscape.webp') }}" as="image" type="image/webp">
+    <link rel="preload" href="{{ asset('images/doodles.webp') }}" as="image" type="image/webp">
+    <link rel="preload" href="{{ asset('images/icon-book.webp') }}" as="image" type="image/webp">
+    <link rel="preload" href="{{ asset('images/icon-books-forgot.webp') }}" as="image" type="image/webp">
+    <link rel="preload" href="{{ asset('images/icon-books-login.webp') }}" as="image" type="image/webp">
+    <link rel="preload" href="{{ asset('images/icon-books-regis.webp') }}" as="image" type="image/webp">
+    <link rel="preload" href="{{ asset('images/icon-email.webp') }}" as="image" type="image/webp">
 </head>
 
 <body @class([
@@ -26,13 +26,13 @@
         Auth::check() != true && Route::is('auth.*'),
 ])>
 
-<img src="{{asset('images/doodles-landscape.webp')}}" alt="" class="hidden">
-<img src="{{asset('images/doodles.webp')}}" alt="" class="hidden">
-<img src="{{asset('images/icon-book.webp')}}" alt="" class="hidden">
-<img src="{{asset('images/icon-books-forgot.webp')}}" alt="" class="hidden">
-<img src="{{asset('images/icon-books-login.webp')}}" alt="" class="hidden">
-<img src="{{asset('images/icon-books-regis.webp')}}" alt="" class="hidden">
-<img src="{{asset('images/icon-email.webp')}}" alt="" class="hidden">
+    <img src="{{ asset('images/doodles-landscape.webp') }}" alt="" class="hidden">
+    <img src="{{ asset('images/doodles.webp') }}" alt="" class="hidden">
+    <img src="{{ asset('images/icon-book.webp') }}" alt="" class="hidden">
+    <img src="{{ asset('images/icon-books-forgot.webp') }}" alt="" class="hidden">
+    <img src="{{ asset('images/icon-books-login.webp') }}" alt="" class="hidden">
+    <img src="{{ asset('images/icon-books-regis.webp') }}" alt="" class="hidden">
+    <img src="{{ asset('images/icon-email.webp') }}" alt="" class="hidden">
 
     {{-- All Sesssion --}}
     @if (session('success') || session('error'))
@@ -61,13 +61,14 @@
         @guest
             @include('layouts.navbars.guest')
         @else
-            @include('layouts.navbars.admin')
-            @include('layouts.sidebars.admin')
+            @if (Auth::user()->role != 'librarian')
+                @include('layouts.navbars.admin')
+                @include('layouts.sidebars.admin')
+            @else
+                @include('layouts.navbars.guest')
+            @endif
         @endguest
-        <main @class([
-            'w-full h-full',
-            'pt-[6.72rem]' => Auth::check() != true
-        ])>
+        <main @class(['w-full h-full', 'pt-[6.72rem]' => Auth::check() != true || Auth::user()->role == 'librarian'])>
             @yield('main')
         </main>
     @else

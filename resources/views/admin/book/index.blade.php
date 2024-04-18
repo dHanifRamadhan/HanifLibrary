@@ -15,7 +15,7 @@
     </style>
 @endsection
 @section('main')
-<div class="w-full h-full pt-[4rem] pl-60 relative">
+<div class="w-full h-full pt-[4rem] pl-60 relative overflow-y-scroll">
     <div class="p-4 flex flex-col gap-4">
         <div class="mx-16 flex flex-col gap-4">
             <div class="flex gap-4 relative">

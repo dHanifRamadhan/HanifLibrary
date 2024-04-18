@@ -8,8 +8,10 @@ use App\Http\Controllers\Auth\forgotPasswordController;
 use App\Http\Controllers\BooksController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CoinsController;
+use App\Http\Controllers\commentsController;
 use App\Http\Controllers\contentController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\favoritesController;
 use App\Http\Controllers\OfficerController;
 use App\Http\Controllers\usersController;
 use App\Http\Controllers\userSettings;
@@ -123,12 +125,16 @@ Route::get('/home', function () {
     return redirect()->route('dashboard');
 });
 Route::get('/', [contentController::class, 'dashboard'])->name('dashboard');
+Route::get('books/{id}', [contentController::class, 'detail'])->name('detail');
 
-Route::group(['middleware' => ['guest']], function () {
-    Route::get('books/{id}', [contentController::class, 'detail'])->name('detail');
-    Route::get('favorite', [contentController::class, 'favorite'])->name('favorite');
+Route::group(['middleware' => ['role:librarian']], function () {
+    Route::get('favorite', [favoritesController::class, 'index'])->name('favorite');
     Route::get('history', [contentController::class, 'history'])->name('history');
     Route::get('settings', [userSettings::class, 'index'])->name('settings');
+
+    Route::post('comments/{id}', [commentsController::class, 'store'])->name('comment.store');
+
+    Route::post('favorite/book/{id}', [favoritesController::class, 'store'])->name('fav.store');
 });
 
 Route::get('auth/login', [loginController::class, 'login'])->name('auth.login');

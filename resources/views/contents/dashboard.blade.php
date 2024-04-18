@@ -18,27 +18,51 @@
     ])>
         @forelse ($recommended as $key => $value)
             {{-- Books not null --}}
-            <a href="{{ route('detail', 1) }}" class="px-2 w-max flex flex-col items-center relative group">
-                <form action="" method="POST" class="absolute top-2 right-2 z-20 invisible group-hover:visible">
-                    @csrf
-                    <button type="submit"
-                        class="p-2 bg-slate-300 rounded-lg border border-black hover:bg-slate-400 hover:text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round"
-                            stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
-                        </svg>
-                    </button>
-                </form>
+            <a href="{{ route('detail', $value->id) }}" class="px-2 w-max flex flex-col items-center relative group">
+                @auth
+                    @php
+                        $check = DB::table('favorites')
+                            ->where('user_id', Auth::user()->id)
+                            ->where('book_id', $value->id)
+                            ->count();
+                    @endphp
+                    <form action="{{ route('fav.store', $value->id) }}" method="POST"
+                        class="absolute top-2 right-2 z-20 invisible group-hover:visible">
+                        @csrf
+                        <button type="submit"
+                            class="p-2 bg-slate-300 rounded-lg border border-black hover:bg-slate-400 hover:text-white">
+                            @if ($check != 0)
+                                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-heart-check">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path
+                                        d="M19.5 12.572l-3 2.928m-5.5 3.5a8916.99 8916.99 0 0 0 -6.5 -6.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                                    <path d="M15 19l2 2l4 -4" />
+                                </svg>
+                            @else
+                                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-heart-plus">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M12 20l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.96 6.053" />
+                                    <path d="M16 19h6" />
+                                    <path d="M19 16v6" />
+                                </svg>
+                            @endif
+                        </button>
+                    </form>
+                @endauth
                 <div class="h-max w-max flex items-center justify-center pt-4 relative left-[0.6rem] z-10">
                     <div class="relative w-44 h-60 flex pb-8">
                         <div class="w-5 rounded-tl-xl" style="background-color: {{ $value->right_color }};">
                         </div>
                         <div class="w-[8.75rem] rounded-tr-xl flex items-start justify-end pb-2"
                             style="background-color: {{ $value->cover_color }};">
-                            <img src="{{ $value->picture }}" class="w-full h-full rounded-tr-xl border-0"
-                                alt="">
+                            <img src="{{ asset('storage/' . $value->picture) }}"
+                                class="w-full h-full rounded-tr-xl border-0" alt="">
                         </div>
                         <div class="absolute bottom-5 right-[0.95rem] left-0 rounded-lg h-6"
                             style="background-color: {{ $value->bottom_color }};">
@@ -95,7 +119,7 @@
                                 @endif
                             @endfor
                             <span class="text-xs ml-2 text-black">
-                                {{ $value->rating_true }}
+                                {{ $value->rating / 2 }}
                             </span>
                         </span>
                     </div>
@@ -171,14 +195,12 @@
             ])>
                 All
             </a>
-            @forelse ($category as $key => $value)
-                <form action="" method="GET">
+            @forelse ($categories as $key => $value)
+                <form action="{{ route('dashboard') }}" method="GET">
                     <input type="hidden" name="category" value="{{ $value->name }}">
                     <button type="submit" @class([
                         'text-nowrap border border-black py-[0.2rem] px-5 rounded-md',
-                        'hover:bg-slate-400 hover:text-slate-50' =>
-                            request()->input('category') == null ||
-                            request()->input('category') != $value->name,
+                        'hover:bg-slate-400 hover:text-slate-50',
                         'bg-slate-400 text-slate-50' =>
                             request()->input('category') == $value->name,
                     ])>
@@ -199,21 +221,43 @@
         'py-4 grid grid-cols-6 gap-y-8' => $recommended != null,
         'flex items-center justify-center py-16' => $recommended == null,
     ])>
-        @forelse ($recommended as $key => $value)
+        @forelse ($books as $key => $value)
             {{-- Books not Null --}}
             <div class="w-full flex flex-col items-center justify-center relative group hover:z-10">
-                <form action="" method="POST" class="absolute top-4 right-11 invisible group-hover:visible">
+                @php
+                    $check = DB::table('favorites')
+                        ->where('user_id', Auth::user()->id)
+                        ->where('book_id', $value->id)
+                        ->count();
+                @endphp
+                <form action="{{ route('fav.store', $value->id) }}" method="POST"
+                    class="absolute top-4 right-11 invisible group-hover:visible">
                     @csrf
                     <button type="submit" class="p-1 bg-slate-400 rounded-md text-white border border-black">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round"
-                            stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
-                        </svg>
+                        @if ($check != 0)
+                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-heart-check">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path
+                                    d="M19.5 12.572l-3 2.928m-5.5 3.5a8916.99 8916.99 0 0 0 -6.5 -6.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                                <path d="M15 19l2 2l4 -4" />
+                            </svg>
+                        @else
+                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-heart-plus">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M12 20l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.96 6.053" />
+                                <path d="M16 19h6" />
+                                <path d="M19 16v6" />
+                            </svg>
+                        @endif
                     </button>
                 </form>
-                <a href="{{ route('detail', 1) }}"
+                <a href="{{ route('detail', $value->id) }}"
                     class="bg-slate-300 pl-[0.7rem] pt-7 rounded-lg text-center border border-slate-700 group-hover:border-black group-hover:border-b-0 group-hover:bg-slate-200 group-hover:shadow-black group-hover:shadow-2xl">
                     <div class="h-max w-max flex items-center justify-center scale-75">
                         <div class="relative w-44 h-60 flex pb-8">
@@ -221,8 +265,8 @@
                             </div>
                             <div class="w-[8.75rem] rounded-tr-xl flex items-start justify-end pb-2"
                                 style="background-color: {{ $value->cover_color }};">
-                                <img src="{{ $value->picture }}" class="w-full h-full rounded-tr-xl border-0"
-                                    alt="">
+                                <img src="{{ asset('storage/' . $value->picture) }}"
+                                    class="w-full h-full rounded-tr-xl border-0" alt="">
                             </div>
                             <div class="absolute bottom-5 right-[0.95rem] left-0 rounded-lg h-6"
                                 style="background-color: {{ $value->bottom_color }};">
@@ -252,24 +296,26 @@
                                 {{ $value->author }}
                             </span>
                         </div>
-                        <form action="" method="POST" class="mt-2 flex items-center justify-center">
-                            <button type="submit"
-                                class="border border-black rounded-md px-4 py-1 hover:bg-slate-400 hover:text-white hover:bg-opacity-50 flex items-center gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="scale-75" width="24"
-                                    height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <path d="M4 19a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                                    <path d="M12.5 17h-6.5v-14h-2" />
-                                    <path d="M6 5l14 1l-.86 6.017m-2.64 .983h-10.5" />
-                                    <path d="M16 19h6" />
-                                    <path d="M19 16v6" />
-                                </svg>
-                                <span class="text-xs font-semibold">
-                                    Add Cart
-                                </span>
-                            </button>
-                        </form>
+                        @auth
+                            <form action="" method="POST" class="mt-2 flex items-center justify-center">
+                                <button type="submit"
+                                    class="border border-black rounded-md px-4 py-1 hover:bg-slate-400 hover:text-white hover:bg-opacity-50 flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="scale-75" width="24"
+                                        height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                        fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M4 19a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                        <path d="M12.5 17h-6.5v-14h-2" />
+                                        <path d="M6 5l14 1l-.86 6.017m-2.64 .983h-10.5" />
+                                        <path d="M16 19h6" />
+                                        <path d="M19 16v6" />
+                                    </svg>
+                                    <span class="text-xs font-semibold">
+                                        Add Cart
+                                    </span>
+                                </button>
+                            </form>
+                        @endauth
                     </div>
                 </div>
             </div>
@@ -283,7 +329,7 @@
         @endforelse
     </div>
     @if ($recommended != null)
-        <div class="absolute -bottom-14 left-0 right-0 z-0 flex justify-center">
+        <div class="absolute -bottom-14 left-0 right-0 -z-10 flex justify-center">
             <img src="{{ asset('images/doodles-landscape.webp') }}" alt="" class="">
         </div>
     @endif

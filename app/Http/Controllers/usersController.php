@@ -26,7 +26,7 @@ class usersController extends Controller
         $phone = '+62 ' . $request->phone;
         $hexa = str_shuffle('0123456789ABCDEF');
         $randomColor = "#" . substr($hexa, 0, 6);
-        
+
         DB::table('users')->insert([
             'username' => $request->username,
             'email' => $request->email,

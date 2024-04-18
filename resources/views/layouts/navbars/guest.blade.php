@@ -25,7 +25,8 @@
         <div class="w-full flex flex-wrap justify-end gap-3">
             <form action="" method="GET" class="flex items-center">
                 <input type="search" name="search"
-                    class="h-[1.9rem] px-2 py-1 text-xs rounded-l-md outline-none w-[24rem] border border-black" placeholder="search...">
+                    class="h-[1.9rem] px-2 py-1 text-xs rounded-l-md outline-none w-[24rem] border border-black"
+                    placeholder="search...">
                 <button type="submit"
                     class="px-2 bg-slate-100 h-[1.9rem] rounded-r-md border-black border-t-[1px] border-r-[1px] border-b-[1px]">
                     <svg xmlns="http://www.w3.org/2000/svg" class="" width="16" height="16"
@@ -38,10 +39,9 @@
                 </button>
             </form>
             @auth
-                <a href="" @class([
+                {{-- <a href="" @class([
                     'flex items-center gap-2 font-bold mr-6 my-[0.4rem] px-2',
-                    'border border-black rounded-md bg-slate-400 bg-opacity-25 text-orange-500 text-opacity-85' =>
-                        Route::url() == 'qeqwe',
+                    'border border-black rounded-md bg-slate-400 bg-opacity-25 text-orange-500 text-opacity-85',
                     'text-orange-400 text-opacity-85',
                 ])>
                     <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24"
@@ -56,7 +56,7 @@
                         <path d="M3 11c0 .888 .772 1.45 2 2" />
                     </svg>
                     <span class="text-xs font-mono">
-                        {{-- @php
+                        @php
                             $coins = [];
                             if (Auth::check()) {
                                 $coins = DB::table('user_coins')
@@ -64,9 +64,9 @@
                                     ->first();
                             }
                         @endphp
-                        {{ $coins == null ? '0' : $coins->save_coins }} --}}
+                        {{ $coins == null ? '0' : $coins->save_coins }}
                     </span>
-                </a>
+                </a> --}}
                 <div class="flex items-center">
                     <a href=""
                         class="relative ring-gray-400 ring-2 rounded-full p-[0.4rem] w-8 h-8 flex justify-center items-center">
@@ -97,10 +97,12 @@
                     </a>
                 @endif
             @else
-                <a href="{{route('auth.login')}}" class="border border-black rounded-md text-xs my-[0.4rem] px-5 flex items-center">
+                <a href="{{ route('auth.login') }}"
+                    class="border border-black rounded-md text-xs my-[0.4rem] px-5 flex items-center">
                     Login
                 </a>
-                <a href="{{route('auth.register')}}" class="border border-black rounded-md text-xs my-[0.4rem] px-5 flex items-center">
+                <a href="{{ route('auth.register') }}"
+                    class="border border-black rounded-md text-xs my-[0.4rem] px-5 flex items-center">
                     Register
                 </a>
             @endauth
@@ -115,27 +117,29 @@
             ])>
                 Home
             </a>
-            <a href="{{ route('favorite') }}" @class([
-                'text-xs py-2 px-5 rounded-md cursor-pointer font-semibold',
-                'bg-slate-400 text-slate-50' => Route::is('favorite'),
-                'hover:bg-slate-200' => !Route::is('favorite'),
-            ])>
-                Favorite
-            </a>
-            <a href="{{ route('history') }}" @class([
-                'text-xs py-2 px-5 rounded-md cursor-pointer font-semibold',
-                'bg-slate-400 text-slate-50' => Route::is('history'),
-                'hover:bg-slate-200' => !Route::is('history'),
-            ])>
-                History
-            </a>
-            <a href="{{ route('settings') }}" @class([
-                'text-xs py-2 px-5 rounded-md cursor-pointer font-semibold',
-                'bg-slate-400 text-slate-50' => Route::is('settings'),
-                'hover:bg-slate-200' => !Route::is('settings'),
-            ])>
-                Settings
-            </a>
+            @auth
+                <a href="{{ route('favorite') }}" @class([
+                    'text-xs py-2 px-5 rounded-md cursor-pointer font-semibold',
+                    'bg-slate-400 text-slate-50' => Route::is('favorite'),
+                    'hover:bg-slate-200' => !Route::is('favorite'),
+                ])>
+                    Favorite
+                </a>
+                <a href="{{ route('history') }}" @class([
+                    'text-xs py-2 px-5 rounded-md cursor-pointer font-semibold',
+                    'bg-slate-400 text-slate-50' => Route::is('history'),
+                    'hover:bg-slate-200' => !Route::is('history'),
+                ])>
+                    History
+                </a>
+                <a href="{{ route('settings') }}" @class([
+                    'text-xs py-2 px-5 rounded-md cursor-pointer font-semibold',
+                    'bg-slate-400 text-slate-50' => Route::is('settings'),
+                    'hover:bg-slate-200' => !Route::is('settings'),
+                ])>
+                    Settings
+                </a>
+            @endauth
         </div>
     </div>
 </nav>

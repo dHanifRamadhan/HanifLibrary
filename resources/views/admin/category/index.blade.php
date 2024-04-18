@@ -23,17 +23,16 @@
 @endsection
 @section('main')
     @include('admin.category.modalCreate')
-    
-    <div class="w-full h-full pt-[4rem] pl-60 relative">
+    <div class="w-full h-full pt-[4rem] pl-60 relative overflow-y-scroll">
         <div class="p-4 flex flex-col gap-4">
             <div class="px-16 flex flex-col gap-5">
                 <div class="flex gap-5 relative">
                     @if (Route::is('category.index'))
                         <button type="button" id="create"
                             class="flex gap-2 items-center justify-center font-semibold py-1 px-3 border-2 border-black bg-slate-200">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-plus" width="20"
-                                height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
-                                stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-plus"
+                                width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
                                 <path d="M9 12h6" />
@@ -47,9 +46,9 @@
                     <a href="{{ route('category.index') }}"
                         class="flex gap-2 items-center justify-center font-semibold py-1 px-3 border-2 border-black bg-slate-200">
                         @if (Route::is('category.index'))
-                            <svg xmlns="http://www.w3.org/2000/svg" class="animate-spin" width="20" height="20" viewBox="0 0 24 24"
-                                stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round"
-                                stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="animate-spin" width="20" height="20"
+                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
                                 <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
@@ -78,9 +77,10 @@
                                     @method('DELETE')
                                     <button type="submit"
                                         class="flex gap-2 items-center justify-center font-semibold py-1 px-3 border-2 border-black bg-slate-200">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-http-delete"
-                                            width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5"
-                                            stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-http-delete" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                             <path d="M3 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2z" />
                                             <path d="M14 8h-4v8h4" />
@@ -93,9 +93,9 @@
                         @else
                             <a href="{{ route('category.trash') }}"
                                 class="flex gap-2 items-center justify-center font-semibold py-1 px-3 border-2 border-black bg-slate-200">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24"
-                                    height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
-                                    stroke-linecap="round" stroke-linejoin="round">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash"
+                                    width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5"
+                                    stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                     <path d="M4 7l16 0" />
                                     <path d="M10 11l0 6" />
@@ -109,13 +109,15 @@
                             </a>
                         @endif
                     @endif
-                    <form action="{{ route('category.index') }}" method="GET" class="flex absolute top-0 bottom-0 right-0">
+                    <form action="{{ route('category.index') }}" method="GET"
+                        class="flex absolute top-0 bottom-0 right-0">
                         <input type="search" name="search" id="search" placeholder="Search"
                             class="bg-transparent outline-none rounded-l-md border-t-2 border-b-2 border-l-2 border-black px-2">
-                        <button type="submit" class="border-2 border-black px-2 rounded-r-md hover:bg-slate-400 hover:text-white">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="20"
-                                height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
-                                stroke-linecap="round" stroke-linejoin="round">
+                        <button type="submit"
+                            class="border-2 border-black px-2 rounded-r-md hover:bg-slate-400 hover:text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search"
+                                width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
                                 <path d="M21 21l-6 -6" />
@@ -158,8 +160,9 @@
                                             @method('DELETE')
                                             <a href="{{ route('category.show', $value->id) }}"
                                                 class="flex gap-3 items-center text-yellow-500">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit"
-                                                    width="19" height="19" viewBox="0 0 24 24" stroke-width="1.5"
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="icon icon-tabler icon-tabler-edit" width="19"
+                                                    height="19" viewBox="0 0 24 24" stroke-width="1.5"
                                                     stroke="currentColor" fill="none" stroke-linecap="round"
                                                     stroke-linejoin="round">
                                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -172,8 +175,9 @@
                                             <button type="submit" class="flex gap-3 items-center text-red-500">
                                                 <svg xmlns="http://www.w3.org/2000/svg"
                                                     class="icon icon-tabler icon-tabler-http-delete" width="24"
-                                                    height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    height="24" viewBox="0 0 24 24" stroke-width="1.5"
+                                                    stroke="currentColor" fill="none" stroke-linecap="round"
+                                                    stroke-linejoin="round">
                                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                                     <path d="M3 8v8h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-2z" />
                                                     <path d="M14 8h-4v8h4" />

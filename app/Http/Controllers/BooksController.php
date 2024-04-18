@@ -78,27 +78,37 @@ class BooksController extends Controller
             'year_published' => 'required|date',
             'category' => 'required',
             'qty' => 'required',
-            'cover' => 'required',
-            'cover_right_color' => 'required',
-            'cover_bottom_color' => 'required',
             'picture' => 'required|image|mimes:jpeg,jpg,png'
         ]);
 
         $path = strval(mt_rand(00000, 99999) . "-" . $request->picture->getClientOriginalName());
         $picture = $request->picture->storeAs('image/cover-books', $path);
 
-        $id = DB::table('books')->insertGetId([
+        $data = [
             'title' => $request->title,
             'author' => $request->author,
             'publisher' => $request->publisher,
             'year_published' => $request->year_published,
             'qty' => $request->qty,
-            'cover_color' => $request->cover,
-            'cover_right_color' => $request->cover_right_color,
-            'cover_bottom_color' => $request->cover_bottom_color,
             'picture' => $picture,
+            'synopsis' => 'Bercobaan' . DB::table('books')->count(),
+            'price' => DB::table('books')->count().'0000',
             'created_at' => now()
-        ]);
+        ];
+
+        if ($request->cover != null) {
+            $data['cover_color'] = $request->cover;
+        }
+
+        if ($request->cover_right_color != null) {
+            $data['right_color'] = $request->cover_right_color;
+        }
+
+        if ($request->cover_bottom_color != null) {
+            $data['bottom_color'] = $request->cover_bottom_color;
+        }
+
+        $id = DB::table('books')->insertGetId($data);
 
         $data = [];
         foreach ($request->category as $key => $value) {

@@ -2,11 +2,6 @@
 @section('title')
     Books Create
 @endsection
-@section('preload')
-    <style>
-        
-    </style>
-@endsection
 @section('main')
     <div class="w-full h-full pt-[4rem] pl-60 relative overflow-y-scroll">
         <div class="p-4 flex flex-col gap-4">
@@ -18,7 +13,7 @@
                     <div class="scale-150 h-max w-max flex items-center justify-center py-3">
                         <div class="relative w-44 h-60 flex pb-8">
                             <div class="w-5 rounded-tl-xl"
-                                style="background-color: {{ Route::is('book.create') ? '#475569' : $data->cover_right_color }};"
+                                style="background-color: {{ Route::is('book.create') ? '#475569' : $data->right_color }};"
                                 id="cover_right_color"></div>
                             <div class="w-4/5 rounded-tr-xl flex items-start justify-end pb-2"
                                 style="background-color: {{ Route::is('book.create') ? '#64748B' : $data->cover_color }};"
@@ -28,7 +23,7 @@
                                     alt="" id="cover_image">
                             </div>
                             <div class="absolute bottom-5 right-[0.95rem] left-0 rounded-lg h-6"
-                                style="background-color: {{ Route::is('book.create') ? '#1E293B' : $data->cover_bottom_color }};"
+                                style="background-color: {{ Route::is('book.create') ? '#1E293B' : $data->bottom_color }};"
                                 id="cover_bottom_color">
                                 <div class="relative w-full h-full flex items-center pl-4 pr-1">
                                     <div
@@ -84,7 +79,7 @@
                                     @foreach ($categories as $key => $value)
                                         <option value="{{ $value->id }}"
                                             {{ $value->selected == 'yes' ? 'selected' : '' }}>
-                                            {{ $value->name }} 
+                                            {{ $value->name }}
                                         </option>
                                     @endforeach
                                 @endif
