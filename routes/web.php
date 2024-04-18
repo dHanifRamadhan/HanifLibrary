@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\loginController;
 use App\Http\Controllers\Auth\registerController;
 use App\Http\Controllers\Auth\forgotPasswordController;
 use App\Http\Controllers\BooksController;
+use App\Http\Controllers\cartsController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CoinsController;
 use App\Http\Controllers\commentsController;
@@ -131,10 +132,13 @@ Route::group(['middleware' => ['role:librarian']], function () {
     Route::get('favorite', [favoritesController::class, 'index'])->name('favorite');
     Route::get('history', [contentController::class, 'history'])->name('history');
     Route::get('settings', [userSettings::class, 'index'])->name('settings');
+    Route::get('carts', [cartsController::class, 'index'])->name('carts.index');
 
     Route::post('comments/{id}', [commentsController::class, 'store'])->name('comment.store');
 
     Route::post('favorite/book/{id}', [favoritesController::class, 'store'])->name('fav.store');
+
+    Route::post('carts', [cartsController::class, 'store'])->name('carts.store');
 });
 
 Route::get('auth/login', [loginController::class, 'login'])->name('auth.login');

@@ -68,7 +68,7 @@
                     </span>
                 </a> --}}
                 <div class="flex items-center">
-                    <a href=""
+                    <a href="{{route('carts.index')}}"
                         class="relative ring-gray-400 ring-2 rounded-full p-[0.4rem] w-8 h-8 flex justify-center items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="text-slate-400" width="18" height="18"
                             viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
