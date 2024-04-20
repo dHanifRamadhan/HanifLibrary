@@ -1,8 +1,8 @@
 <div class="px-16 py-5">
     <h1 class="font-mono text-xl font-semibold">
-        Welcome 
+        Welcome
         <span class="font-bold italic">
-            {{Auth::user()->username}}
+            {{ Auth::user()->username }}
         </span>
         in Dashbord Hanif Library !!
     </h1>
@@ -12,13 +12,13 @@
         <div class="border-2 border-black rounded-lg bg-slate-200">
             <div class="h-full p-3 relative">
                 <span class="font-semibold">
-                    Borrowed
+                    Users
                 </span>
                 <div class="flex mt-2">
                     <span class="text-3xl font-semibold mr-1">
-                        200
+                        {{ DB::table('users')->where('role', 'librarian')->whereNull('deleted_at')->count() }}
                     </span>
-                    /Pcs
+                    librarian
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" class="absolute top-3 right-3" width="22" height="22"
                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
@@ -34,13 +34,13 @@
         <div class="border-2 border-black rounded-lg bg-slate-200">
             <div class="h-full p-3 relative">
                 <span class="font-semibold">
-                    Returned
+                    Users
                 </span>
                 <div class="flex mt-2">
                     <span class="text-3xl font-semibold mr-1">
-                        200
+                        {{ DB::table('users')->where('role', 'officer')->whereNull('deleted_at')->count() }}
                     </span>
-                    /Pcs
+                    Officer
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" class="absolute top-3 right-3" width="22" height="22"
                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
@@ -64,13 +64,13 @@
         <div class="border-2 border-black rounded-lg bg-slate-200">
             <div class="h-full p-3 relative">
                 <span class="font-semibold">
-                    Returned
+                    Books
                 </span>
                 <div class="flex mt-2">
                     <span class="text-3xl font-semibold mr-1">
-                        200
+                        {{ DB::table('books')->whereNull('deleted_at')->count() }}
                     </span>
-                    /Pcs
+                    Pcs
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" class="absolute top-3 right-3" width="22" height="22"
                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
@@ -86,13 +86,18 @@
         <div class="border-2 border-black rounded-lg bg-slate-200">
             <div class="h-full p-3 relative">
                 <span class="font-semibold">
-                    Returned
+                    Books Sold
                 </span>
                 <div class="flex mt-2">
                     <span class="text-3xl font-semibold mr-1">
-                        200
+                        @php
+                            $dataTransaction = DB::table('transactions')
+                                ->select(DB::raw('SUM(total_qty) AS total'))
+                                ->first();
+                        @endphp
+                        {{ $dataTransaction->total }}
                     </span>
-                    /Pcs
+                    Pcs
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" class="absolute top-3 right-3" width="22" height="22"
                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
@@ -111,45 +116,39 @@
     <table class="w-full border-2 border-black" id="special">
         <thead class="bg-slate-200 border-b-2 border-black">
             <tr>
-                <th class="border-r-2 border-black py-2">No</th>
+                <th class="border-r-2 border-black py-2">No Transaction</th>
                 <th class="border-r-2 border-black">Name User</th>
-                <th class="border-r-2 border-black">Books</th>
-                <th class="border-r-2 border-black">Borrowing Date</th>
-                <th class="border-r-2 border-black">Return Date</th>
+                <th class="border-r-2 border-black">Total Quantity</th>
+                <th class="border-r-2 border-black">Total Price</th>
+                <th class="border-r-2 border-black">Transaction Date</th>
+                <th class="border-r-2 border-black">Package Arrived</th>
                 <th>Status</th>
             </tr>
         </thead>
         <tbody class="text-center">
-            <tr class="border-b-2 border-black">
-                <td class="border-r-2 border-black py-2">1</td>
-                <td class="border-r-2 border-black">Hanif</td>
-                <td class="border-r-2 border-black">
-                    <div class="h-full w-full flex items-center justify-center py-3">
-                        <div class="relative w-20 h-28 flex">
-                            <div class="w-1/6 h-5/6 rounded-tl-3xl" style="background-color: #475569"></div>
-                            <div class="w-5/6 h-5/6 rounded-tr-lg flex items-start justify-center"
-                                style="background-color: #64748B">
-                                <img src="https://placehold.co/133x168" alt="" class="rounded-tr-lg">
-                            </div>
-                            <div class="absolute bottom-2 right-0 left-0 h-1/6 rounded-l-2xl"
-                                style="background-color: #1E293B">
-                                <div class="w-full relative h-full">
-                                    <div
-                                        class="bg-slate-300 rounded-l-2xl h-3 w-[4.2rem] absolute right-0 bottom-1">
-                                        <div class="w-full h-full relative">
-                                            <div class="w-3 h-4 bg-yellow-300 absolute right-3 -bottom-2">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </td>
-                <td class="border-r-2 border-black">2004-10-22</td>
-                <td class="border-r-2 border-black">2005-10-22</td>
-                <td class="border-r-2 border-black">Borrow</td>
-            </tr>
+            @php
+                $transaction = DB::table('transactions AS a')
+                    ->select('a.*', 'b.name')
+                    ->leftJoin('users AS b', 'a.user_id', '=', 'b.id')
+                    ->get();
+            @endphp
+            @forelse ($transaction as $key => $value)
+                <tr class="border-b-2 border-black">
+                    <td class="border-r-2 border-black py-2">
+                        @php
+                            $date = Carbon\Carbon::createFromFormat('Y-m-d', $value->transaction_date);
+                        @endphp
+                        NFB{{ $date->format('Ymd') . $value->id }}
+                    </td>
+                    <td class="border-r-2 border-black"> {{ $value->name }} </td>
+                    <td class="border-r-2 border-black"> {{ $value->total_qty }} </td>
+                    <td class="border-r-2 border-black"> {{ $value->total_amount }} </td>
+                    <td class="border-r-2 border-black"> {{ $value->transaction_date }} </td>
+                    <td class="border-r-2 border-black"> {{ $value->package_arrived }} </td>
+                    <td class="border-r-2 border-black"> {{ $value->status }} </td>
+                </tr>
+            @empty
+            @endforelse
         </tbody>
     </table>
 </div>

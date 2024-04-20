@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
                 'phone' => '+62 ' . rand(100, 999) . '-' . rand(0000, 9999) . '-' . rand(00000, 99999),
                 'address' => 'juuuuuuuuuuuh' . $i,
                 'bg_color' => $randomColor,
+                'coins' => 9999999,
                 'email_verified_at' => now(),
                 'status_verification' => 'accepted',
                 'created_at' => now()

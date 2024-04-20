@@ -224,39 +224,42 @@
         @forelse ($books as $key => $value)
             {{-- Books not Null --}}
             <div class="w-full flex flex-col items-center justify-center relative group hover:z-10">
-                @php
-                    $check = DB::table('favorites')
-                        ->where('user_id', Auth::user()->id)
-                        ->where('book_id', $value->id)
-                        ->count();
-                @endphp
-                <form action="{{ route('fav.store', $value->id) }}" method="POST"
-                    class="absolute top-4 right-11 invisible group-hover:visible">
-                    @csrf
-                    <button type="submit" class="p-1 bg-slate-400 rounded-md text-white border border-black">
-                        @if ($check != 0)
-                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round"
-                                class="icon icon-tabler icons-tabler-outline icon-tabler-heart-check">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path
-                                    d="M19.5 12.572l-3 2.928m-5.5 3.5a8916.99 8916.99 0 0 0 -6.5 -6.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
-                                <path d="M15 19l2 2l4 -4" />
-                            </svg>
-                        @else
-                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round"
-                                class="icon icon-tabler icons-tabler-outline icon-tabler-heart-plus">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M12 20l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.96 6.053" />
-                                <path d="M16 19h6" />
-                                <path d="M19 16v6" />
-                            </svg>
-                        @endif
-                    </button>
-                </form>
+                @auth
+
+                    @php
+                        $check = DB::table('favorites')
+                            ->where('user_id', Auth::user()->id)
+                            ->where('book_id', $value->id)
+                            ->count();
+                    @endphp
+                    <form action="{{ route('fav.store', $value->id) }}" method="POST"
+                        class="absolute top-4 right-11 invisible group-hover:visible">
+                        @csrf
+                        <button type="submit" class="p-1 bg-slate-400 rounded-md text-white border border-black">
+                            @if ($check != 0)
+                                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-heart-check">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path
+                                        d="M19.5 12.572l-3 2.928m-5.5 3.5a8916.99 8916.99 0 0 0 -6.5 -6.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                                    <path d="M15 19l2 2l4 -4" />
+                                </svg>
+                            @else
+                                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-heart-plus">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M12 20l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.96 6.053" />
+                                    <path d="M16 19h6" />
+                                    <path d="M19 16v6" />
+                                </svg>
+                            @endif
+                        </button>
+                    </form>
+                @endauth
                 <a href="{{ route('detail', $value->id) }}"
                     class="bg-slate-300 pl-[0.7rem] pt-7 rounded-lg text-center border border-slate-700 group-hover:border-black group-hover:border-b-0 group-hover:bg-slate-200 group-hover:shadow-black group-hover:shadow-2xl">
                     <div class="h-max w-max flex items-center justify-center scale-75">
@@ -297,23 +300,34 @@
                             </span>
                         </div>
                         @auth
-                            <form action="" method="POST" class="mt-2 flex items-center justify-center">
-                                <button type="submit"
-                                    class="border border-black rounded-md px-4 py-1 hover:bg-slate-400 hover:text-white hover:bg-opacity-50 flex items-center gap-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="scale-75" width="24"
-                                        height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                        fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path d="M4 19a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                                        <path d="M12.5 17h-6.5v-14h-2" />
-                                        <path d="M6 5l14 1l-.86 6.017m-2.64 .983h-10.5" />
-                                        <path d="M16 19h6" />
-                                        <path d="M19 16v6" />
-                                    </svg>
-                                    <span class="text-xs font-semibold">
-                                        Add Cart
-                                    </span>
-                                </button>
+                            @php
+                                $cartCheck = DB::table('market_trolley')
+                                    ->where('user_id', Auth::user()->id)
+                                    ->where('book_id', $value->id)
+                                    ->count();
+                            @endphp
+
+                            <form action="{{ route('carts.store', $value->id) }}" method="POST"
+                                class="mt-2 flex items-center justify-center">
+                                @csrf
+                                @if ($cartCheck == 0)
+                                    <button type="submit"
+                                        class="border border-black rounded-md px-4 py-1 hover:bg-slate-400 hover:text-white hover:bg-opacity-50 flex items-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="scale-75" width="24"
+                                            height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M4 19a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                            <path d="M12.5 17h-6.5v-14h-2" />
+                                            <path d="M6 5l14 1l-.86 6.017m-2.64 .983h-10.5" />
+                                            <path d="M16 19h6" />
+                                            <path d="M19 16v6" />
+                                        </svg>
+                                        <span class="text-xs font-semibold">
+                                            Add Cart
+                                        </span>
+                                    </button>
+                                @endif
                             </form>
                         @endauth
                     </div>

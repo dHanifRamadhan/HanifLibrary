@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class contentController extends Controller
 {
@@ -172,6 +173,19 @@ class contentController extends Controller
 
     public function history()
     {
-        return view('contents.history');
+        $subQuery = DB::table('transaction_details AS a')
+                    ->select('a.transaction_id', DB::raw('GROUP_CONCAT(a.book_id) AS book_id'))
+                    ->groupBy('a.transaction_id');
+
+        $data = DB::table('transactions AS a')
+                    ->select('a.*', 'b.name', 'b.email', 'b.phone', 'b.address', 'c.*')
+                    ->leftJoin('users AS b', 'a.user_id', '=', 'b.id')
+                    ->leftJoinSub($subQuery, 'c', function($join) {
+                        $join->on('c.transaction_id', '=', 'a.id');
+                    })
+                    ->where('user_id', Auth::user()->id)
+                    ->get();
+
+        return view('contents.history', compact('data'));
     }
 }

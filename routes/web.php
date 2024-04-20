@@ -18,6 +18,8 @@ use App\Http\Controllers\usersController;
 use App\Http\Controllers\userSettings;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\transactionController;
+use App\Http\Controllers\reportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -138,7 +140,10 @@ Route::group(['middleware' => ['role:librarian']], function () {
 
     Route::post('favorite/book/{id}', [favoritesController::class, 'store'])->name('fav.store');
 
-    Route::post('carts', [cartsController::class, 'store'])->name('carts.store');
+    Route::post('carts/{id}', [cartsController::class, 'store'])->name('carts.store');
+    Route::delete('carts/{id}', [cartsController::class, 'delete'])->name('carts.delete');
+
+    Route::post('/transaction', [cartsController::class, 'transaction'])->name('transaction.store');
 });
 
 Route::get('auth/login', [loginController::class, 'login'])->name('auth.login');
@@ -171,16 +176,18 @@ Route::put('book/update/{id}', [BooksController::class, 'update'])->name('book.u
 Route::put('book/stock/{id}', [BooksController::class, 'updateStock'])->name('book.stock');
 Route::delete('book/delete/{id}', [BooksController::class, 'delete'])->name('book.delete');
 
-Route::get('kirim', [acceptMailsControlller::class, 'kirim']);
+Route::get('report', [reportController::class, 'download'])->name('report.download');
+
+// Route::get('kirim', [acceptMailsControlller::class, 'kirim']);
 
 // Session
-Route::get('/a', function () {
-    return redirect()->route('dashboard')->with('success', (object)[
-        'message' => 'Berhasil membuat session'
-    ]);
-});
-Route::get('/b', function () {
-    return redirect()->route('dashboard')->with('error', (object)[
-        'message' => 'Failed membuat session'
-    ]);
-});
+// Route::get('/a', function () {
+//     return redirect()->route('dashboard')->with('success', (object)[
+//         'message' => 'Berhasil membuat session'
+//     ]);
+// });
+// Route::get('/b', function () {
+//     return redirect()->route('dashboard')->with('error', (object)[
+//         'message' => 'Failed membuat session'
+//     ]);
+// });

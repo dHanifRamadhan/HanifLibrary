@@ -88,7 +88,7 @@
                         </p>
                         <div class="flex gap-5 my-3">
                             @if (Auth::check())
-                                <form action="" method="POST">
+                                <form action="{{route('carts.store', $data->id)}}" method="POST">
                                     @csrf
                                     <button
                                         class="flex gap-2 border border-black rounded-md py-2 px-6 text-sm font-semibold">

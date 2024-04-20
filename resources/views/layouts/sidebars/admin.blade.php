@@ -112,7 +112,7 @@
                             </a>
                         </li>
                         <li class="border border-slate-600">
-                            <a href="" @class([
+                            <a href="{{route('report.download')}}" @class([
                                 'font-mono h-full flex items-center py-3 px-6 gap-6',
                                 'bg-slate-400 text-slate-100' => session('asdasd'),
                                 'hover:bg-slate-400 hover:text-white',
