@@ -7,13 +7,24 @@ use Illuminate\Support\Facades\DB;
 
 class usersController extends Controller
 {
-    public function index() {
-        $officer = DB::table('users')->where('role', 'officer')->whereNull('deleted_at')->get();
+    public function index()
+    {
+        $officer = DB::table('users')
+            ->where('role', 'officer')
+            ->whereNull('deleted_at');
+
+        if (request()->input('officer')) {
+            $officer->where('username', 'LIKE', '%' . request()->input('officer') . '%');
+        }
+
+        $officer = $officer->get();
+
         $librarian = DB::table('users')->where('role', 'librarian')->get();
         return view('admin.Users.index', compact('officer', 'librarian'));
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $this->validate($request, [
             'username' => 'required|unique:users,username',
             'email' => 'required|email:dns|unique:users,email',
@@ -46,7 +57,8 @@ class usersController extends Controller
         ]);
     }
 
-    public function delete(Request $request) {
+    public function delete(Request $request)
+    {
         $this->validate($request, [
             'officerId' => 'required'
         ]);

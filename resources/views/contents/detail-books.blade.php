@@ -5,7 +5,8 @@
 @section('main')
     <div class="h-full grid grid-cols-6 overflow-hidden">
         <div class="flex items-end bg-slate-600 bg-opacity-30 relative">
-            <a href="{{route('dashboard')}}" class="absolute top-2 left-0 right-0 flex items-center px-2 gap-2 font-semibold">
+            <a href="{{ route('dashboard') }}"
+                class="absolute top-2 left-0 right-0 flex items-center px-2 gap-2 font-semibold">
                 <svg xmlns="http://www.w3.org/2000/svg" class="" width="32" height="32" viewBox="0 0 24 24"
                     stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -88,39 +89,70 @@
                         </p>
                         <div class="flex gap-5 my-3">
                             @if (Auth::check())
-                                <form action="{{route('carts.store', $data->id)}}" method="POST">
+                                @php
+                                    $check = DB::table('market_trolley')
+                                        ->where('user_id', Auth::user()->id)
+                                        ->where('book_id', $data->id)
+                                        ->count();
+                                @endphp
+                                @if ($check == 0)
+                                    <form action="{{ route('carts.store', $data->id) }}" method="POST">
+                                        @csrf
+                                        <button
+                                            class="flex gap-2 border border-black rounded-md py-2 px-6 text-sm font-semibold">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <path d="M4 19a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                                                <path d="M12.5 17h-6.5v-14h-2" />
+                                                <path d="M6 5l14 1l-.86 6.017m-2.64 .983h-10.5" />
+                                                <path d="M16 19h6" />
+                                                <path d="M19 16v6" />
+                                            </svg>
+                                            <span>
+                                                Add Cart
+                                            </span>
+                                        </button>
+                                    </form>
+                                @endif
+                                <form action="{{ route('fav.store', $data->id) }}" method="POST">
                                     @csrf
                                     <button
                                         class="flex gap-2 border border-black rounded-md py-2 px-6 text-sm font-semibold">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <path d="M4 19a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                                            <path d="M12.5 17h-6.5v-14h-2" />
-                                            <path d="M6 5l14 1l-.86 6.017m-2.64 .983h-10.5" />
-                                            <path d="M16 19h6" />
-                                            <path d="M19 16v6" />
-                                        </svg>
-                                        <span>
-                                            Add Cart
-                                        </span>
-                                    </button>
-                                </form>
-                                <form action="{{route('fav.store', $data->id)}}" method="POST">
-                                    @csrf
-                                    <button
-                                        class="flex gap-2 border border-black rounded-md py-2 px-6 text-sm font-semibold">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <path
-                                                d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
-                                        </svg>
-                                        <span>
-                                            Favorite
-                                        </span>
+                                        @php
+                                            $check = DB::table('favorites')
+                                                ->where('user_id', Auth::user()->id)
+                                                ->where('book_id', $data->id)
+                                                ->count();
+                                        @endphp
+                                        @if ($check == 0)
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                class="icon icon-tabler icons-tabler-outline icon-tabler-heart-plus">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <path d="M12 20l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.96 6.053" />
+                                                <path d="M16 19h6" />
+                                                <path d="M19 16v6" />
+                                            </svg>
+                                            <span>
+                                                Favorite
+                                            </span>
+                                        @else
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                class="icon icon-tabler icons-tabler-outline icon-tabler-heart-check">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <path
+                                                    d="M19.5 12.572l-3 2.928m-5.5 3.5a8916.99 8916.99 0 0 0 -6.5 -6.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                                                <path d="M15 19l2 2l4 -4" />
+                                            </svg>
+                                            <span>
+                                                Unfavorite
+                                            </span>
+                                        @endif
                                     </button>
                                 </form>
                             @endif
@@ -209,8 +241,7 @@
                                     class="flex items-center justify-center gap-5 py-3 rounded-md border border-black text-slate-800 font-semibold mt-4 bg-slate-400 bg-opacity-50 w-full">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-message"
                                         width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5"
-                                        stroke="currentColor" fill="none" stroke-linecap="round"
-                                        stroke-linejoin="round">
+                                        stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                         <path d="M8 9h8" />
                                         <path d="M8 13h6" />

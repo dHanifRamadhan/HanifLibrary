@@ -14,8 +14,18 @@
             </div>
             <div class="bg-slate-200 p-3 rounded-md flex flex-col gap-y-3 border border-slate-400">
                 <div class="flex justify-end gap-x-4">
-                    <form action="" method="GET" class="flex">
-                        <input type="search" name="officer" placeholder="Name for Officer ..."
+                    <a href="{{ route('users.index') }}"
+                        class="px-2 bg-slate-500 text-slate-100 border border-slate-500 rounded-md flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-refresh">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
+                            <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
+                        </svg>
+                    </a>
+                    <form action="{{ route('users.index') }}" method="GET" class="flex">
+                        <input type="search" name="officer" placeholder="Username for Officer ..."
                             class="bg-slate-100 border border-slate-500 rounded-l-md outline-none px-2 text-sm py-1">
                         <button
                             class="p-2 flex items-center justify-center bg-slate-100 border border-l-0 border-slate-500 rounded-r-md">
@@ -40,7 +50,7 @@
                     </button>
                     <form action="" method="GET" class="flex">
                         <input type="hidden" name="officerId" id="officer-updated-id">
-                        <button class="px-2 bg-yellow-500 border border-slate-500 rounded-md">
+                        <button class="px-2 bg-yellow-500 border border-slate-500 rounded-md" disabled>
                             <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pencil">
@@ -70,19 +80,16 @@
                 </div>
                 <hr class="border-black">
                 <table class="text-xs text-center">
-                    @empty($officer)
-                        <thead class="">
-                            <tr>
-                                <th class="py-2">Select</th>
-                                <th>Username</th>
-                                <th>Email</th>
-                                <th>Real Name</th>
-                                <th>Phone</th>
-                                <th>Address</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                    @endempty
+                    <thead class="">
+                        <tr>
+                            <th class="py-2">Select</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Real Name</th>
+                            <th>Phone</th>
+                            <th>Address</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         @forelse ($officer as $key => $value)
                             <tr class="border-t border-black">
@@ -91,8 +98,8 @@
                                 </td>
                                 <td class="border-r border-black">
                                     <div class="w-full h-full flex items-center justify-center py-2 gap-4">
-                                        <img src="https://placehold.co/100x100" alt="" width="40px" height="40px"
-                                            class="rounded-full">
+                                        <img src="https://placehold.co/100x100" alt="" width="40px"
+                                            height="40px" class="rounded-full">
                                         <span>
                                             {{ $value->username }}
                                         </span>
@@ -112,9 +119,11 @@
                                 </td>
                             </tr>
                         @empty
-                            <div class="text-center">
-                                Tidak ada data Officer pada database!
-                            </div>
+                            <tr class="border-t border-black">
+                                <td colspan="6" class="py-10 text-lg font-semibold">
+                                    Tidak ada data Officer pada database!
+                                </td>
+                            </tr>
                         @endforelse
                     </tbody>
                 </table>
@@ -131,7 +140,7 @@
                     <form action="" method="GET" class="flex">
                         <input type="search" name="librarian" placeholder="Name for Librarian ..."
                             class="bg-slate-100 border border-slate-500 rounded-l-md outline-none px-2 text-sm py-1">
-                        <button
+                        <button disabled    
                             class="p-2 flex items-center justify-center bg-slate-100 border border-l-0 border-slate-500 rounded-r-md">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -149,7 +158,7 @@
                         <input type="number" name="coins"
                             class="bg-slate-100 border border-slate-500 rounded-l-md outline-none px-2 text-sm py-1"
                             placeholder="For Coins Users">
-                        <button
+                        <button disabled
                             class="p-2 flex items-center justify-center bg-slate-100 border border-l-0 border-slate-500 rounded-r-md">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -166,7 +175,7 @@
                     </form>
                     <form action="" method="GET" class="flex">
                         <input type="hidden" name="customerId" id="customer-update-id">
-                        <button class="px-2 bg-yellow-500 border border-slate-500 rounded-md">
+                        <button class="px-2 bg-yellow-500 border border-slate-500 rounded-md" disabled>
                             <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pencil">
@@ -180,7 +189,7 @@
                         @csrf
                         @method('PUT')
                         <input type="hidden" name="customerId" id="customer-ban-id">
-                        <button class="px-2 bg-red-500 border-slate-500 border rounded-md">
+                        <button class="px-2 bg-red-500 border-slate-500 border rounded-md" disabled>
                             <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-ban">
@@ -194,7 +203,7 @@
                         @csrf
                         @method('DELETE')
                         <input type="hidden" name="customerId" id="customer-delete-id">
-                        <button class="px-2 bg-red-400 border-slate-500 border rounded-md">
+                        <button class="px-2 bg-red-400 border-slate-500 border rounded-md" disabled>
                             <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
@@ -218,36 +227,42 @@
                             <th>Real Name</th>
                             <th>Phone</th>
                             <th>Address</th>
-                            <th></th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="border-t border-black">
-                            <td class="py-3 border-r border-black">
-                                <input type="checkbox" class="checkbox-customer-id" value="1">
-                            </td>
-                            <td class="border-r border-black">
-                                <div class="w-full h-full flex items-center justify-center py-2 gap-4">
-                                    <img src="https://placehold.co/100x100" alt="" width="40px" height="40px"
-                                        class="rounded-full">
-                                    <span>
-                                        dHanifRamadhan
-                                    </span>
-                                </div>
-                            </td>
-                            <td class="border-r border-black">
-                                d.haniframadhan@gmai.com
-                            </td>
-                            <td class="border-r border-black">
-                                Hanif Ramadhan
-                            </td>
-                            <td class="border-r border-black">
-                                +62 123-1233-1312
-                            </td>
-                            <td>
-                                Jl lama banget
-                            </td>
-                        </tr>
+                        @forelse ($librarian as $key => $value)
+                            <tr class="border-t border-black">
+                                <td class="py-3 border-r border-black">
+                                    <input type="checkbox" class="checkbox-customer-id" value="{{ $value->id }}">
+                                </td>
+                                <td class="border-r border-black">
+                                    <div class="w-full h-full flex items-center justify-center py-2 gap-4">
+                                        <img src="https://placehold.co/100x100" alt="" width="40px"
+                                            height="40px" class="rounded-full">
+                                        <span>
+                                            {{ $value->username }}
+                                        </span>
+                                    </div>
+                                </td>
+                                <td class="border-r border-black">
+                                    {{ $value->email }}
+                                </td>
+                                <td class="border-r border-black">
+                                    {{ $value->name }}
+                                </td>
+                                <td class="border-r border-black">
+                                    {{ $value->phone }}
+                                </td>
+                                <td class="border-r border-black">
+                                    {{ $value->address }}
+                                </td>
+                                <td>
+                                    {{ $value->deleted_at == null ? 'Active' : 'Ban' }}
+                                </td>
+                            </tr>
+                        @empty
+                        @endforelse
                     </tbody>
                 </table>
             </div>
