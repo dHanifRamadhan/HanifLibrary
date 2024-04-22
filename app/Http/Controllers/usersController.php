@@ -20,7 +20,15 @@ class usersController extends Controller
 
         $officer = $officer->get();
 
-        $librarian = DB::table('users')->where('role', 'librarian')->get();
+        $librarian = DB::table('users')
+                ->where('role', 'librarian');
+
+        if (request()->input('librarian')) {
+            $librarian->where('username', 'LIKE', '%'. request()->input('librarian') .'%');
+        }
+
+        $librarian = $librarian->get();
+
         return view('admin.Users.index', compact('officer', 'librarian'));
     }
 

@@ -81,7 +81,10 @@ class BooksController extends Controller
             'picture' => 'required|image|mimes:jpeg,jpg,png'
         ]);
 
-        $path = strval(mt_rand(00000, 99999) . "-" . $request->picture->getClientOriginalName());
+        $nameNoSpace = preg_replace('/\s+/', '', $request->picture->getClientOriginalName());
+        $name = preg_replace('/[^A-Za-z0-9\-]/', '', $nameNoSpace);
+
+        $path = strval(mt_rand(00000, 99999) . "-" . $name);
         $picture = $request->picture->storeAs('image/cover-books', $path);
 
         $data = [

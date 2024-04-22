@@ -95,7 +95,7 @@
                                 ->select(DB::raw('SUM(total_qty) AS total'))
                                 ->first();
                         @endphp
-                        {{ $dataTransaction->total }}
+                        {{ $dataTransaction->total == null ? '0' : $dataTransaction->total }}
                     </span>
                     Pcs
                 </div>

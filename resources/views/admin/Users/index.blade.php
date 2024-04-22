@@ -137,10 +137,10 @@
             </div>
             <div class="bg-slate-200 p-3 rounded-md flex flex-col gap-y-3 border border-slate-400">
                 <div class="flex justify-end gap-x-4">
-                    <form action="" method="GET" class="flex">
+                    <form action="{{route('users.index')}}" method="GET" class="flex">
                         <input type="search" name="librarian" placeholder="Name for Librarian ..."
                             class="bg-slate-100 border border-slate-500 rounded-l-md outline-none px-2 text-sm py-1">
-                        <button disabled    
+                        <button
                             class="p-2 flex items-center justify-center bg-slate-100 border border-l-0 border-slate-500 rounded-r-md">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"

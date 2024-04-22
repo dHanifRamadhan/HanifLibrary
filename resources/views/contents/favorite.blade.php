@@ -5,7 +5,7 @@
 @section('main')
     <div class="py-5 px-8 h-full overflow-y-scroll">
         <div @class([
-            'grid grid-cols-3 gap-6 h-max' => count($data) != 0,
+            'flex flex-wrap gap-10 h-max w-full' => count($data) != 0,
             'flex items-center justify-center' => count($data) == 0,
         ])>
             @forelse ($data as $key => $value)

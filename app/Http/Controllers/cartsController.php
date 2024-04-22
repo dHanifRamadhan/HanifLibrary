@@ -33,6 +33,7 @@ class cartsController extends Controller
 
     public function store(Request $request, $id) {
         $books = DB::table('books')->where('id', $id)->whereNull('deleted_at')->first();
+
         DB::table("market_trolley")->insert([
             'user_id' => Auth::user()->id,
             'book_id' => $books->id,
@@ -62,6 +63,13 @@ class cartsController extends Controller
         ->whereNull('a.deleted_at')
         ->get();
 
+        foreach ($data as $key => $value) {
+            $book = DB::table('books')->where('id', $value->book_id)->whereNull('deleted_at')->first();
+            if ($value->unit_qty >= $book->qty) {
+                return back();
+            }
+        }
+
         $transaction = (object)[
             'total' => 0,
             'total_qty' => 0
@@ -73,6 +81,10 @@ class cartsController extends Controller
         foreach ($data as $value) {
             $transaction->total += $value->unit_price * $value->unit_qty;
             $transaction->total_qty += $value->unit_qty;
+        }
+
+        if (Auth::user()->coins <= $transaction->total) {
+            return back();
         }
 
         $id = DB::table('transactions')->insertGetId([

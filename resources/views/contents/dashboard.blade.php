@@ -13,8 +13,8 @@
     </div>
     <div @class([
         '-z-10',
-        'flex gap-4 overflow-x-scroll' => $recommended != null,
-        'flex items-center justify-center py-10' => $recommended == null,
+        'flex gap-4 overflow-x-scroll' => $recommended->count() != 0,
+        'flex items-center justify-center py-10' => $recommended->count() == 0,
     ])>
         @forelse ($recommended as $key => $value)
             {{-- Books not null --}}
@@ -218,8 +218,8 @@
     </div>
     <div @class([
         'z-10',
-        'py-4 grid grid-cols-6 gap-y-8' => $recommended != null,
-        'flex items-center justify-center py-16' => $recommended == null,
+        'py-4 grid grid-cols-6 gap-y-8' => $books->count() != 0,
+        'flex items-center justify-center py-16' => $books->count() == 0,
     ])>
         @forelse ($books as $key => $value)
             {{-- Books not Null --}}
@@ -342,7 +342,7 @@
             {{-- Books is Null --}}
         @endforelse
     </div>
-    @if ($recommended != null)
+    @if ($recommended->count() != 0)
         <div class="absolute -bottom-14 left-0 right-0 -z-10 flex justify-center">
             <img src="{{ asset('images/doodles-landscape.webp') }}" alt="" class="">
         </div>
