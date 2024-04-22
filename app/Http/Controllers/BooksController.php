@@ -95,7 +95,7 @@ class BooksController extends Controller
             'qty' => $request->qty,
             'picture' => $picture,
             'synopsis' => 'Bercobaan' . DB::table('books')->count(),
-            'price' => DB::table('books')->count().'0000',
+            'price' => DB::table('books')->count() +1 .'0000',
             'created_at' => now()
         ];
 

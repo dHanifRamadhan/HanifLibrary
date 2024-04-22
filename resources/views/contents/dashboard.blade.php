@@ -342,7 +342,7 @@
             {{-- Books is Null --}}
         @endforelse
     </div>
-    @if ($recommended->count() != 0)
+    @if ($books->count() != 0)
         <div class="absolute -bottom-14 left-0 right-0 -z-10 flex justify-center">
             <img src="{{ asset('images/doodles-landscape.webp') }}" alt="" class="">
         </div>

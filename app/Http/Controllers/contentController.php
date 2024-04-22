@@ -134,10 +134,13 @@ class contentController extends Controller
             ->select('a.*', 'd.category_name')
             ->whereNull('deleted_at');
 
-        $search = request()->category;
 
-        if ($search) {
+        if (request()->category) {
+            $search = request()->category;
             $books = $books->where('category_name', 'LIKE', '%' . $search . '%');
+        } else if (request()->search) {
+            $search = request()->search;
+            $books = $books->where('title', 'LIKE', '%'. $search .'%');
         }
 
         $books = $books->get();
@@ -174,17 +177,17 @@ class contentController extends Controller
     public function history()
     {
         $subQuery = DB::table('transaction_details AS a')
-                    ->select('a.transaction_id', DB::raw('GROUP_CONCAT(a.book_id) AS book_id'))
-                    ->groupBy('a.transaction_id');
+            ->select('a.transaction_id', DB::raw('GROUP_CONCAT(a.book_id) AS book_id'))
+            ->groupBy('a.transaction_id');
 
         $data = DB::table('transactions AS a')
-                    ->select('a.*', 'b.name', 'b.email', 'b.phone', 'b.address', 'c.*')
-                    ->leftJoin('users AS b', 'a.user_id', '=', 'b.id')
-                    ->leftJoinSub($subQuery, 'c', function($join) {
-                        $join->on('c.transaction_id', '=', 'a.id');
-                    })
-                    ->where('user_id', Auth::user()->id)
-                    ->get();
+            ->select('a.*', 'b.name', 'b.email', 'b.phone', 'b.address', 'c.*')
+            ->leftJoin('users AS b', 'a.user_id', '=', 'b.id')
+            ->leftJoinSub($subQuery, 'c', function ($join) {
+                $join->on('c.transaction_id', '=', 'a.id');
+            })
+            ->where('user_id', Auth::user()->id)
+            ->get();
 
         return view('contents.history', compact('data'));
     }
